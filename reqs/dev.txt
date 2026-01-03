@@ -3,5 +3,6 @@
 -r dist.txt
 -r dist_extra_gui_qt.txt
 -r test.txt
+babel
 pre-commit
 tox
