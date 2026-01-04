@@ -115,8 +115,11 @@ def main():
                         code = entrypoint.load()()
                     except SystemExit as e:
                         code = e.code
-                if code is None:
-                    code = 0
+                    if code is None:
+                        code = 0
+                    elif not isinstance(code, int):  # sys.exit() also takes a string
+                        log.error(code)
+                        code = 1
             else:
                 print("available script(s):")
                 dist = None
