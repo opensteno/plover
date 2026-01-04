@@ -143,6 +143,7 @@ class Registry:
                 pkg.available = metadata
                 if (
                     pkg.current
+                    and pkg.current.version is not None
                     and pkg.current.parsed_version < pkg.latest.parsed_version
                 ):
                     pkg.status = "outdated"
