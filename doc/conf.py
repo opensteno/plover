@@ -17,6 +17,7 @@ version = release
 extensions = [
     "sphinx_plover",
     "myst_parser",
+    "sphinx.ext.autodoc",
     "sphinx.ext.todo",
 ]
 

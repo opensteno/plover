@@ -5,6 +5,7 @@ recursive-include doc *.css
 recursive-include doc *.html
 recursive-include doc *.ico
 recursive-include doc *.md
+recursive-include doc *.rst
 recursive-include doc *.png
 recursive-include doc *.svg
 recursive-include doc *.py
