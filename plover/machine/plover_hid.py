@@ -7,12 +7,12 @@ https://github.com/dnaq/plover-machine-hid
 Plover HID is a simple HID-based protocol that sends the current state
 of the steno machine every time that state changes.
 """
+from __future__ import annotations
 
 from plover.machine.base import ThreadedStenotypeBase
 from plover.misc import boolean
 from plover import log
 
-import hid
 import time
 import platform
 import ctypes
@@ -21,6 +21,10 @@ from queue import Queue, Empty
 from typing import Dict
 from dataclasses import dataclass
 
+try:
+    import hid
+except ImportError:
+    hid = None
 
 def _darwin_disable_exclusive_open():
     lib = getattr(hid, "hidapi", None)
@@ -36,7 +40,7 @@ def _darwin_disable_exclusive_open():
 
 
 # Invoke once at import time (before any devices are opened)
-if platform.system() == "Darwin":
+if platform.system() == "Darwin" and hid is not None:
     _darwin_disable_exclusive_open()
 
 USAGE_PAGE: int = 0xFF50
@@ -82,7 +86,7 @@ class PloverHid(ThreadedStenotypeBase):
                   A- O-       -E -U
         X1  X2  X3  X4  X5  X6  X7  X8  X9  X10
         X11 X12 X13 X14 X15 X16 X17 X18 X19 X20
-        X21 X22 X23 X24 X25 X26 
+        X21 X22 X23 X24 X25 X26
     '''
     # fmt: on
 
@@ -250,6 +254,9 @@ class PloverHid(ThreadedStenotypeBase):
 
     def start_capture(self):
         self.finished.clear()
+        global hid
+        if hid is None:
+            import hid  # likely raises ImportError
         self._initializing()
         # Enumerate all hid devices on the machine and if we find one with our
         # usage page and usage we try to connect to it.
