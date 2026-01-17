@@ -18,6 +18,7 @@ extensions = [
     "sphinx_plover",
     "myst_parser",
     "sphinx.ext.autodoc",
+    "sphinx.ext.napoleon",
     "sphinx.ext.todo",
 ]
 

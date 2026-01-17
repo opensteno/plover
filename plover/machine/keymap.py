@@ -22,24 +22,18 @@ from plover import log
 
 class Keymap:
     """
-    .. attribute:: keys
-       :type: List[str]
+    Args:
+        keys: A list of possible keys on the physical machine. For a serial steno
+            protocol like TX Bolt, this would be the steno keys themselves
+            (``S-``, ``T-``, etc.); for the keyboard, this would be keyboard keys
+            (``q``, ``w``, etc.).
+        actions: A list of possible actions in the steno system.
 
-       A list of possible keys on the physical machine. For a serial steno
-       protocol like TX Bolt, this would be the steno keys themselves
-       (``S-``, ``T-``, etc.); for the keyboard, this would be keyboard keys
-       (``q``, ``w``, etc.).
-
-    .. attribute:: actions
-       :type: List[str]
-
-       A list of possible actions in the steno system.
-
-       In addition to the steno keys in the current system (see
-       :attr:`system.KEYS<plover.system.KEYS>` for more information),
-       the actions may include ``no-op``, a special action that does nothing,
-       and ``arpeggiate``, a special action for arpeggiate mode that is only
-       available if the current machine is a keyboard.
+            In addition to the steno keys in the current system (see
+            :attr:`system.KEYS<plover.system.KEYS>` for more information),
+            the actions may include ``no-op``, a special action that does nothing,
+            and ``arpeggiate``, a special action for arpeggiate mode that is only
+            available if the current machine is a keyboard.
     """
 
     _actions: OrderedDict[str, int]
@@ -71,8 +65,11 @@ class Keymap:
     def set_bindings(self, bindings: dict[str, str]) -> None:
         """Use ``bindings`` as the new keymap.
 
-        ``bindings`` is a dictionary mapping *keys* to *actions*. This also
-        calculates the mappings and calls :meth:`set_mappings`.
+        Args:
+            bindings: A dictionary mapping *keys* to *actions*.
+
+        Notes:
+            This also calculates the mappings and calls :meth:`set_mappings`.
         """
         # Set from:
         # { key1: action1, key2: action1, ... keyn: actionn }
@@ -84,13 +81,15 @@ class Keymap:
     def set_mappings(self, mappings: Any) -> None:
         """Use ``mappings`` as the new keymap.
 
-        ``mappings`` is a dictionary mapping *actions* to either a single key or
-        a list of keys that are bound to that action. This also calculates the
-        bindings and calls :meth:`set_bindings`.
+        Args:
+            mappings: A dictionary mapping *actions* to either a single key or a
+                list of keys that are bound to that action. This also calculates
+                the bindings and calls :meth:`set_bindings`.
 
-        Where ``mappings`` contains some consistency issues, such as keys bound
-        multiple times or nonexistent keys or actions, this shows a warning and
-        the keymap behavior is undefined.
+        Warnings:
+            Where ``mappings`` contains some consistency issues, such as keys bound
+            multiple times or nonexistent keys or actions, this shows a warning and
+            the keymap behavior is undefined.
         """
         # When setting from a string, assume a list of mappings:
         # [[action1, [key1, key2]], [action2, [key3]], ...]
@@ -157,7 +156,7 @@ class Keymap:
         """Returns the actions performed by pressing all of the keys in ``key_list``.
 
         Raises an error if any element of ``key_list`` is not a valid machine
-        key (i.e. not in :attr:`keys`).
+        key (i.e. not in the keys passed to :meth:`__init__`).
         """
         action_list = []
         for key in key_list:
