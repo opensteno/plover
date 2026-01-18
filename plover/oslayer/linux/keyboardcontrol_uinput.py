@@ -469,7 +469,11 @@ class KeyboardCapture(Capture):
             key in keys
             for key in [e.KEY_ESC, e.KEY_SPACE, e.KEY_ENTER, e.KEY_LEFTSHIFT]
         )
-        return not is_uinput and keyboard_keys_present
+
+        # Check whether it is not accidentally a mouse
+        is_mouse = any(key in keys for key in [e.BTN_MOUSE])
+
+        return not is_uinput and keyboard_keys_present and not is_mouse
 
     def _grab_devices(self):
         """Grab all devices, waiting for each device to stop having keys pressed.
