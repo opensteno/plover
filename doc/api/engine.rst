@@ -6,61 +6,61 @@
 
 .. autoclass:: plover.engine.StenoEngine
 
-   .. automethod:: plover.engine.StenoEngine._in_engine_thread
+   .. automethod:: _in_engine_thread
 
-   .. automethod:: plover.engine.StenoEngine.start
+   .. automethod:: start
 
-   .. automethod:: plover.engine.StenoEngine.quit
+   .. automethod:: quit
 
-   .. automethod:: plover.engine.StenoEngine.restart
+   .. automethod:: restart
 
-   .. automethod:: plover.engine.StenoEngine.run
+   .. automethod:: run
 
-   .. automethod:: plover.engine.StenoEngine.join
+   .. automethod:: join
 
-   .. automethod:: plover.engine.StenoEngine.load_config
+   .. automethod:: load_config
 
-   .. automethod:: plover.engine.StenoEngine.reset_machine
+   .. automethod:: reset_machine
 
-   .. automethod:: plover.engine.StenoEngine._send_engine_command
+   .. automethod:: _send_engine_command
 
-   .. automethod:: plover.engine.StenoEngine.toggle_output
+   .. automethod:: toggle_output
 
-   .. automethod:: plover.engine.StenoEngine.set_output
+   .. automethod:: set_output
 
-   .. automethod:: plover.engine.StenoEngine.__getitem__
+   .. automethod:: __getitem__
 
-   .. automethod:: plover.engine.StenoEngine.__setitem__
+   .. automethod:: __setitem__
 
-   .. automethod:: plover.engine.StenoEngine.get_suggestions
+   .. automethod:: get_suggestions
 
-   .. automethod:: plover.engine.StenoEngine.clear_translator_state
+   .. automethod:: clear_translator_state
 
-   .. automethod:: plover.engine.StenoEngine.hook_connect
+   .. automethod:: hook_connect
 
-   .. automethod:: plover.engine.StenoEngine.hook_disconnect
+   .. automethod:: hook_disconnect
 
    The following methods simply provide a way to access the underlying
    :class:`StenoDictionaryCollection<plover.steno_dictionary.StenoDictionaryCollection>`.
    See the documentation there for more complete information.
 
-   .. automethod:: plover.engine.StenoEngine.lookup
+   .. automethod:: lookup
 
-   .. automethod:: plover.engine.StenoEngine.raw_lookup
+   .. automethod:: raw_lookup
 
-   .. automethod:: plover.engine.StenoEngine.lookup_from_all
+   .. automethod:: lookup_from_all
 
-   .. automethod:: plover.engine.StenoEngine.raw_lookup_from_all
+   .. automethod:: raw_lookup_from_all
 
-   .. automethod:: plover.engine.StenoEngine.reverse_lookup
+   .. automethod:: reverse_lookup
 
-   .. automethod:: plover.engine.StenoEngine.casereverse_lookup
+   .. automethod:: casereverse_lookup
 
-   .. automethod:: plover.engine.StenoEngine.add_dictionary_filter
+   .. automethod:: add_dictionary_filter
 
-   .. automethod:: plover.engine.StenoEngine.remove_dictionary_filter
+   .. automethod:: remove_dictionary_filter
 
-   .. automethod:: plover.engine.StenoEngine.add_translation
+   .. automethod:: add_translation
 
 .. autoclass:: plover.engine.StartingStrokeState
 
