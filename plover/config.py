@@ -42,8 +42,8 @@ class DictionaryConfig(namedtuple("DictionaryConfig", "path enabled")):
     """Represents the configuration for one dictionary.
 
     Attributes:
-        path: The fully qualified path to the dictionary file.
-        enabled: Whether the dictionary is enabled.
+        path (str): The fully qualified path to the dictionary file.
+        enabled (bool): Whether the dictionary is enabled.
     """
 
     def __new__(cls, path, enabled=True):
