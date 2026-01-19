@@ -328,7 +328,7 @@ class KeyboardCapture(Capture):
         | kCGEventFlagMaskNonCoalesced
     )
 
-    def __init__(self):
+    def __init__(self, _keyboard_regex: str):
         super().__init__()
         self.key_down = lambda key: None
         self.key_up = lambda key: None

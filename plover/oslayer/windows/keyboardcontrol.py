@@ -494,7 +494,7 @@ class KeyboardCaptureProcess(multiprocessing.Process):
 
 
 class KeyboardCapture(Capture):
-    def __init__(self):
+    def __init__(self, _keyboard_regex: str):
         super().__init__()
         self._suppressed_keys = set()
         self._finished = None

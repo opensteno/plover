@@ -208,6 +208,7 @@ class KeyboardOption(QGroupBox, Ui_KeyboardWidget):
         self._value = copy(value)
         self.arpeggiate.setChecked(value["arpeggiate"])
         self.first_up_chord_send.setChecked(value["first_up_chord_send"])
+        self.keyboard_regex.setText(value["keyboard_regex"])
 
     @Slot(bool)
     def update_arpeggiate(self, value):
@@ -217,6 +218,11 @@ class KeyboardOption(QGroupBox, Ui_KeyboardWidget):
     @Slot(bool)
     def update_first_up_chord_send(self, value):
         self._value["first_up_chord_send"] = value
+        self.valueChanged.emit(self._value)
+
+    @Slot(bool)
+    def update_keyboard_regex(self, value):
+        self._value["keyboard_regex"] = value
         self.valueChanged.emit(self._value)
 
 

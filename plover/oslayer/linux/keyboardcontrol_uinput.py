@@ -9,6 +9,7 @@ from evdev import (
 )
 import threading
 import os
+import re
 import selectors
 
 from psutil import process_iter
@@ -439,8 +440,9 @@ class KeyboardCapture(Capture):
     _device_thread_read_pipe: int | None
     _device_thread_write_pipe: int | None
 
-    def __init__(self):
+    def __init__(self, keyboard_regex: str):
         super().__init__()
+        self._keyboard_regex = keyboard_regex
         self._devices = self._get_devices()
 
         self._selector = selectors.DefaultSelector()
@@ -470,10 +472,16 @@ class KeyboardCapture(Capture):
             for key in [e.KEY_ESC, e.KEY_SPACE, e.KEY_ENTER, e.KEY_LEFTSHIFT]
         )
 
-        # Check whether it is not accidentally a mouse
-        is_mouse = any(key in keys for key in [e.BTN_MOUSE])
+        # If we have a keyboard name configured, use that
+        if self._keyboard_regex.strip() != "":
+            matches_device_name = (
+                re.match(self._keyboard_regex, device.name) is not None
+            )
+        else:
+            # If it isn't set then return True so that we don't mess with existing implemtentations
+            matches_device_name = True
 
-        return not is_uinput and keyboard_keys_present and not is_mouse
+        return not is_uinput and keyboard_keys_present and matches_device_name
 
     def _grab_devices(self):
         """Grab all devices, waiting for each device to stop having keys pressed.

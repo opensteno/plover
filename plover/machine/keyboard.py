@@ -39,6 +39,7 @@ class Keyboard(StenotypeBase):
         super().__init__()
         self._arpeggiate = params["arpeggiate"]
         self._first_up_chord_send = params["first_up_chord_send"]
+        self._keyboard_regex = params["keyboard_regex"]
         if self._arpeggiate and self._first_up_chord_send:
             self._error()
             raise RuntimeError(
@@ -88,7 +89,7 @@ class Keyboard(StenotypeBase):
         """Begin listening for output from the stenotype machine."""
         self._initializing()
         try:
-            self._keyboard_capture = KeyboardCapture()
+            self._keyboard_capture = KeyboardCapture(self._keyboard_regex)
             self._keyboard_capture.key_down = self._key_down
             self._keyboard_capture.key_up = self._key_up
             self._keyboard_capture.start()
@@ -162,4 +163,5 @@ class Keyboard(StenotypeBase):
         return {
             "arpeggiate": (False, boolean),
             "first_up_chord_send": (False, boolean),
+            "keyboard_regex": ("", str),
         }
