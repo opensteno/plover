@@ -161,12 +161,6 @@ jobs:
           HIDAPI_WITH_HIDRAW=1 HIDAPI_WITH_LIBUSB=0 \
             python -m pip install --no-binary :all: --no-cache-dir --force-reinstall hidapi
 
-      - name: Build hidapi wheel (force hidraw)
-        run: |
-          rm -f .cache/wheels/hidapi-*.whl
-          HIDAPI_WITH_HIDRAW=1 HIDAPI_WITH_LIBUSB=0 \
-            python -m pip wheel --no-binary :all: --no-cache-dir -w .cache/wheels hidapi
-
       - name: Verify hidapi backend
         run: |
           python -c "import hid; print(hid.__file__)"
