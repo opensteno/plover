@@ -146,26 +146,13 @@ jobs:
       <% endif %>
       <% if j.type in ['build', 'test_gui_qt'] and j.os == 'Linux' %>
       - name: Install system dependencies
-        run: apt_get_install pkg-config libdbus-1-dev libdbus-glib-1-dev libudev-dev libegl-dev libxkbcommon-x11-0
+        run: apt_get_install libdbus-1-dev libdbus-glib-1-dev libudev-dev libegl-dev libxkbcommon-x11-0
 
       <% endif %>
       <% if j.type != 'notarize' %>
       - name: Setup Python environment
         run: setup_python_env -c reqs/constraints.txt<% for r in j.reqs %> -r <@ r @><% endfor %>
         
-
-      <% endif %>
-      <% if j.os == 'Linux' and j.type != 'notarize' %>
-      - name: Install hidapi (force hidraw)
-        run: |
-          HIDAPI_WITH_HIDRAW=1 HIDAPI_WITH_LIBUSB=0 \
-            python -m pip install --no-binary :all: --no-cache-dir --force-reinstall hidapi
-
-      - name: Verify hidapi backend
-        run: |
-          python -c "import hid; print(hid.__file__)"
-          ldd "$(python -c 'import hid; print(hid.__file__)')" | egrep -i 'libusb|udev' || true
-          ldd "$(python -c 'import hid; print(hid.__file__)')" | grep -qi libusb && { echo "ERROR: built with libusb"; exit 1; } || true
 
       <% endif %>
       <% if j.type == 'test_code_quality' %>
