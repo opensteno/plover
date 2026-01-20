@@ -1232,7 +1232,8 @@ class KeyboardEmulation(GenericKeyboardEmulation):
             self._display.sync()
 
     def send_string(self, string):
-        for char in string:
+        modifier_mask = 0
+        for i, char in enumerate(string):
             keysym = uchr_to_keysym(char)
             # TODO: can we find mappings for multiple keys at a time?
             mapping = self._get_mapping(keysym, automatically_map=False)
@@ -1245,7 +1246,11 @@ class KeyboardEmulation(GenericKeyboardEmulation):
                 self.half_delay()
                 mapping_changed = True
 
-            self._send_keycode(mapping.keycode, mapping.modifiers)
+            self._change_modifier_state(modifier_mask, mapping.modifiers)
+            modifier_mask = mapping.modifiers
+            self._send_keycode(mapping.keycode)
+            if i == len(string) - 1:
+                self._change_modifier_state(modifier_mask, 0)
 
             self._display.sync()
             if mapping_changed:
@@ -1266,6 +1271,19 @@ class KeyboardEmulation(GenericKeyboardEmulation):
             xtest.fake_input(self._display, event_type, keycode)
             self._display.sync()
 
+    def _change_modifier_state(self, old_modifier_mask: int, new_modifier_mask: int):
+        """
+        Emulate key presses of modifiers in new mask but not old mask,
+        and key releases of modifiers in old mask but not new mask.
+        """
+        for n in range(8):
+            if (new_modifier_mask & (1 << n)) and not (old_modifier_mask & (1 << n)):
+                xtest.fake_input(self._display, X.KeyPress, self.modifier_mapping[n][0])
+            elif not (new_modifier_mask & (1 << n)) and (old_modifier_mask & (1 << n)):
+                xtest.fake_input(
+                    self._display, X.KeyRelease, self.modifier_mapping[n][0]
+                )
+
     def _send_keycode(self, keycode, modifiers=0):
         """Emulate a key press and release.
 
@@ -1278,18 +1296,10 @@ class KeyboardEmulation(GenericKeyboardEmulation):
         Control, and Alt.
 
         """
-        modifiers_list = [
-            self.modifier_mapping[n][0] for n in range(8) if (modifiers & (1 << n))
-        ]
-        # Press modifiers.
-        for mod_keycode in modifiers_list:
-            xtest.fake_input(self._display, X.KeyPress, mod_keycode)
-        # Press and release the base key.
+        self._change_modifier_state(0, modifiers)
         xtest.fake_input(self._display, X.KeyPress, keycode)
         xtest.fake_input(self._display, X.KeyRelease, keycode)
-        # Release modifiers.
-        for mod_keycode in reversed(modifiers_list):
-            xtest.fake_input(self._display, X.KeyRelease, mod_keycode)
+        self._change_modifier_state(modifiers, 0)
 
     def _get_keycode_from_keystring(self, keystring):
         """Find the physical key <keystring> is mapped to.
