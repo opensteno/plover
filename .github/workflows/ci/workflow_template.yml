@@ -169,8 +169,8 @@ jobs:
 
       - name: Download hidapi sdist (for AppImage)
         run: |
-          rm -f .cache/wheels/hidapi-*.tar.gz .cache/wheels/hidapi-*manylinux*.whl
-          python -m pip download --no-binary :all: --no-deps --no-use-pep517 -d .cache/wheels hidapi
+          rm -f .cache/wheels/hidapi-*.tar.gz
+          python -m pip download --no-binary :all: --no-deps -d .cache/wheels hidapi
 
       - name: Verify hidapi backend
         run: |
@@ -252,8 +252,7 @@ jobs:
       <% if j.os == 'Linux' %>
       - name: Build distribution (Linux AppImage)
         run: |
-          HIDAPI_WITH_HIDRAW=1 HIDAPI_WITH_LIBUSB=0 \
-          PIP_NO_BINARY=hidapi PIP_NO_INDEX=1 PIP_FIND_LINKS=.cache/wheels \
+          HIDAPI_WITH_HIDRAW=1 HIDAPI_WITH_LIBUSB=0 PIP_NO_BINARY=hidapi \
             python setup.py -q bdist_appimage --no-update-tools
 
       - name: Archive artifact (Linux AppImage)
