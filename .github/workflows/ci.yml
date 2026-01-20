@@ -276,6 +276,17 @@ jobs:
       - name: Setup Python environment
         run: setup_python_env -c reqs/constraints.txt -r reqs/dist.txt -r reqs/test.txt        
 
+      - name: Install hidapi (force hidraw)
+        run: |
+          HIDAPI_WITH_HIDRAW=1 HIDAPI_WITH_LIBUSB=0 \
+            python -m pip install --no-binary :all: --no-cache-dir --force-reinstall hidapi
+
+      - name: Verify hidapi backend
+        run: |
+          python -c "import hid; print(hid.__file__)"
+          ldd "$(python -c 'import hid; print(hid.__file__)')" | egrep -i 'libusb|udev' || true
+          ldd "$(python -c 'import hid; print(hid.__file__)')" | grep -qi libusb && { echo "ERROR: built with libusb"; exit 1; } || true
+
       # Test {{{
 
       - name: Run tests
@@ -442,6 +453,17 @@ jobs:
       - name: Setup Python environment
         run: setup_python_env -c reqs/constraints.txt -r reqs/dist.txt -r reqs/test.txt        
 
+      - name: Install hidapi (force hidraw)
+        run: |
+          HIDAPI_WITH_HIDRAW=1 HIDAPI_WITH_LIBUSB=0 \
+            python -m pip install --no-binary :all: --no-cache-dir --force-reinstall hidapi
+
+      - name: Verify hidapi backend
+        run: |
+          python -c "import hid; print(hid.__file__)"
+          ldd "$(python -c 'import hid; print(hid.__file__)')" | egrep -i 'libusb|udev' || true
+          ldd "$(python -c 'import hid; print(hid.__file__)')" | grep -qi libusb && { echo "ERROR: built with libusb"; exit 1; } || true
+
       # Test {{{
 
       - name: Run tests
@@ -495,6 +517,17 @@ jobs:
 
       - name: Setup Python environment
         run: setup_python_env -c reqs/constraints.txt -r reqs/dist.txt -r reqs/test.txt        
+
+      - name: Install hidapi (force hidraw)
+        run: |
+          HIDAPI_WITH_HIDRAW=1 HIDAPI_WITH_LIBUSB=0 \
+            python -m pip install --no-binary :all: --no-cache-dir --force-reinstall hidapi
+
+      - name: Verify hidapi backend
+        run: |
+          python -c "import hid; print(hid.__file__)"
+          ldd "$(python -c 'import hid; print(hid.__file__)')" | egrep -i 'libusb|udev' || true
+          ldd "$(python -c 'import hid; print(hid.__file__)')" | grep -qi libusb && { echo "ERROR: built with libusb"; exit 1; } || true
 
       # Test {{{
 
@@ -550,6 +583,17 @@ jobs:
       - name: Setup Python environment
         run: setup_python_env -c reqs/constraints.txt -r reqs/dist.txt -r reqs/test.txt        
 
+      - name: Install hidapi (force hidraw)
+        run: |
+          HIDAPI_WITH_HIDRAW=1 HIDAPI_WITH_LIBUSB=0 \
+            python -m pip install --no-binary :all: --no-cache-dir --force-reinstall hidapi
+
+      - name: Verify hidapi backend
+        run: |
+          python -c "import hid; print(hid.__file__)"
+          ldd "$(python -c 'import hid; print(hid.__file__)')" | egrep -i 'libusb|udev' || true
+          ldd "$(python -c 'import hid; print(hid.__file__)')" | grep -qi libusb && { echo "ERROR: built with libusb"; exit 1; } || true
+
       # Test {{{
 
       - name: Run tests
@@ -603,6 +647,17 @@ jobs:
 
       - name: Setup Python environment
         run: setup_python_env -c reqs/constraints.txt -r reqs/dist.txt -r reqs/test.txt        
+
+      - name: Install hidapi (force hidraw)
+        run: |
+          HIDAPI_WITH_HIDRAW=1 HIDAPI_WITH_LIBUSB=0 \
+            python -m pip install --no-binary :all: --no-cache-dir --force-reinstall hidapi
+
+      - name: Verify hidapi backend
+        run: |
+          python -c "import hid; print(hid.__file__)"
+          ldd "$(python -c 'import hid; print(hid.__file__)')" | egrep -i 'libusb|udev' || true
+          ldd "$(python -c 'import hid; print(hid.__file__)')" | grep -qi libusb && { echo "ERROR: built with libusb"; exit 1; } || true
 
       # Test {{{
 
@@ -732,6 +787,17 @@ jobs:
       - name: Setup Python environment
         run: setup_python_env -c reqs/constraints.txt -r reqs/packaging.txt -r reqs/setup.txt        
 
+      - name: Install hidapi (force hidraw)
+        run: |
+          HIDAPI_WITH_HIDRAW=1 HIDAPI_WITH_LIBUSB=0 \
+            python -m pip install --no-binary :all: --no-cache-dir --force-reinstall hidapi
+
+      - name: Verify hidapi backend
+        run: |
+          python -c "import hid; print(hid.__file__)"
+          ldd "$(python -c 'import hid; print(hid.__file__)')" | egrep -i 'libusb|udev' || true
+          ldd "$(python -c 'import hid; print(hid.__file__)')" | grep -qi libusb && { echo "ERROR: built with libusb"; exit 1; } || true
+
       - name: Patch version
         id: set_version
         run: |
@@ -818,6 +884,17 @@ jobs:
 
       - name: Setup Python environment
         run: setup_python_env -c reqs/constraints.txt -r reqs/code_quality.txt        
+
+      - name: Install hidapi (force hidraw)
+        run: |
+          HIDAPI_WITH_HIDRAW=1 HIDAPI_WITH_LIBUSB=0 \
+            python -m pip install --no-binary :all: --no-cache-dir --force-reinstall hidapi
+
+      - name: Verify hidapi backend
+        run: |
+          python -c "import hid; print(hid.__file__)"
+          ldd "$(python -c 'import hid; print(hid.__file__)')" | egrep -i 'libusb|udev' || true
+          ldd "$(python -c 'import hid; print(hid.__file__)')" | grep -qi libusb && { echo "ERROR: built with libusb"; exit 1; } || true
 
       - name: Run linting check (Ruff)
         run: ruff check

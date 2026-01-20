@@ -155,7 +155,7 @@ jobs:
         
 
       <% endif %>
-      <% if j.type in ['build', 'test_gui_qt'] and j.os == 'Linux' %>
+      <% if j.os == 'Linux' and j.type != 'notarize' %>
       - name: Install hidapi (force hidraw)
         run: |
           HIDAPI_WITH_HIDRAW=1 HIDAPI_WITH_LIBUSB=0 \
