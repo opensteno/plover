@@ -44,12 +44,15 @@ If the key is pressed and released again, another chord is sent.</string>
       <string>Keyboard Selection</string>
      </property>
      <property name="toolTip">
-      <string>Select the keyboard which will be used by Plover</string>
+      <string>Linux Wayland only: Select the keyboard which will be used by Plover</string>
      </property>
     </widget>
    </item>
    <item row="2" column="1">
     <widget class="QComboBox" name="combobox_keyboard_selection">
+     <property name="toolTip">
+      <string>Linux Wayland only: Select the keyboard which will be used by Plover</string>
+     </property>
     </widget>
    </item>
   </layout>

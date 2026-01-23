@@ -207,6 +207,8 @@ class KeyboardOption(QGroupBox, Ui_KeyboardWidget):
         self._value = {}
         if PLATFORM == "linux" and DISPLAY_SERVER == "wayland":
             self.setup_keyboard_selection()
+        else:
+            self.combobox_keyboard_selection.setDisabled(True)
 
     def setValue(self, value):
         self._value = copy(value)
