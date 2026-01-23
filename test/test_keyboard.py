@@ -5,6 +5,7 @@ from plover.machine.keyboard import Keyboard
 from plover.machine.keymap import Keymap
 from plover.oslayer.keyboardcontrol import KeyboardCapture
 from plover.oslayer.config import PLATFORM
+from plover.oslayer.linux.display_server import DISPLAY_SERVER
 
 from unittest import mock
 
@@ -66,7 +67,7 @@ def strokes(machine):
 def test_lifecycle(capture, machine, strokes):
     # Start machine.
     machine.start_capture()
-    if PLATFORM == "linux":
+    if PLATFORM == "linux" and DISPLAY_SERVER == "wayland":
         assert capture.mock_calls == [
             mock.call.set_keyboard_selection(""),
             mock.call.start(),

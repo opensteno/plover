@@ -23,6 +23,7 @@ from serial.tools.list_ports import comports
 from plover import _
 from plover.oslayer.serial import patch_ports_info
 from plover.oslayer.config import PLATFORM
+from plover.oslayer.linux.display_server import DISPLAY_SERVER
 
 from plover.gui_qt.config_keyboard_widget_ui import Ui_KeyboardWidget
 from plover.gui_qt.config_serial_widget_ui import Ui_SerialWidget
@@ -204,7 +205,7 @@ class KeyboardOption(QGroupBox, Ui_KeyboardWidget):
             )
         )
         self._value = {}
-        if PLATFORM == "linux":
+        if PLATFORM == "linux" and DISPLAY_SERVER == "wayland":
             self.setup_keyboard_selection()
 
     def setValue(self, value):
