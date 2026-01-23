@@ -140,7 +140,11 @@ DEFAULTS = {
     "enabled_extensions": set(),
     "auto_start": False,
     "machine_type": "Keyboard",
-    "machine_specific_options": {"arpeggiate": False, "first_up_chord_send": False},
+    "machine_specific_options": {
+        "arpeggiate": False,
+        "first_up_chord_send": False,
+        "keyboard_selection": "",
+    },
     "system_name": config.DEFAULT_SYSTEM_NAME,
     "system_keymap": DEFAULT_KEYMAP,
     "dictionaries": [
@@ -279,12 +283,14 @@ CONFIG_TESTS = (
             "machine_specific_options": {
                 "arpeggiate": True,
                 "first_up_chord_send": False,
+                "keyboard_selection": "",
             }
         },
         """
      [Keyboard]
      arpeggiate = True
      first_up_chord_send = False
+     keyboard_selection = 
      """,
     ),
     (

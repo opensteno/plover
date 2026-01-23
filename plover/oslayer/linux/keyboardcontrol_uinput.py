@@ -9,7 +9,6 @@ from evdev import (
 )
 import threading
 import os
-import re
 import selectors
 
 from psutil import process_iter
@@ -343,6 +342,26 @@ MODIFIER_KEY_CODES: set[int] = {
 }
 
 
+def get_available_devices():
+    input_devices = [InputDevice(path) for path in list_devices()]
+    keyboard_devices = [dev for dev in input_devices if filter_devices(dev)]
+    return keyboard_devices
+
+
+def filter_devices(device):
+    """
+    Filter out devices that should not be grabbed and suppressed, to avoid output feeding into itself.
+    """
+    is_uinput = device.name == "py-evdev-uinput" or device.phys == "py-evdev-uinput"
+    # Check for some common keys to make sure it's really a keyboard
+    keys = device.capabilities().get(e.EV_KEY, [])
+    keyboard_keys_present = any(
+        key in keys for key in [e.KEY_ESC, e.KEY_SPACE, e.KEY_ENTER, e.KEY_LEFTSHIFT]
+    )
+
+    return not is_uinput and keyboard_keys_present
+
+
 class KeyboardEmulation(GenericKeyboardEmulation):
     def __init__(self):
         super().__init__()
@@ -440,9 +459,9 @@ class KeyboardCapture(Capture):
     _device_thread_read_pipe: int | None
     _device_thread_write_pipe: int | None
 
-    def __init__(self, keyboard_regex: str):
+    def __init__(self):
         super().__init__()
-        self._keyboard_regex = keyboard_regex
+        self._keyboard_selection = ""
         self._devices = self._get_devices()
 
         self._selector = selectors.DefaultSelector()
@@ -456,32 +475,12 @@ class KeyboardCapture(Capture):
         # The keycodes from evdev, e.g. e.KEY_A refers to the *physical* a, which corresponds with the qwerty layout.
 
     def _get_devices(self):
-        input_devices = [InputDevice(path) for path in list_devices()]
-        keyboard_devices = [dev for dev in input_devices if self._filter_devices(dev)]
-        return keyboard_devices
-
-    def _filter_devices(self, device):
-        """
-        Filter out devices that should not be grabbed and suppressed, to avoid output feeding into itself.
-        """
-        is_uinput = device.name == "py-evdev-uinput" or device.phys == "py-evdev-uinput"
-        # Check for some common keys to make sure it's really a keyboard
-        keys = device.capabilities().get(e.EV_KEY, [])
-        keyboard_keys_present = any(
-            key in keys
-            for key in [e.KEY_ESC, e.KEY_SPACE, e.KEY_ENTER, e.KEY_LEFTSHIFT]
-        )
-
-        # If we have a keyboard name configured, use that
-        if self._keyboard_regex.strip() != "":
-            matches_device_name = (
-                re.match(self._keyboard_regex, device.name) is not None
-            )
-        else:
-            # If it isn't set then return True so that we don't mess with existing implemtentations
-            matches_device_name = True
-
-        return not is_uinput and keyboard_keys_present and matches_device_name
+        available_devices = get_available_devices()
+        return [
+            device
+            for device in available_devices
+            if self._keyboard_selection == "" or device.name == self._keyboard_selection
+        ]
 
     def _grab_devices(self):
         """Grab all devices, waiting for each device to stop having keys pressed.
@@ -555,6 +554,10 @@ class KeyboardCapture(Capture):
         It does add a little bit of delay, but that is not noticeable.
         """
         self._suppressed_keys = set(suppressed_keys)
+
+    def set_keyboard_selection(self, keyboard_selection: str):
+        self._keyboard_selection = keyboard_selection
+        self._devices = self._get_devices()
 
     def _run(self):
         keys_pressed_with_modifier: set[int] = set()

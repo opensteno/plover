@@ -198,7 +198,7 @@ class XEventLoop:
 
 
 class KeyboardCapture(Capture):
-    def __init__(self, _keyboard_regex: str):
+    def __init__(self):
         super().__init__()
         self._event_loop = None
         self._window = None

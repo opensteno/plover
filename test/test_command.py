@@ -40,7 +40,7 @@ SET_CONFIG_TESTS = (
     lambda: ('"machine_type":"Keyboard"', "Keyboard"),
     lambda: (
         '"machine_specific_options":{"arpeggiate":True}',
-        {"arpeggiate": True, "first_up_chord_send": False},
+        {"arpeggiate": True, "first_up_chord_send": False, "keyboard_selection": ""},
     ),
     lambda: ('"system_keymap":' + str(DEFAULT_KEYMAP), DEFAULT_KEYMAP),
     lambda: (

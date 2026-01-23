@@ -8,6 +8,7 @@ from plover import _
 from plover.machine.base import StenotypeBase
 from plover.misc import boolean
 from plover.oslayer.keyboardcontrol import KeyboardCapture
+from plover.oslayer.config import PLATFORM
 
 
 # i18n: Machine name.
@@ -39,7 +40,7 @@ class Keyboard(StenotypeBase):
         super().__init__()
         self._arpeggiate = params["arpeggiate"]
         self._first_up_chord_send = params["first_up_chord_send"]
-        self._keyboard_regex = params["keyboard_regex"]
+        self._keyboard_selection = params["keyboard_selection"]
         if self._arpeggiate and self._first_up_chord_send:
             self._error()
             raise RuntimeError(
@@ -89,7 +90,9 @@ class Keyboard(StenotypeBase):
         """Begin listening for output from the stenotype machine."""
         self._initializing()
         try:
-            self._keyboard_capture = KeyboardCapture(self._keyboard_regex)
+            self._keyboard_capture = KeyboardCapture()
+            if PLATFORM == "linux":
+                self._keyboard_capture.set_keyboard_selection(self._keyboard_selection)
             self._keyboard_capture.key_down = self._key_down
             self._keyboard_capture.key_up = self._key_up
             self._keyboard_capture.start()
@@ -163,5 +166,5 @@ class Keyboard(StenotypeBase):
         return {
             "arpeggiate": (False, boolean),
             "first_up_chord_send": (False, boolean),
-            "keyboard_regex": ("", str),
+            "keyboard_selection": ("", str),
         }
