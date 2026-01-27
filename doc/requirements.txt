@@ -1,3 +1,4 @@
 sphinx-plover==0.3
 furo==2025.12.19
-myst-parser==2.0.0
+myst-parser==5.0.0
+appdirs==1.4.4

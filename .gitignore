@@ -34,8 +34,8 @@ __pycache__/
 .DS_Store
 
 # Virtual environments
-/.venv/
+/.venv*/
 /venv/
 
-
-# vim: ft=cfg
+# Doc
+/doc/_build/

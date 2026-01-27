@@ -17,7 +17,7 @@ You also need [CMake](https://cmake.org) to build [hidapi](https://github.com/li
 
 A typical development setup looks like this, assuming that `python` has the correct version:
 
-### Linux/macOS (Bash):
+## Linux/macOS (Bash):
 
 ```bash
 cd path/to/plover
@@ -30,7 +30,7 @@ tox
 tox -e launch -- -l debug
 ```
 
-### Windows (PowerShell):
+## Windows (PowerShell):
 
 This assumes that you installed a Git version that includes Git Bash.
 
@@ -46,6 +46,26 @@ pre-commit run --all-files
 ```
 
 Some features require a Bash shell, which is why on Windows you need to run commands through Git Bash or similar.
+
+## Read the Docs build (Docker)
+
+To reproduce the Read the Docs build locally, use the official RTD build image.
+The image defaults to a non-root user, so run as root to install packages.
+
+```bash
+docker run --rm -it --platform=linux/amd64 -u root -v "$PWD":/work -w /work readthedocs/build:ubuntu-24.04-2024.06.17 bash
+
+apt-get update
+apt-get install -y python3 python3-venv python3-dev build-essential
+python3 -m venv .venv-rtd
+. .venv-rtd/bin/activate
+python -m pip install --upgrade pip setuptools
+python -m pip install -c reqs/constraints.txt -r reqs/dist.txt
+python -m pip install -r doc/requirements.txt
+python -m sphinx -b html -W doc doc/_build/html
+```
+
+The HTML output is in `doc/_build/html/index.html`.
 
 ## Tox
 
