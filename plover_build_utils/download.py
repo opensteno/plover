@@ -52,8 +52,11 @@ if __name__ == "__main__":
     url = args.pop(0)
     sha1 = None
     filename = None
+    downloads_dir = DOWNLOADS_DIR
     if args:
         sha1 = args.pop(0) or None
     if args:
-        filename = args.pop(0)
-    print(download(url, sha1, filename))
+        filename = args.pop(0) or None
+    if args:
+        downloads_dir = args.pop(0) or DOWNLOADS_DIR
+    print(download(url, sha1, filename, downloads_dir))

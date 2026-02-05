@@ -18,7 +18,8 @@ def make_candidates_from_rules(word, suffix, check=lambda x: True):
 
 
 def _add_suffix(word, suffix):
-    in_dict_f = lambda x: x in system.ORTHOGRAPHY_WORDS
+    def in_dict_f(x):
+        return x in system.ORTHOGRAPHY_WORDS
 
     candidates = []
 

@@ -3,6 +3,9 @@
 import plistlib
 import os.path
 
+# `defines` is injected by dmgbuild; default to empty for linters.
+defines = globals().get("defines", {})
+
 application = defines.get("app", "./dist/Plover.app")
 appname = os.path.basename(application)
 

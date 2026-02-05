@@ -57,7 +57,9 @@ def blackbox_replay(blackbox, name, test):
         assert_msg = (
             name
             + "\n"
-            + "\n".join(("> " if n == lnum else "  ") + l for n, l in enumerate(lines))
+            + "\n".join(
+                ("> " if n == lnum else "  ") + line for n, line in enumerate(lines)
+            )
             + "\n"
         )
         if BLACKBOX_OUTPUT_RX.match(output):

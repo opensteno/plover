@@ -196,6 +196,11 @@ run "$linuxdeploy" \
 # Install Plover and dependencies.
 bootstrap_dist "$wheel"
 
+# Reinstall hidapi with the hidraw backend; libusb reports usage/usage_page as 0,
+# which results in HID keyboards not being detected by Plover.
+run "$python" -m pip uninstall -y hidapi || true
+run_eval "HIDAPI_WITH_HIDRAW=1 HIDAPI_WITH_LIBUSB=0 $python -m pip install --no-binary :all: --no-cache-dir hidapi"
+
 # Trim the fat, second pass.
 run "$python" -m plover_build_utils.trim "$appdir" "$builddir/blacklist.txt"
 

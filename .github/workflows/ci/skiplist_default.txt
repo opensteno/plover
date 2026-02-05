@@ -20,4 +20,5 @@ test.bat
 test.sh
 tox.ini
 windows/README.md
+.mailmap
 {EOF}

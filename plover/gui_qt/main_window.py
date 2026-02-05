@@ -22,6 +22,7 @@ from plover.gui_qt.config_window import ConfigWindow
 from plover.gui_qt.about_dialog import AboutDialog
 from plover.gui_qt.trayicon import TrayIcon
 from plover.gui_qt.utils import WindowStateMixin
+from plover.gui_qt import appearance
 
 
 class MainWindow(QMainWindow, Ui_MainWindow, WindowStateMixin):
@@ -141,10 +142,21 @@ class MainWindow(QMainWindow, Ui_MainWindow, WindowStateMixin):
             self.configure()
         # Apply configuration settings.
         config = self._engine.config
+
+        # Set the initial appearance based on the loaded configuration.
+        appearance.update(config)
+
         self._warn_on_hide_to_tray = not config["start_minimized"]
         self._update_machine(config["machine_type"])
         self._configured = False
-        self.set_visible(not config["start_minimized"])
+
+        # temporary ignoring start_minimized setting on macOS due to bug in
+        # macOS 26, see https://github.com/openstenoproject/plover/issues/1782
+        if PLATFORM == "mac":
+            self.set_visible(True)
+        else:
+            self.set_visible(not config["start_minimized"])
+
         # Process events before starting the engine
         # (to avoid display lag at window creation).
         QCoreApplication.processEvents()

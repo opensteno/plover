@@ -11,9 +11,11 @@ else:
     # exec from `setup.py`, package data
     # may not be available, and we don't
     # want to translate anyway.
-    _ = lambda s: s
+    def _(s):
+        return s
 
-__version__ = "5.0.0"
+
+__version__ = "5.2.0"
 __copyright__ = "(C) Open Steno Project"
 __url__ = "http://www.openstenoproject.org/"
 __download_url__ = "http://www.openstenoproject.org/plover"
@@ -24,7 +26,7 @@ Developers:
 
 Joshua Lifton
 Hesky Fisher
-Ted Morin
+Thea Morin
 Benoit Pierre
 Sammi Ta
 Martin Koerner

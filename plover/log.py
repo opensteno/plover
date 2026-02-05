@@ -9,9 +9,9 @@ import logging
 import traceback
 
 from logging.handlers import RotatingFileHandler
-from logging import DEBUG, INFO, WARNING, ERROR
+from logging import INFO, WARNING
 
-from plover.oslayer.config import CONFIG_DIR, PLATFORM
+from plover.oslayer.config import CONFIG_DIR
 
 
 LOG_FORMAT = "%(asctime)s [%(threadName)s] %(levelname)s: %(message)s"

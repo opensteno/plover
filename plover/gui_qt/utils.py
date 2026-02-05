@@ -11,7 +11,6 @@ from PySide6.QtWidgets import (
     QWidget,
     QApplication,
 )
-import importlib.resources
 
 from plover import _
 

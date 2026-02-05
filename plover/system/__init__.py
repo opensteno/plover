@@ -54,7 +54,7 @@ _EXPORTS = {
     "UNDO_STROKE_STENO": lambda mod: mod.UNDO_STROKE_STENO,
     "IMPLICIT_HYPHEN_KEYS": lambda mod: set(mod.IMPLICIT_HYPHEN_KEYS),
     "IMPLICIT_HYPHENS": lambda mod: {
-        l.replace("-", "") for l in mod.IMPLICIT_HYPHEN_KEYS
+        key.replace("-", "") for key in mod.IMPLICIT_HYPHEN_KEYS
     },
     "ORTHOGRAPHY_WORDS": lambda mod: _load_wordlist(
         mod.ORTHOGRAPHY_WORDLIST, mod.DICTIONARIES_ROOT
@@ -78,12 +78,12 @@ def setup(system_name):
     system_symbols["NAME"] = system_name
     globals().update(system_symbols)
     Stroke.setup(
-        KEYS,
-        IMPLICIT_HYPHEN_KEYS,
-        NUMBER_KEY,
-        NUMBERS,
-        FERAL_NUMBER_KEY,
-        UNDO_STROKE_STENO,
+        system_symbols["KEYS"],
+        system_symbols["IMPLICIT_HYPHEN_KEYS"],
+        system_symbols["NUMBER_KEY"],
+        system_symbols["NUMBERS"],
+        system_symbols["FERAL_NUMBER_KEY"],
+        system_symbols["UNDO_STROKE_STENO"],
     )
 
 

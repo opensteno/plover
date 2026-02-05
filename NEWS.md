@@ -1,3 +1,71 @@
+# v5.2.0 (2026-02-01)
+
+
+## Features
+
+### Linux
+
+- Support determining keyboard layout from Wayland with the `wayland-auto` layout. (#1807)
+- Avoid unnecessary rapid modifier key press/release while typing. (#1810)
+
+### macOS
+
+- Add appearance configuration option. (#1786)
+
+### Windows
+
+- Add appearance configuration option. (#1786)
+
+## Bugfixes
+
+### Core
+
+- Fix a corner case in `plover -s (script)`. (#1803)
+
+### User Interface
+
+- Fix default window sizes and extensions config table. (#1789)
+- Update Thea's name and email. (#1792)
+- Remove broken use_timeout checkbox in serial options. (#1793)
+- Make the plugin manager handle some exceptional cases. (#1802)
+
+### macOS
+
+- Hide the Start Minimized setting on macOS due to bug in macOS 26. (#1788)
+
+## API
+
+### Core
+
+- Migrate HID library to cython-hidapi. (#1812)
+
+# v5.1.0 (2025-11-04)
+
+
+## Features
+
+### Core
+
+- Add support for Plover HID protocol based on plover-machine-hid plugin by dnaq. (#1777)
+
+### User Interface
+
+- Dynamically update individual status icons while loading dictionaries. (#1400)
+
+### macOS
+
+- Add code signing and notarization for macOS app. (#1769)
+
+## Bugfixes
+
+### Core
+
+- Update frontmatter in GPLv2 license file; no substantive change to the license (#1779)
+
+## API
+
+No significant changes.
+
 # v5.0.0 (2025-09-10)
 
 

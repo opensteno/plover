@@ -6,10 +6,8 @@ from plover import _, __name__ as __software_name__
 from plover import log
 from plover.oslayer.config import PLATFORM
 from plover.machine.base import (
-    STATE_STOPPED,
     STATE_INITIALIZING,
     STATE_RUNNING,
-    STATE_ERROR,
 )
 
 

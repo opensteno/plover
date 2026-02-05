@@ -103,7 +103,7 @@ class Registry:
                 parsed_unsupported_plover_version = (
                     self.parse_unsupported_plover_version(unsupported_plover_version)
                 )
-            except:
+            except Exception:
                 log.warning(
                     f'Failed to parse unsupported plover version "{pkg.unsupported_plover_version}" for plugin {pkg.name}, assuming plugin is supported',
                     exc_info=True,
@@ -117,7 +117,7 @@ class Registry:
     def update(self):
         try:
             available_plugins = global_registry.list_plugins()
-        except:
+        except Exception:
             log.error(
                 "Failed to fetch list of available plugins from PyPI", exc_info=True
             )
@@ -128,7 +128,7 @@ class Registry:
             unsupported_plugins_dict = (
                 session.get(UNSUPPORTED_PLUGINS_URL).result().json()
             )
-        except:
+        except Exception:
             log.warning(
                 "Failed to fetch list of unsupported plugins, assuming all plugins are supported",
                 exc_info=True,
@@ -143,6 +143,7 @@ class Registry:
                 pkg.available = metadata
                 if (
                     pkg.current
+                    and pkg.current.version is not None
                     and pkg.current.parsed_version < pkg.latest.parsed_version
                 ):
                     pkg.status = "outdated"

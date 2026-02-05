@@ -14,6 +14,13 @@ sys.path.insert(0, os.path.dirname(__file__))
 
 __software_name__ = "plover"
 
+# TODO: load metadata without exec (e.g., dedicated metadata module).
+__version__ = ""
+__description__ = ""
+__url__ = ""
+__download_url__ = ""
+__license__ = ""
+
 with open(os.path.join(__software_name__, "__init__.py")) as fp:
     exec(fp.read())
 

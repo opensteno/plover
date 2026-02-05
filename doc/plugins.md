@@ -39,12 +39,13 @@ There are two ways to install plugins:
 
   Plover comes with the following machine plugins installed:
 
-  - Keyboard
   - Gemini PR
-  - TX Bolt
+  - Keyboard
   - Passport
+  - Plover HID
   - ProCAT
   - Stentura
+  - TX Bolt
 
 - **Systems**: Define new key layouts and theories. This lets Plover support
   stenographic layouts other than the standard American Stenotype system,

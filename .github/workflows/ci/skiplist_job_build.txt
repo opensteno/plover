@@ -1,5 +1,6 @@
 .github/workflows/ci/skiplist_job_test*.txt
 .gitignore
+.mailmap
 pyproject.toml
 reqs/packaging.txt
 reqs/test.txt

@@ -62,7 +62,7 @@ class ConsoleWidget(QWidget, Ui_ConsoleWidget):
         while True:
             try:
                 line = self._proc.stdout.readline()
-            except:
+            except Exception:
                 break
             if not line:
                 break

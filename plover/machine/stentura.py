@@ -2,6 +2,11 @@
 # See LICENSE.txt for details.
 # Many thanks to a steno geek for help with the protocol.
 
+import struct
+
+from plover import log
+import plover.machine.base
+
 # TODO: Come up with a mechanism to communicate back to the engine when there
 # is a connection error.
 # TODO: Address any generic exceptions still left.
@@ -144,11 +149,6 @@ DIAG (0x19):
 Unknown.
 
 """
-
-import struct
-
-from plover import log
-import plover.machine.base
 
 
 # Python 3 replacement for Python 2 buffer.

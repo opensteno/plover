@@ -50,7 +50,7 @@ class Registry:
         log.info("%s: %s (from %s)", plugin_type, entrypoint.name, entrypoint.group)
         try:
             obj = entrypoint.load()
-        except:
+        except Exception:
             log.error(
                 "error loading %s plugin: %s (from %s)",
                 plugin_type,

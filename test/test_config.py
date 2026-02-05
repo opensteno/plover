@@ -49,7 +49,9 @@ class FakeMachine:
 
     @staticmethod
     def get_option_info():
-        bool_converter = lambda s: s == "True"
+        def bool_converter(s):
+            return s == "True"
+
         return {
             "stroption1": (None, str),
             "intoption1": (3, int),

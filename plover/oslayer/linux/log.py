@@ -1,1 +1,3 @@
-from .log_dbus import DBusNotificationHandler as NotificationHandler  # pylint: disable=unused-import
+from .log_dbus import DBusNotificationHandler as NotificationHandler
+
+__all__ = ["NotificationHandler"]

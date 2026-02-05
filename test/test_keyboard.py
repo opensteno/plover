@@ -5,7 +5,7 @@ from plover.machine.keyboard import Keyboard
 from plover.machine.keymap import Keymap
 from plover.oslayer.keyboardcontrol import KeyboardCapture
 
-from .py37compat import mock
+from unittest import mock
 
 
 def send_input(capture, key_events):

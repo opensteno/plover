@@ -57,7 +57,7 @@ EOF
 
 # Switch to target Python.
 SSL_CERT_FILE="$("$python" -m certifi)"
-run_eval "appdir_python() { env PYTHONNOUSERSITE=1 "$py_home/bin/python" \"\$@\"; }"
+run_eval "appdir_python() { env PYTHONNOUSERSITE=1 \"$py_home/bin/python\" \"\$@\"; }"
 run_eval "export SSL_CERT_FILE='$SSL_CERT_FILE'"
 run_eval "unset __PYVENV_LAUNCHER__"
 python='appdir_python'
@@ -90,6 +90,9 @@ run "$python" -m plover_build_utils.source_less "$py_home/lib" "*/site-packages/
 
 # Check requirements.
 run "$python" -I -m plover_build_utils.check_requirements
+
+# Ad-hoc signing to satisfy Gatekeeper.
+run /usr/bin/codesign -s - --deep --force "$appdir"
 
 # Move the finished app to dist.
 run mv "$appdir" "$distdir"

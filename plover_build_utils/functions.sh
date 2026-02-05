@@ -323,5 +323,11 @@ git push origin "$tag"
 EOF
 }
 
-parse_opts args "$@"
-set -- "${args[@]}"
+# If this file is being executed directly (not sourced), parse options
+# This avoids running parse_opts during a simple source() from another
+# script where $@ may be empty and `set -u` is active, which can lead to
+# "unbound variable" errors when expanding arrays.
+if [ "${BASH_SOURCE[0]}" = "$0" ]; then
+  parse_opts args "$@"
+  set -- "${args[@]}"
+fi

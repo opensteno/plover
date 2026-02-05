@@ -28,18 +28,24 @@ def test_dictionary_collection():
     assert dc.lookup(("W",)) == "d"
     assert dc.lookup(("T",)) == "b"
     assert dc.lookup(("H",)) == "f"
-    assert dc.lookup(("R",)) == None
+    assert dc.lookup(("R",)) is None
     assert dc.lookup_from_all(("S",)) == [("c", d2), ("a", d1)]
     assert dc.lookup_from_all(("W",)) == [("d", d2)]
     assert dc.lookup_from_all(("T",)) == [("b", d1)]
     assert dc.lookup_from_all(("H",)) == [("f", d2), ("{PLOVER:deleted}", d1)]
     assert dc.lookup_from_all(("R",)) == [("{plover:deleted}", d2), ("e", d1)]
-    f = lambda k, v: v == "c"
+
+    def f(k, v):
+        return v == "c"
+
     dc.add_filter(f)
     assert dc.lookup(("S",)) == "a"
     assert dc.raw_lookup(("S",)) == "c"
     assert dc.lookup_from_all(("S",)) == [("a", d1)]
-    g = lambda k, v: v == "a"
+
+    def g(k, v):
+        return v == "a"
+
     dc.add_filter(g)
     assert dc.lookup(("S",)) is None
     assert dc.lookup_from_all(("S",)) == []
@@ -59,7 +65,7 @@ def test_dictionary_collection():
     assert dc.lookup(("W",)) == "d"
     assert dc.lookup(("T",)) == "b"
     assert dc.lookup(("H",)) == "f"
-    assert dc.lookup(("R",)) == None
+    assert dc.lookup(("R",)) is None
     assert dc.lookup_from_all(("S",)) == [("c", d2), ("a", d1)]
     assert dc.lookup_from_all(("W",)) == [("d", d2)]
     assert dc.lookup_from_all(("T",)) == [("b", d1)]

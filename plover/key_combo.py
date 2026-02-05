@@ -136,7 +136,9 @@ _SPLIT_RX = re.compile(r"(\s+|(?:\w+(?:\s*\()?)|.)")
 
 def parse_key_combo(combo_string, key_name_to_key_code=None):
     if key_name_to_key_code is None:
-        key_name_to_key_code = lambda key_name: key_name
+
+        def key_name_to_key_code(key_name):
+            return key_name
 
     key_events = []
     down_keys = []

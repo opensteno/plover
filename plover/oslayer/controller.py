@@ -67,7 +67,7 @@ class Controller:
             try:
                 if self._accept():
                     break
-            except Exception as e:
+            except Exception:
                 log.error("handling client failed", exc_info=True)
 
     def _send_message(self, msg):

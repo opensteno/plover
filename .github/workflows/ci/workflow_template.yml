@@ -144,10 +144,17 @@ jobs:
         run: setup_osx_python '<@ j.python @>'
 
       <% endif %>
-      <% if j.type in ['build', 'test_gui_qt'] and j.os == 'Linux' %>
+      <% if j.os == 'Linux' %>
+      <% if j.type in ['build', 'test_gui_qt'] %>
       - name: Install system dependencies
-        run: apt_get_install libdbus-1-dev libdbus-glib-1-dev libudev-dev libusb-1.0-0-dev libegl-dev libxkbcommon-x11-0
+        run: apt_get_install libdbus-1-dev libdbus-glib-1-dev libudev-dev libegl-dev libxkbcommon-x11-0 libxkbcommon-dev
 
+      <% else %>
+      # Required to install xkbcommon Python package.
+      - name: Install system dependencies
+        run: apt_get_install libxkbcommon-dev
+
+      <% endif %>
       <% endif %>
       <% if j.type != 'notarize' %>
       - name: Setup Python environment
@@ -156,8 +163,11 @@ jobs:
 
       <% endif %>
       <% if j.type == 'test_code_quality' %>
-      - name: Run Ruff (format check)
-        run: ruff format --check .
+      - name: Run linting check (Ruff)
+        run: ruff check
+
+      - name: Run format check (Ruff)
+        run: ruff format --check
 
       <% endif %>
       <% if j.type in ['build', 'test_packaging'] %>

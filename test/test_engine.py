@@ -22,7 +22,7 @@ from plover.steno_dictionary import StenoDictionaryCollection
 
 from plover_build_utils.testing import make_dict
 
-from .py37compat import mock
+from unittest import mock
 
 
 class FakeMachine(StenotypeBase):

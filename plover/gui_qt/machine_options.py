@@ -3,6 +3,7 @@ from pathlib import Path
 
 from PySide6.QtCore import Qt, Signal, Slot
 from PySide6.QtGui import (
+    QIntValidator,
     QTextCharFormat,
     QTextFrameFormat,
     QTextListFormat,
@@ -11,8 +12,8 @@ from PySide6.QtGui import (
 )
 from PySide6.QtWidgets import (
     QGroupBox,
-    QStyledItemDelegate,
     QStyle,
+    QStyledItemDelegate,
     QToolTip,
 )
 
@@ -24,6 +25,7 @@ from plover.oslayer.serial import patch_ports_info
 
 from plover.gui_qt.config_keyboard_widget_ui import Ui_KeyboardWidget
 from plover.gui_qt.config_serial_widget_ui import Ui_SerialWidget
+from plover.gui_qt.config_plover_hid_widget_ui import Ui_PloverHidWidget
 
 
 def serial_port_details(port_info):
@@ -87,7 +89,6 @@ class SerialOption(QGroupBox, Ui_SerialWidget):
             if not details:
                 return
             cursor.insertFrame(self._details_frame_format)
-            details_list = cursor.createList(self._details_list_format)
             for n, part in enumerate(details):
                 if n:
                     cursor.insertBlock()
@@ -138,15 +139,7 @@ class SerialOption(QGroupBox, Ui_SerialWidget):
         self.parity.setCurrentText(value["parity"])
         self.stopbits.addItems(map(str, Serial.STOPBITS))
         self.stopbits.setCurrentText(str(value["stopbits"]))
-        timeout = value["timeout"]
-        if timeout is None:
-            self.use_timeout.setChecked(False)
-            self.timeout.setValue(0.0)
-            self.timeout.setEnabled(False)
-        else:
-            self.use_timeout.setChecked(True)
-            self.timeout.setValue(timeout)
-            self.timeout.setEnabled(True)
+        self.timeout.setValue(value["timeout"])
         for setting in ("xonxoff", "rtscts"):
             widget = getattr(self, setting)
             if setting in value:
@@ -187,15 +180,6 @@ class SerialOption(QGroupBox, Ui_SerialWidget):
         self._update("timeout", value)
 
     @Slot(bool)
-    def update_use_timeout(self, value):
-        if value:
-            timeout = self.timeout.value()
-        else:
-            timeout = None
-        self.timeout.setEnabled(value)
-        self._update("timeout", timeout)
-
-    @Slot(bool)
     def update_xonxoff(self, value):
         self._update("xonxoff", value)
 
@@ -234,3 +218,53 @@ class KeyboardOption(QGroupBox, Ui_KeyboardWidget):
     def update_first_up_chord_send(self, value):
         self._value["first_up_chord_send"] = value
         self.valueChanged.emit(self._value)
+
+
+class PloverHidOption(QGroupBox, Ui_PloverHidWidget):
+    valueChanged = Signal(object)
+
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+        self._value = {}
+        self.repeat_delay_ms.setValidator(QIntValidator(10, 10000, self))
+        self.repeat_interval_ms.setValidator(QIntValidator(10, 10000, self))
+        self.device_scan_interval_ms.setValidator(QIntValidator(250, 100000, self))
+
+    def setValue(self, value):
+        self._value = copy(value)
+        self.first_up_chord_send.setChecked(value["first_up_chord_send"])
+        self.double_tap_repeat.setChecked(value["double_tap_repeat"])
+        self.repeat_delay_ms.setText(str(value["repeat_delay_ms"]))
+        self.repeat_interval_ms.setText(str(value["repeat_interval_ms"]))
+        self.device_scan_interval_ms.setText(
+            str(value.get("device_scan_interval_ms", 1000))
+        )
+
+    @Slot(bool)
+    def update_first_up_chord_send(self, value):
+        self._value["first_up_chord_send"] = value
+        self.valueChanged.emit(self._value)
+
+    @Slot(bool)
+    def update_double_tap_repeat(self, value):
+        self._value["double_tap_repeat"] = value
+        self.valueChanged.emit(self._value)
+
+    @Slot(str)
+    def update_repeat_delay_ms(self, text):
+        if text.isdigit():
+            self._value["repeat_delay_ms"] = int(text)
+            self.valueChanged.emit(self._value)
+
+    @Slot(str)
+    def update_repeat_interval_ms(self, text):
+        if text.isdigit():
+            self._value["repeat_interval_ms"] = int(text)
+            self.valueChanged.emit(self._value)
+
+    @Slot(str)
+    def update_device_scan_interval_ms(self, text):
+        if text.isdigit():
+            self._value["device_scan_interval_ms"] = int(text)
+            self.valueChanged.emit(self._value)

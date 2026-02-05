@@ -1,6 +1,3 @@
-# Copyright (c) 2016 Ted Morin
-# See LICENSE.txt for details.
-
 """Thread-based monitoring of a ProCAT stenotype machine."""
 
 import binascii
@@ -22,7 +19,7 @@ STENO_KEY_CHART = (None, "#", "S-", "T-", "K-", "P-", "W-", "H-",
 BYTES_PER_STROKE = 4
 
 
-class ProCAT(SerialStenotypeBase):
+class ProCat(SerialStenotypeBase):
     """Interface for ProCAT machines."""
 
     KEYS_LAYOUT = """

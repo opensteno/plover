@@ -1,7 +1,7 @@
 import os
 import gettext
 
-from plover.oslayer.config import CONFIG_DIR, PLATFORM
+from plover.oslayer.config import CONFIG_DIR
 from plover.oslayer.i18n import get_system_language
 from plover.resource import ASSET_SCHEME, resource_filename
 

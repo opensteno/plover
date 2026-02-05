@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 
-from collections import OrderedDict
 from importlib.metadata import distributions, requires, PackageNotFoundError
 from packaging.requirements import Requirement
-
-from plover.registry import Registry
 
 
 def sorted_requirements(requirements):

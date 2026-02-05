@@ -98,7 +98,7 @@ including [StenoJig][] (JavaScript) and [StenoTray][] (Java).
 -   The [Plover Wiki][Wiki] discusses Plover and Open Steno in
     general. Edits to the Wiki and new page ideas are welcome.
 -   Graphic art for Plover and stenography in general is always
-    appreciated. The app's icons are worked on at [TheaMorin/plover\_icons][].
+    appreciated. The app's icons are worked on at [panathea/plover\_icons][].
     You may consider reimagining or reposing [Plover's mascot, Dolores][Mascot].
 -   UX improvement suggestions are welcome. Plover runs on Windows, Mac,
     and Linux, and should be powerful but out of the way, which poses
@@ -137,7 +137,7 @@ Please follow through for your system:
 [Troubleshooting Common Issues]: https://plover.wiki/index.php/Troubleshooting_issues
 [Wiki]: https://plover.wiki
 [installation guide]: https://plover.wiki/index.php/Installation_Guide
-[TheaMorin/plover\_icons]: https://github.com/TheaMorin/plover_icons
+[panathea/plover\_icons]: https://github.com/panathea/plover_icons
 [Windows README]: https://github.com/openstenoproject/plover/blob/main/windows/README.md
 [Linux README]: https://github.com/openstenoproject/plover/blob/main/linux/README.md
 [macOS README]: https://github.com/openstenoproject/plover/blob/main/osx/README.md

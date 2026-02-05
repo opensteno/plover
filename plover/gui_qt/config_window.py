@@ -7,7 +7,10 @@ from PySide6.QtCore import (
     Signal,
     Slot,
 )
+from typing import Set
+
 from PySide6.QtWidgets import (
+    QAbstractScrollArea,
     QCheckBox,
     QComboBox,
     QDialog,
@@ -15,9 +18,11 @@ from PySide6.QtWidgets import (
     QFileDialog,
     QFormLayout,
     QFrame,
+    QHeaderView,
     QGroupBox,
     QLabel,
     QScrollArea,
+    QSizePolicy,
     QSpinBox,
     QStyledItemDelegate,
     QTableWidget,
@@ -26,8 +31,10 @@ from PySide6.QtWidgets import (
 
 from plover import _
 from plover.config import MINIMUM_UNDO_LEVELS, MINIMUM_TIME_BETWEEN_KEY_PRESSES
+from plover.gui_qt import appearance
 from plover.misc import expand_path, shorten_path
 from plover.registry import registry
+from plover.oslayer.config import PLATFORM
 
 from plover.gui_qt.config_window_ui import Ui_ConfigWindow
 from plover.gui_qt.config_file_widget_ui import Ui_FileWidget
@@ -118,7 +125,7 @@ class FileOption(QGroupBox, Ui_FileWidget):
 class TableOption(QTableWidget):
     def __init__(self):
         super().__init__()
-        self.horizontalHeader().setStretchLastSection(True)
+        self.horizontalHeader().setStretchLastSection(False)
         self.setSelectionMode(self.SelectionMode.SingleSelection)
         self.setTabKeyNavigation(False)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
@@ -211,9 +218,9 @@ class MultipleChoicesOption(TableOption):
 
     LABELS = (
         # i18n: Widget: “MultipleChoicesOption”.
-        _("Choice"),
-        # i18n: Widget: “MultipleChoicesOption”.
         _("Selected"),
+        # i18n: Widget: “MultipleChoicesOption”.
+        _("Choice"),
     )
 
     # i18n: Widget: “MultipleChoicesOption”.
@@ -221,20 +228,29 @@ class MultipleChoicesOption(TableOption):
         super().__init__()
         if labels is None:
             labels = self.LABELS
-        self._value = {}
+        self._value: Set[str] = set()
         self._updating = False
         self._choices = {} if choices is None else choices
         self._reversed_choices = {
             translation: choice for choice, translation in choices.items()
         }
+        self.setSizeAdjustPolicy(
+            QAbstractScrollArea.SizeAdjustPolicy.AdjustToContentsOnFirstShow
+        )
+        self.setSizePolicy(
+            QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        )
         self.setColumnCount(2)
         self.setHorizontalHeaderLabels(labels)
+        header = self.horizontalHeader()
+        header.setSectionResizeMode(0, QHeaderView.ResizeMode.ResizeToContents)
+        header.setSectionResizeMode(1, QHeaderView.ResizeMode.ResizeToContents)
+        header.setStretchLastSection(True)
+        header.setStretchLastSection(True)
         self.cellChanged.connect(self._on_cell_changed)
 
     def setValue(self, value):
         self._updating = True
-        self.resizeColumnsToContents()
-        self.setMinimumSize(self.viewportSizeHint())
         self.setRowCount(0)
         if value is None:
             value = set()
@@ -246,9 +262,6 @@ class MultipleChoicesOption(TableOption):
         for choice in sorted(self._reversed_choices):
             row += 1
             self.insertRow(row)
-            item = QTableWidgetItem(self._choices[choice])
-            item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
-            self.setItem(row, 0, item)
             item = QTableWidgetItem()
             item.setFlags(
                 (item.flags() & ~Qt.ItemFlag.ItemIsEditable)
@@ -257,19 +270,28 @@ class MultipleChoicesOption(TableOption):
             item.setCheckState(
                 Qt.CheckState.Checked if choice in value else Qt.CheckState.Unchecked
             )
+            self.setItem(row, 0, item)
+            item = QTableWidgetItem(self._choices[choice])
+            item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
             self.setItem(row, 1, item)
         self.resizeColumnsToContents()
-        self.setMinimumSize(self.viewportSizeHint())
         self._updating = False
 
     def _on_cell_changed(self, row, column):
         if self._updating:
             return
-        assert column == 1
-        choice = self._reversed_choices[
-            self.item(row, 0).data(Qt.ItemDataRole.DisplayRole)
-        ]
-        if self.item(row, 1).checkState():
+        assert column == 0
+        name_item = self.item(row, 1)
+        state_item = self.item(row, 0)
+        if name_item is None or state_item is None:
+            return
+        name = name_item.data(Qt.ItemDataRole.DisplayRole)
+        if name is None:
+            return
+        choice = self._reversed_choices.get(name)
+        if choice is None:
+            return
+        if state_item.checkState() == Qt.CheckState.Checked:
             self._value.add(choice)
         else:
             self._value.discard(choice)
@@ -284,9 +306,23 @@ class BooleanAsDualChoiceOption(ChoiceOption):
         super().__init__(choices)
 
 
+class TextWrapQLabel(QLabel):
+    """Simple QLabel wrapper that enables wordWrap"""
+
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.setWordWrap(True)
+
+
 class ConfigOption:
     def __init__(
-        self, display_name, option_name, widget_class, help_text="", dependents=()
+        self,
+        display_name,
+        option_name,
+        widget_class,
+        help_text="",
+        dependents=(),
+        additional_widget_classes=[],
     ):
         self.display_name = display_name
         self.option_name = option_name
@@ -296,6 +332,9 @@ class ConfigOption:
         self.layout = None
         self.widget = None
         self.label = None
+        # Other widgets to be added immediately after the main widget_class
+        # Does not work in dependents
+        self.additional_widget_classes = additional_widget_classes
 
 
 class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
@@ -313,6 +352,24 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
             (
                 _("Interface"),
                 (
+                    ConfigOption(
+                        _("Appearance:"),
+                        "appearance_mode",
+                        partial(
+                            ChoiceOption,
+                            choices={
+                                "system": _("System"),
+                                "light": _("Light"),
+                                "dark": _("Dark"),
+                            },
+                        ),
+                        _(
+                            "Set the application appearance:\n"
+                            "- System: follow the operating system mode\n"
+                            "- Light: force light mode\n"
+                            "- Dark: force dark mode"
+                        ),
+                    ),
                     ConfigOption(
                         _("Start minimized:"),
                         "start_minimized",
@@ -481,12 +538,26 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
                                 "colemak": "colemak",
                                 "colemak-dh": "colemak-dh",
                                 "dvorak": "dvorak",
+                                "wayland-auto": "wayland-auto",
                             },
                         ),
                         _(
-                            "Set the keyboard layout configurad in your system.\n"
-                            "This only applies when using Linux/BSD and not using X11."
+                            "Set the keyboard layout configured in your system.\n"
+                            "This only applies when using Linux/BSD and not using X11.\n\n"
+                            "When wayland-auto is selected,"
+                            "Plover is only able detect the first keyboard layout\n"
+                            "and can not detect to layout switches."
                         ),
+                        additional_widget_classes=[
+                            partial(
+                                TextWrapQLabel,
+                                _(
+                                    "When wayland-auto is selected, "
+                                    "Plover is only able detect the first keyboard layout "
+                                    "and can not detect to layout switches."
+                                ),
+                            )
+                        ],
                     ),
                 ),
             ),
@@ -495,7 +566,7 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
                 _("Plugins"),
                 (
                     ConfigOption(
-                        _("Extension:"),
+                        _("Extensions:"),
                         "enabled_extensions",
                         partial(
                             MultipleChoicesOption,
@@ -503,7 +574,7 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
                                 plugin.name: plugin.name
                                 for plugin in registry.list_plugins("extension")
                             },
-                            labels=(_("Name"), _("Enabled")),
+                            labels=(_("Enabled"), _("Name")),
                         ),
                         _("Configure enabled plugin extensions."),
                     ),
@@ -539,7 +610,7 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
         self._supported_options = set()
         for section, option_list in mappings:
             self._supported_options.update(option.option_name for option in option_list)
-        self._update_config()
+        self._load_config()
         # Create and fill tabs.
         option_by_name = {}
         for section, option_list in mappings:
@@ -552,6 +623,8 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
                 option.label.setToolTip(option.help_text)
                 option.label.setBuddy(option.widget)
                 layout.addRow(option.label, option.widget)
+                for additional_widget_class in option.additional_widget_classes:
+                    layout.addRow(None, additional_widget_class())
             frame = QFrame()
             frame.setLayout(layout)
             frame.setAccessibleName(section)
@@ -561,6 +634,29 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
             scroll_area.setWidget(frame)
             scroll_area.setFocusProxy(frame)
             self.tabs.addTab(scroll_area, section)
+
+        # platform specific overwrites
+        if PLATFORM == "linux":
+            # Appearance overwrite doesn't work on Linux so we're not showing the option
+            appearance_option = option_by_name.get("appearance_mode")
+            if appearance_option is not None:
+                appearance_option.label.hide()
+                appearance_option.widget.hide()
+        if PLATFORM != "linux":
+            # Keyboard layout is only relevant on Linux
+            keyboard_layout_option = option_by_name.get("keyboard_layout")
+            if keyboard_layout_option is not None:
+                keyboard_layout_option.label.hide()
+                keyboard_layout_option.widget.hide()
+
+        # temporary hiding start_minimized setting on macOS due to bug in
+        # macOS 26, see https://github.com/openstenoproject/plover/issues/1782
+        if PLATFORM == "mac":
+            start_minimized_option = option_by_name.get("start_minimized")
+            if start_minimized_option is not None:
+                start_minimized_option.label.hide()
+                start_minimized_option.widget.hide()
+
         # Update dependents.
         for option in option_by_name.values():
             option.dependents = [
@@ -577,18 +673,27 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
         self.restore_state()
         self.finished.connect(self.save_state)
 
-    def _update_config(self, save=False):
+    def _update_appearance(self):
+        appearance.update(self._config.maps[0])
+
+    def _save_config(self):
+        """Persist the overrides from this dialog back into the engine config.
+
+        This uses the engine's async config update mechanism; the engine thread
+        will apply the update after it processes the queued job.
+        """
         with self._engine:
-            if save:
-                self._engine.config = self._config.maps[0]
-            self._config = ChainMap(
-                {},
-                {
-                    name: value
-                    for name, value in self._engine.config.items()
-                    if name in self._supported_options
-                },
-            )
+            self._engine.config = self._config.maps[0]
+
+    def _load_config(self):
+        """Load the current config from the engine into this dialog."""
+        with self._engine:
+            base_config = {
+                name: value
+                for name, value in self._engine.config.items()
+                if name in self._supported_options
+            }
+        self._config = ChainMap({}, base_config)
 
     def _machine_option(self, *args):
         machine_options = {
@@ -651,4 +756,5 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
             dependent.widget = widget
 
     def on_apply(self):
-        self._update_config(save=True)
+        self._update_appearance()
+        self._save_config()

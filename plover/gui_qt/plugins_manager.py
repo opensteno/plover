@@ -10,9 +10,9 @@ from PySide6.QtWidgets import (
     QMessageBox,
     QTableWidgetItem,
     QInputDialog,
-    QWidget,
 )
 
+from plover import log
 from plover.gui_qt.tool import Tool
 from plover.gui_qt.info_browser import InfoBrowser
 from plover.gui_qt.plugins_manager_ui import Ui_PluginsManager
@@ -110,7 +110,7 @@ class PluginsManager(Tool, Ui_PluginsManager):
         if current_item is None:
             return
         metadata = self._get_state(current_item.row()).metadata
-        if metadata is None:
+        if metadata is None or metadata.name is None:
             return
         prologue = "<h1>%s (%s)</h1>" % (
             html.escape(metadata.name),
@@ -146,8 +146,13 @@ class PluginsManager(Tool, Ui_PluginsManager):
             os.execv(args[0], args)
 
     def _update_packages(self):
-        self._packages.update()
-        self._packages_updated.emit()
+        try:
+            self._packages.update()
+            self._packages_updated.emit()
+        except BaseException:
+            # gui_qt/main.py sets sys.excepthook, but this function is run in a thread
+            # so it doesn't apply. We catch exceptions manually.
+            log.error("Error in updating packages", exc_info=sys.exc_info())
 
     def _clear_info(self):
         self.info.setHtml("")

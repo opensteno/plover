@@ -137,7 +137,7 @@ class KeyboardLayout:
                 log.info("Mac keyboard layout changed, updating")
                 try:
                     layout._update_layout()
-                except:
+                except Exception:
                     log.warning("error during layout update, ignoring")
 
         center = Foundation.NSDistributedNotificationCenter.defaultCenter()

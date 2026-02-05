@@ -2,6 +2,7 @@
 .github/workflows/ci/skiplist_job_test.txt
 .github/workflows/ci/skiplist_job_test_packaging.txt
 .gitignore
+.mailmap
 LICENSE.txt
 linux/*
 MANIFEST.in

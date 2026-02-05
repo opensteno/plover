@@ -152,11 +152,11 @@ class _DictionaryTests:
             assert k not in d
             with pytest.raises(KeyError):
                 d[k]
-            assert d.get(k) == None
+            assert d.get(k) is None
             assert d.get(k, self.DUMMY) == self.DUMMY
         assert self.MISSING_KEY not in d
         assert d.get(self.MISSING_KEY, self.DUMMY) is self.DUMMY
-        assert d.get(self.MISSING_KEY) == None
+        assert d.get(self.MISSING_KEY) is None
         with pytest.raises(KeyError):
             d[self.MISSING_KEY]
         # Longest key check.

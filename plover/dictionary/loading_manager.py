@@ -75,7 +75,7 @@ class DictionaryLoadingOperation:
     def needs_reloading(self):
         try:
             new_timestamp = resource_timestamp(self.filename)
-        except:
+        except Exception:
             # Bad resource name, permission denied, path
             # does not exist, ...
             new_timestamp = None

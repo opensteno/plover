@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PloverHidWidget</class>
+ <widget class="QWidget" name="PloverHidWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>260</width>
+    <height>140</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string notr="true"/>
+  </property>
+  <layout class="QGridLayout">
+   <!-- Row 0: First-up chord send -->
+   <item row="0" column="0" colspan="2">
+    <widget class="QCheckBox" name="first_up_chord_send">
+     <property name="toolTip">
+      <string>When the first key in a chord is released, the chord is sent.
+If the key is pressed and released again, another chord is sent.</string>
+     </property>
+     <property name="text">
+      <string>Send chord on first key release</string>
+     </property>
+    </widget>
+   </item>
+
+   <!-- Row 1: Double tap repeat -->
+   <item row="1" column="0" colspan="2">
+    <widget class="QCheckBox" name="double_tap_repeat">
+     <property name="toolTip">
+      <string>Tap and then hold a chord to send it repeatedly.</string>
+     </property>
+     <property name="text">
+      <string>Double tap to repeat</string>
+     </property>
+    </widget>
+   </item>
+
+   <!-- Row 2: Repeat delay (ms) -->
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_repeat_delay_ms">
+     <property name="text">
+      <string>Repeat delay (ms)</string>
+     </property>
+     <property name="buddy">
+      <cstring>repeat_delay_ms</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLineEdit" name="repeat_delay_ms">
+     <property name="toolTip">
+      <string>Delay before chord starts repeating.</string>
+     </property>
+    </widget>
+   </item>
+
+   <!-- Row 3: Repeat interval (ms) -->
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_repeat_interval_ms">
+     <property name="text">
+      <string>Repeat interval (ms)</string>
+     </property>
+     <property name="buddy">
+      <cstring>repeat_interval_ms</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QLineEdit" name="repeat_interval_ms">
+     <property name="toolTip">
+      <string>Interval between chord repetitions.</string>
+     </property>
+    </widget>
+   </item>
+
+   <!-- Row 4: Device scan interval (ms) -->
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_device_scan_interval_ms">
+     <property name="text">
+      <string>Device scan interval (ms)</string>
+     </property>
+     <property name="buddy">
+      <cstring>device_scan_interval_ms</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLineEdit" name="device_scan_interval_ms">
+     <property name="toolTip">
+      <string>How often to scan for newly plugged-in devices.</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+
+ <resources/>
+ <connections>
+  <!-- Checkboxes -->
+  <connection>
+   <sender>first_up_chord_send</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>PloverHidWidget</receiver>
+   <slot>update_first_up_chord_send(bool)</slot>
+  </connection>
+  <connection>
+   <sender>double_tap_repeat</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>PloverHidWidget</receiver>
+   <slot>update_double_tap_repeat(bool)</slot>
+  </connection>
+
+  <!-- Text fields -->
+  <connection>
+   <sender>repeat_delay_ms</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>PloverHidWidget</receiver>
+   <slot>update_repeat_delay_ms(QString)</slot>
+  </connection>
+  <connection>
+   <sender>repeat_interval_ms</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>PloverHidWidget</receiver>
+   <slot>update_repeat_interval_ms(QString)</slot>
+  </connection>
+  <connection>
+   <sender>device_scan_interval_ms</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>PloverHidWidget</receiver>
+   <slot>update_device_scan_interval_ms(QString)</slot>
+  </connection>
+ </connections>
+
+ <slots>
+  <slot>update_first_up_chord_send(bool)</slot>
+  <slot>update_double_tap_repeat(bool)</slot>
+  <slot>update_repeat_delay_ms(QString)</slot>
+  <slot>update_repeat_interval_ms(QString)</slot>
+  <slot>update_device_scan_interval_ms(QString)</slot>
+ </slots>
+</ui>

@@ -7,7 +7,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>Plover</string>
 	<key>CFBundleExecutable</key>
-	<string>MacOS/Plover</string>
+	<string>Plover</string>
 	<key>CFBundleIconFile</key>
 	<string>plover.icns</string>
 	<key>CFBundleIdentifier</key>

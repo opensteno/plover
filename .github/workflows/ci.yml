@@ -273,6 +273,10 @@ jobs:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/dist.txt', 'reqs/test.txt') }}
 
+      # Required to install xkbcommon Python package.
+      - name: Install system dependencies
+        run: apt_get_install libxkbcommon-dev
+
       - name: Setup Python environment
         run: setup_python_env -c reqs/constraints.txt -r reqs/dist.txt -r reqs/test.txt        
 
@@ -439,6 +443,10 @@ jobs:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/dist.txt', 'reqs/test.txt') }}
 
+      # Required to install xkbcommon Python package.
+      - name: Install system dependencies
+        run: apt_get_install libxkbcommon-dev
+
       - name: Setup Python environment
         run: setup_python_env -c reqs/constraints.txt -r reqs/dist.txt -r reqs/test.txt        
 
@@ -492,6 +500,10 @@ jobs:
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/dist.txt', 'reqs/test.txt') }}
+
+      # Required to install xkbcommon Python package.
+      - name: Install system dependencies
+        run: apt_get_install libxkbcommon-dev
 
       - name: Setup Python environment
         run: setup_python_env -c reqs/constraints.txt -r reqs/dist.txt -r reqs/test.txt        
@@ -547,6 +559,10 @@ jobs:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/dist.txt', 'reqs/test.txt') }}
 
+      # Required to install xkbcommon Python package.
+      - name: Install system dependencies
+        run: apt_get_install libxkbcommon-dev
+
       - name: Setup Python environment
         run: setup_python_env -c reqs/constraints.txt -r reqs/dist.txt -r reqs/test.txt        
 
@@ -600,6 +616,10 @@ jobs:
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/dist.txt', 'reqs/test.txt') }}
+
+      # Required to install xkbcommon Python package.
+      - name: Install system dependencies
+        run: apt_get_install libxkbcommon-dev
 
       - name: Setup Python environment
         run: setup_python_env -c reqs/constraints.txt -r reqs/dist.txt -r reqs/test.txt        
@@ -656,7 +676,7 @@ jobs:
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/dist.txt', 'reqs/dist_extra_gui_qt.txt', 'reqs/test.txt') }}
 
       - name: Install system dependencies
-        run: apt_get_install libdbus-1-dev libdbus-glib-1-dev libudev-dev libusb-1.0-0-dev libegl-dev libxkbcommon-x11-0
+        run: apt_get_install libdbus-1-dev libdbus-glib-1-dev libudev-dev libegl-dev libxkbcommon-x11-0 libxkbcommon-dev
 
       - name: Setup Python environment
         run: setup_python_env -c reqs/constraints.txt -r reqs/dist.txt -r reqs/dist_extra_gui_qt.txt -r reqs/test.txt        
@@ -717,6 +737,10 @@ jobs:
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/packaging.txt', 'reqs/setup.txt') }}
+
+      # Required to install xkbcommon Python package.
+      - name: Install system dependencies
+        run: apt_get_install libxkbcommon-dev
 
       - name: Setup Python environment
         run: setup_python_env -c reqs/constraints.txt -r reqs/packaging.txt -r reqs/setup.txt        
@@ -805,11 +829,18 @@ jobs:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/code_quality.txt') }}
 
+      # Required to install xkbcommon Python package.
+      - name: Install system dependencies
+        run: apt_get_install libxkbcommon-dev
+
       - name: Setup Python environment
         run: setup_python_env -c reqs/constraints.txt -r reqs/code_quality.txt        
 
-      - name: Run Ruff (format check)
-        run: ruff format --check .
+      - name: Run linting check (Ruff)
+        run: ruff check
+
+      - name: Run format check (Ruff)
+        run: ruff format --check
 
       - name: Update skip cache 1
         uses: actions/cache@v4
@@ -859,7 +890,7 @@ jobs:
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/build.txt', 'reqs/setup.txt', 'reqs/dist_*.txt', 'linux/appimage/deps.sh') }}
 
       - name: Install system dependencies
-        run: apt_get_install libdbus-1-dev libdbus-glib-1-dev libudev-dev libusb-1.0-0-dev libegl-dev libxkbcommon-x11-0
+        run: apt_get_install libdbus-1-dev libdbus-glib-1-dev libudev-dev libegl-dev libxkbcommon-x11-0 libxkbcommon-dev
 
       - name: Setup Python environment
         run: setup_python_env -c reqs/constraints.txt -r reqs/build.txt -r reqs/setup.txt        
