@@ -94,7 +94,7 @@ bootstrap_dist "$plover_wheel" "${extra_args[@]}"
 run bash osx/check_universal.sh "$frameworks_dir/Python.framework" "${py_version%.*}"
 
 # Create launcher.
-run gcc -Wall -O2 -arch x86_64 -arch arm64 'osx/app_resources/plover_launcher.c' -o "$macos_dir/Plover"
+run gcc -Wall -O2 -arch x86_64 -arch arm64 -framework Cocoa 'osx/app_resources/plover_launcher.m' -o "$macos_dir/Plover"
 
 # Copy icon.
 run cp 'osx/app_resources/plover.icns' "$resources_dir/plover.icns"
