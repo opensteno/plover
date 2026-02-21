@@ -25,7 +25,14 @@ int main(int argc, char *argv[]) {
             [arguments addObject:[NSString stringWithUTF8String:argv[i]]];
         }
 
-        [NSTask launchedTaskWithLaunchPath:pythonExecutable arguments:arguments];
+        NSTask *task = [[NSTask alloc] init];
+        task.launchPath = pythonExecutable;
+        task.arguments = arguments;
+        task.terminationHandler = ^(NSTask *task) {
+            [NSApp terminate:nil];
+        };
+        
+        [task launch];
 
         return NSApplicationMain(argc, (const char **)argv);
     }
