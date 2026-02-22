@@ -94,7 +94,7 @@ bootstrap_dist "$plover_wheel" "${extra_args[@]}"
 run bash osx/check_universal.sh "$frameworks_dir/Python.framework" "${py_version%.*}"
 
 # Create launcher.
-run gcc -Wall -O2 -arch x86_64 -arch arm64 -F"$appdir/Contents/Frameworks" -Wl,-rpath,@executable_path/../Frameworks -I"$py_home/include/python${py_version%.*}" -framework Cocoa -framework Python 'osx/app_resources/plover_launcher.m' -o "$macos_dir/Plover"
+run gcc -Wall -O2 -arch x86_64 -arch arm64 -F"$appdir/Contents/Frameworks" -Wl,-rpath,@executable_path/../Frameworks -Wl,-rpath,@executable_path/../Frameworks/Python.framework -I"$py_home/include/python${py_version%.*}" -framework Cocoa -framework Python 'osx/app_resources/plover_launcher.m' -o "$macos_dir/Plover"
 run install_name_tool -change "@rpath/Versions/${py_version%.*}/Python" "@rpath/Python.framework/Versions/${py_version%.*}/Python" "$macos_dir/Plover"
 
 # Copy icon.
