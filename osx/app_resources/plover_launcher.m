@@ -15,6 +15,14 @@ int main(int argc, char *argv[]) {
 
         snprintf(python_home, sizeof(python_home), "%s/Frameworks/Python.framework/Versions/Current", app_dir_c);
 
+        // Set PYTHONUSERBASE to enable user plugins
+        char *home = getenv("HOME");
+        if (home) {
+            char python_user_base[PATH_MAX];
+            snprintf(python_user_base, sizeof(python_user_base), "%s/Library/Application Support/plover/plugins/mac", home);
+            setenv("PYTHONUSERBASE", python_user_base, 1);
+        }
+
         wchar_t *python_home_w = Py_DecodeLocale(python_home, NULL);
         if (python_home_w == NULL) {
             fprintf(stderr, "Fatal error: unable to decode python_home\n");
