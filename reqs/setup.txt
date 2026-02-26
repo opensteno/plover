@@ -1,4 +1,4 @@
-Babel
+babel
 PySide6
 setuptools
 wheel
