@@ -28,13 +28,19 @@ int main(int argc, char *argv[]) {
             fprintf(stderr, "Fatal error: unable to decode python_home\n");
             return 1;
         }
-        Py_SetPythonHome(python_home_w);
 
         // Set program name
         wchar_t* program = Py_DecodeLocale(argv[0], NULL);
-        Py_SetProgramName(program);
         
-        Py_Initialize();
+        PyConfig config;
+        PyConfig_InitPythonConfig(&config);
+        PyConfig_SetString(&config, &config.home, python_home_w);
+        PyConfig_SetString(&config, &config.program_name, program);
+        PyConfig_SetBytesArgv(&config, argc, argv); // This automatically populates sys.argv
+        
+        Py_InitializeFromConfig(&config);
+        PyConfig_Clear(&config);
+        // ------------------------------
 
         // After this point, we are in a Python interpreter.
 
@@ -54,20 +60,9 @@ int main(int argc, char *argv[]) {
         if (pModule != NULL) {
             PyObject* pFunc = PyObject_GetAttrString(pModule, "main");
             if (pFunc && PyCallable_Check(pFunc)) {
-                // Prepare arguments for main()
-                wchar_t** py_argv = (wchar_t**)PyMem_Malloc(sizeof(wchar_t*) * argc);
-                for (int i = 0; i < argc; i++) {
-                    py_argv[i] = Py_DecodeLocale(argv[i], NULL);
-                }
-                PySys_SetArgv(argc, py_argv);
-
-                // Call main()
+                
+                // Call main() - argv is already set in sys.argv!
                 PyObject* pResult = PyObject_CallObject(pFunc, NULL);
-
-                for (int i = 0; i < argc; i++) {
-                    PyMem_RawFree(py_argv[i]);
-                }
-                PyMem_RawFree(py_argv);
 
                 if (pResult == NULL) {
                     PyErr_Print();
