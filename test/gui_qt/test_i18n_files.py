@@ -6,6 +6,8 @@ import difflib
 import shutil
 from pathlib import Path
 
+import pytest
+
 
 def filter_i18n_file(lines):
     filtered = []
@@ -33,6 +35,7 @@ def filter_i18n_file(lines):
     return filtered
 
 
+@pytest.mark.gui_qt
 def test_i18n_files_up_to_date():
     # Paths setup
     root_dir = Path(__file__).parent.parent.parent.absolute()
@@ -50,7 +53,9 @@ def test_i18n_files_up_to_date():
         # 1. Run extraction into the temp POT
         # This uses the project version from plover/__init__.py
         env = os.environ.copy()
-        env["PYTHONPATH"] = os.pathsep.join([str(root_dir)] + sys.path)
+        # Ensure the project root is in PYTHONPATH so setup.py can find its modules
+        env["PYTHONPATH"] = str(root_dir)
+
         try:
             subprocess.check_output(
                 [
@@ -65,7 +70,22 @@ def test_i18n_files_up_to_date():
                 stderr=subprocess.STDOUT,
             )
         except subprocess.CalledProcessError as e:
-            print(f"\n'extract_messages' failed with output:\n{e.output.decode()}")
+            # Enhanced debug info
+            output = e.output.decode()
+            print(f"\n'extract_messages' failed with output:\n{output}")
+
+            # Check if babel is even visible to setuptools
+            try:
+                help_output = subprocess.check_output(
+                    [sys.executable, "setup.py", "--help-commands"],
+                    cwd=root_dir,
+                    env=env,
+                    stderr=subprocess.STDOUT,
+                ).decode()
+                print(f"\nAvailable setup.py commands:\n{help_output}")
+            except Exception as he:
+                print(f"\nCould not run --help-commands: {he}")
+
             raise
 
         # 2. Run update_catalog in the temp messages dir
