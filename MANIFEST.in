@@ -30,11 +30,11 @@ include plover_build_utils/*.sh
 include pyproject.toml
 include pytest.ini
 include reqs/*.txt
-include test/*.py
-include test/gui_qt/*.py
+recursive-include test *.py
 include tox.ini
 include windows/*
 exclude .pre-commit-config.yaml
+prune doc/_build
 # without first including it, exluding .readthedocs.yml results in a warning when running locally
 include .readthedocs.yml
 exclude .readthedocs.yml

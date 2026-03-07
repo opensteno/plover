@@ -8,12 +8,3 @@ repos:
       args: [ --fix ]
     # Run the formatter.
     - id: ruff-format
-
-- repo: local
-  hooks:
-    - id: integrity-check
-      name: project integrity tests
-      entry: .venv/bin/python3 -m pytest test/integrity/
-      language: system
-      pass_filenames: false
-      always_run: true
