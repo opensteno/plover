@@ -1,3 +1,4 @@
+import os
 import subprocess
 import sys
 import tempfile
@@ -48,29 +49,45 @@ def test_i18n_files_up_to_date():
 
         # 1. Run extraction into the temp POT
         # This uses the project version from plover/__init__.py
-        subprocess.check_call(
-            [sys.executable, "setup.py", "extract_messages", "-o", str(tmp_pot_path)],
-            cwd=root_dir,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
+        env = os.environ.copy()
+        env["PYTHONPATH"] = os.pathsep.join([str(root_dir)] + sys.path)
+        try:
+            subprocess.check_output(
+                [
+                    sys.executable,
+                    "setup.py",
+                    "extract_messages",
+                    "-o",
+                    str(tmp_pot_path),
+                ],
+                cwd=root_dir,
+                env=env,
+                stderr=subprocess.STDOUT,
+            )
+        except subprocess.CalledProcessError as e:
+            print(f"\n'extract_messages' failed with output:\n{e.output.decode()}")
+            raise
 
         # 2. Run update_catalog in the temp messages dir
         # Our overridden command handles Project-Id-Version automatically
-        subprocess.check_call(
-            [
-                sys.executable,
-                "setup.py",
-                "update_catalog",
-                "-i",
-                str(tmp_pot_path),
-                "-d",
-                str(tmp_messages_dir),
-            ],
-            cwd=root_dir,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
+        try:
+            subprocess.check_output(
+                [
+                    sys.executable,
+                    "setup.py",
+                    "update_catalog",
+                    "-i",
+                    str(tmp_pot_path),
+                    "-d",
+                    str(tmp_messages_dir),
+                ],
+                cwd=root_dir,
+                env=env,
+                stderr=subprocess.STDOUT,
+            )
+        except subprocess.CalledProcessError as e:
+            print(f"\n'update_catalog' failed with output:\n{e.output.decode()}")
+            raise
 
         # 3. Compare POT
         with open(pot_path, "r", encoding="utf-8") as f:
