@@ -8,6 +8,8 @@ from pathlib import Path
 
 import pytest
 
+import plover
+
 
 def filter_i18n_file(lines):
     filtered = []
@@ -35,6 +37,20 @@ def filter_i18n_file(lines):
     return filtered
 
 
+def run_pybabel(args, cwd, env):
+    cmd = [sys.executable, "-m", "babel.messages.frontend"] + args
+    try:
+        return subprocess.check_output(
+            cmd,
+            cwd=cwd,
+            env=env,
+            stderr=subprocess.STDOUT,
+        )
+    except subprocess.CalledProcessError as e:
+        print(f"\nCommand {' '.join(cmd)} failed with output:\n{e.output.decode()}")
+        raise
+
+
 @pytest.mark.gui_qt
 def test_i18n_files_up_to_date():
     # Paths setup
@@ -50,64 +66,44 @@ def test_i18n_files_up_to_date():
 
         tmp_pot_path = tmp_messages_dir / "plover.pot"
 
-        # 1. Run extraction into the temp POT
-        # This uses the project version from plover/__init__.py
         env = os.environ.copy()
-        # Ensure the project root is in PYTHONPATH so setup.py can find its modules
+        # Ensure the project root is in PYTHONPATH
         env["PYTHONPATH"] = str(root_dir)
 
-        try:
-            subprocess.check_output(
-                [
-                    sys.executable,
-                    "setup.py",
-                    "extract_messages",
-                    "-o",
-                    str(tmp_pot_path),
-                ],
-                cwd=root_dir,
-                env=env,
-                stderr=subprocess.STDOUT,
-            )
-        except subprocess.CalledProcessError as e:
-            # Enhanced debug info
-            output = e.output.decode()
-            print(f"\n'extract_messages' failed with output:\n{output}")
-
-            # Check if babel is even visible to setuptools
-            try:
-                help_output = subprocess.check_output(
-                    [sys.executable, "setup.py", "--help-commands"],
-                    cwd=root_dir,
-                    env=env,
-                    stderr=subprocess.STDOUT,
-                ).decode()
-                print(f"\nAvailable setup.py commands:\n{help_output}")
-            except Exception as he:
-                print(f"\nCould not run --help-commands: {he}")
-
-            raise
+        # 1. Run extraction into the temp POT
+        # Matches settings in plover_build_utils/setup.py:babel_options
+        run_pybabel(
+            [
+                "extract",
+                "--project",
+                "plover",
+                "--version",
+                plover.__version__,
+                "--add-comments",
+                "i18n:",
+                "--strip-comments",
+                "-o",
+                str(tmp_pot_path),
+                "plover",
+            ],
+            cwd=root_dir,
+            env=env,
+        )
 
         # 2. Run update_catalog in the temp messages dir
-        # Our overridden command handles Project-Id-Version automatically
-        try:
-            subprocess.check_output(
-                [
-                    sys.executable,
-                    "setup.py",
-                    "update_catalog",
-                    "-i",
-                    str(tmp_pot_path),
-                    "-d",
-                    str(tmp_messages_dir),
-                ],
-                cwd=root_dir,
-                env=env,
-                stderr=subprocess.STDOUT,
-            )
-        except subprocess.CalledProcessError as e:
-            print(f"\n'update_catalog' failed with output:\n{e.output.decode()}")
-            raise
+        run_pybabel(
+            [
+                "update",
+                "--domain",
+                "plover",
+                "-i",
+                str(tmp_pot_path),
+                "-d",
+                str(tmp_messages_dir),
+            ],
+            cwd=root_dir,
+            env=env,
+        )
 
         # 3. Compare POT
         with open(pot_path, "r", encoding="utf-8") as f:

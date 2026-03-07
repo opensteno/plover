@@ -68,7 +68,7 @@ jobs:
   - <<: *test
     type: test_gui_qt
     variant: Qt GUI
-    reqs: ["dist", "dist_extra_gui_qt", "test"]
+    reqs: ["dist", "dist_extra_gui_qt", "setup", "test"]
     skiplists: ["job_test_gui_qt"]
     test_args: test/gui_qt
 
