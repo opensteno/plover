@@ -2,12 +2,9 @@ import re
 
 
 def gettext(contents):
-    # replace ``_translate("context", `` by ``_(``
+    # replace ``QCoreApplication.translate("context", `` by ``_(``
     contents = re.sub(
         r"\n", ('\n_ = __import__(__package__.split(".", 1)[0])._\n'), contents, 1
-    )
-    contents = re.sub(
-        r"\n\s+_translate = QtCore\.QCoreApplication\.translate\n", "\n", contents
     )
 
     def repl(m):
@@ -21,12 +18,14 @@ def gettext(contents):
             comment += ", {field}".format(field=field)
         comment += "."
         gd["pre2"] = gd["pre2"] or ""
-        return "{comment}\n{ws}{pre1}{pre2}_(".format(comment=comment, **gd)
+        return "{comment}\n{ws}{pre1}{pre2}_({msg}".format(comment=comment, **gd)
 
     contents = re.sub(
         (
             r"(?P<ws> *)(?P<pre1>.*?)(?P<pre2>\.set(?P<field>\w+)\()?"
-            r'\b_translate\("(?P<widget>.*)",\s'
+            r'(?:QCoreApplication\.translate)\("(?P<widget>.*?)",\s*'
+            r'(?P<msg>u?"(?:[^"\\]|\\.)*?")'
+            r"(?:,\s*None)?"
         ),
         repl,
         contents,

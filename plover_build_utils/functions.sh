@@ -303,6 +303,10 @@ release_prepare()
   run "$python" setup.py patch_version "$1"
   run git add plover/__init__.py
   run git add doc/conf.py
+  run "$python" setup.py extract_messages
+  run git add plover/messages/plover.pot
+  run "$python" setup.py update_catalog
+  run git add plover/messages/*/*/*.po
   run towncrier build --version "$1" --yes
 }
 

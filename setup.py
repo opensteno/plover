@@ -2,6 +2,7 @@
 # Copyright (c) 2010 Joshua Harlan Lifton.
 # See LICENSE.txt for details.
 
+import glob
 import os
 import re
 import subprocess
@@ -190,6 +191,18 @@ class PatchVersion(Command):
         self.patch_version(
             doc_conf_file_path, r"^release = .*$", 'release = "%s"', version
         )
+
+        from babel.messages.pofile import read_po, write_po
+
+        for messages_file_path in glob.glob(
+            os.path.join("plover", "messages", "*", "LC_MESSAGES", "plover.po")
+        ):
+            with open(messages_file_path, "rb") as fp:
+                catalog = read_po(fp)
+            catalog.project = __software_name__
+            catalog.version = version
+            with open(messages_file_path, "wb") as fp:
+                write_po(fp, catalog)
 
 
 cmdclass["patch_version"] = PatchVersion

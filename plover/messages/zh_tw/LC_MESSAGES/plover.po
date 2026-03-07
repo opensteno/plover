@@ -1,25 +1,24 @@
-# Translations template for plover.
+# Chinese (Traditional, Taiwan) translations for plover.
 # Copyright (C) 2021 ORGANIZATION
 # This file is distributed under the same license as the plover project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: plover 4.0.0.dev8\n"
+"Project-Id-Version: plover 5.2.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-04-16 05:40+0200\n"
+"POT-Creation-Date: 2026-03-07 10:58+0100\n"
 "PO-Revision-Date: 2021-08-25 14:34+0800\n"
-"Language-Team: \n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.0\n"
-"X-Generator: Poedit 3.0\n"
 "Last-Translator: \n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "Language: zh_TW\n"
+"Language-Team: \n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
 
-#: plover/__init__.py:19
+#: plover/__init__.py:22
 msgid ""
 "Founded by stenographer Mirabai Knight.\n"
 "\n"
@@ -49,11 +48,11 @@ msgstr ""
 "<https://github.com/openstenoproject/plover>"
 
 #. Short description for Plover, currently not used in the interface.
-#: plover/__init__.py:33
+#: plover/__init__.py:38
 msgid "Open Source Stenography Software"
 msgstr "開源速錄軟體"
 
-#: plover/__init__.py:34
+#: plover/__init__.py:39
 msgid ""
 "Plover is a free open source program intended to bring realtime\n"
 "stenographic technology not just to stenographers, but also to\n"
@@ -63,207 +62,393 @@ msgstr ""
 "其目的在將實時速錄技術帶給專業速錄師、程式設計師、\n"
 "業餘愛好者、以及追求速度的狂人。"
 
-#. Widget: “AboutDialog”, windowtitle.
-#: plover/gui_qt/about_dialog_ui.py:38
+#: plover/dictionary/helpers.py:24
+#, python-format
+msgid "dictionary `%s` loaded with %u invalid steno errors"
+msgstr ""
+
+#. Widget: “AboutDialog”, window title.
+#: plover/gui_qt/about_dialog_ui.py:53
 msgid "Plover: About"
 msgstr "Plover: 關於"
 
 #. Widget: “AddTranslationDialog”, tooltip.
 #. Widget: “AddTranslationWidget”, tooltip.
-#: plover/gui_qt/add_translation_dialog.py:8
-#: plover/gui_qt/add_translation_widget.py:22
+#: plover/gui_qt/add_translation_dialog.py:11
+#: plover/gui_qt/add_translation_widget.py:23
 msgid "Add a new translation to the dictionary."
 msgstr "在字典中添加新的翻譯。"
 
-#: plover/gui_qt/add_translation_dialog.py:10
+#: plover/gui_qt/add_translation_dialog.py:13
 msgid "Add Translation"
 msgstr "添加翻譯"
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:199
+#: plover/gui_qt/add_translation_widget.py:194
+#, python-brace-format
 msgid "{dictionary} (disabled)"
 msgstr "{dictionary} (已禁用)"
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:258
+#: plover/gui_qt/add_translation_widget.py:260
+#, python-brace-format
 msgid "{strokes} maps to "
 msgstr "{strokes} 對映至 "
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:269
+#: plover/gui_qt/add_translation_widget.py:272
 msgid "Overwritten entries:"
 msgstr "被覆蓋的項目："
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:274
+#: plover/gui_qt/add_translation_widget.py:277
+#, python-brace-format
 msgid "{strokes} is not mapped in any dictionary"
 msgstr "{strokes} 在所有字典中皆尚未指定"
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:290
+#: plover/gui_qt/add_translation_widget.py:291
+#, python-brace-format
 msgid "{translation} is mapped to: {strokes}"
 msgstr "{translation}對映至： {strokes}"
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:293
+#: plover/gui_qt/add_translation_widget.py:294
+#, python-brace-format
 msgid "{translation} is not in the dictionary"
 msgstr "{translation} 並不在此字典內"
 
 #. Widget: “AddTranslationWidget”, text.
-#: plover/gui_qt/add_translation_widget_ui.py:101
-msgid "Strokes:"
-msgstr "和弦："
-
-#. Widget: “AddTranslationWidget”, text.
-#: plover/gui_qt/add_translation_widget_ui.py:103
-msgid "Translation:"
-msgstr "翻譯："
-
-#. Widget: “AddTranslationWidget”, text.
-#: plover/gui_qt/add_translation_widget_ui.py:105
+#: plover/gui_qt/add_translation_widget_ui.py:124
 msgid "Dictionary:"
 msgstr "字典："
 
+#. Widget: “AddTranslationWidget”, text.
+#: plover/gui_qt/add_translation_widget_ui.py:126
+msgid "Strokes:"
+msgstr "和弦："
+
+#. Widget: “AddTranslationWidget”, accessible name.
+#. Widget: “DictionaryEditor”.
+#: plover/gui_qt/add_translation_widget_ui.py:129
+#: plover/gui_qt/dictionary_editor.py:170
+msgid "Strokes"
+msgstr "和弦"
+
+#. Widget: “AddTranslationWidget”, text.
+#: plover/gui_qt/add_translation_widget_ui.py:132
+msgid "Translation:"
+msgstr "翻譯："
+
+#. Widget: “AddTranslationWidget”, accessible name.
+#. Widget: “DictionaryEditor”.
+#: plover/gui_qt/add_translation_widget_ui.py:135
+#: plover/gui_qt/dictionary_editor.py:173
+msgid "Translation"
+msgstr "翻譯"
+
+#. Widget: “AddTranslationWidget”, accessible name.
+#. Widget: “DictionaryEditor”.
+#: plover/gui_qt/add_translation_widget_ui.py:139
+#: plover/gui_qt/dictionary_editor.py:176
+msgid "Dictionary"
+msgstr "字典"
+
+#. Widget: “AddTranslationWidget”, accessible description.
+#: plover/gui_qt/add_translation_widget_ui.py:143
+#, fuzzy
+msgid "Select the target dictionary for the new translation."
+msgstr "在字典內尋找翻譯。"
+
+#. Widget: “AddTranslationWidget”, accessible name.
+#: plover/gui_qt/add_translation_widget_ui.py:147
+msgid "Existing mappings (strokes)"
+msgstr ""
+
+#. Widget: “AddTranslationWidget”, accessible name.
+#: plover/gui_qt/add_translation_widget_ui.py:152
+msgid "Existing mappings (translations)"
+msgstr ""
+
+#. Widget: “FileWidget”, accessible name.
+#: plover/gui_qt/config_file_widget_ui.py:61
+#, fuzzy
+msgid "Log file path."
+msgstr "紀錄檔："
+
+#. Widget: “FileWidget”, accessible description.
+#: plover/gui_qt/config_file_widget_ui.py:65
+#, fuzzy
+msgid "Path to the log file."
+msgstr "將和弦紀錄至紀錄檔。"
+
+#. Widget: “FileWidget”, accessible name.
+#: plover/gui_qt/config_file_widget_ui.py:69
+#, fuzzy
+msgid "Browse."
+msgstr "瀏覽"
+
+#. Widget: “FileWidget”, accessible description.
+#: plover/gui_qt/config_file_widget_ui.py:73
+#, fuzzy
+msgid "Open a file picker to select the log file."
+msgstr "將和弦紀錄至紀錄檔。"
+
 #. Widget: “FileWidget”, text.
-#: plover/gui_qt/config_file_widget_ui.py:45
+#: plover/gui_qt/config_file_widget_ui.py:76
 msgid "Browse"
 msgstr "瀏覽"
 
+#. Widget: “KeyboardWidget”, tool tip.
+#. Widget: “PloverHidWidget”, tool tip.
+#: plover/gui_qt/config_keyboard_widget_ui.py:56
+#: plover/gui_qt/config_plover_hid_widget_ui.py:89
+msgid ""
+"When the first key in a chord is released, the chord is sent.\n"
+"If the key is pressed and released again, another chord is sent."
+msgstr ""
+
 #. Widget: “KeyboardWidget”, text.
-#: plover/gui_qt/config_keyboard_widget_ui.py:36
+#: plover/gui_qt/config_keyboard_widget_ui.py:60
+msgid "First-up chord send"
+msgstr ""
+
+#. Widget: “KeyboardWidget”, text.
+#: plover/gui_qt/config_keyboard_widget_ui.py:62
 msgid "Arpeggiate"
 msgstr "琶音"
 
+#. Widget: “PloverHidWidget”, text.
+#: plover/gui_qt/config_plover_hid_widget_ui.py:93
+msgid "Send chord on first key release"
+msgstr ""
+
+#. Widget: “PloverHidWidget”, tool tip.
+#: plover/gui_qt/config_plover_hid_widget_ui.py:96
+msgid "Tap and then hold a chord to send it repeatedly."
+msgstr ""
+
+#. Widget: “PloverHidWidget”, text.
+#: plover/gui_qt/config_plover_hid_widget_ui.py:99
+msgid "Double tap to repeat"
+msgstr ""
+
+#. Widget: “PloverHidWidget”, text.
+#: plover/gui_qt/config_plover_hid_widget_ui.py:101
+msgid "Repeat delay (ms)"
+msgstr ""
+
+#. Widget: “PloverHidWidget”, tool tip.
+#: plover/gui_qt/config_plover_hid_widget_ui.py:104
+msgid "Delay before chord starts repeating."
+msgstr ""
+
+#. Widget: “PloverHidWidget”, text.
+#: plover/gui_qt/config_plover_hid_widget_ui.py:107
+msgid "Repeat interval (ms)"
+msgstr ""
+
+#. Widget: “PloverHidWidget”, tool tip.
+#: plover/gui_qt/config_plover_hid_widget_ui.py:110
+msgid "Interval between chord repetitions."
+msgstr ""
+
+#. Widget: “PloverHidWidget”, text.
+#: plover/gui_qt/config_plover_hid_widget_ui.py:113
+msgid "Device scan interval (ms)"
+msgstr ""
+
+#. Widget: “PloverHidWidget”, tool tip.
+#: plover/gui_qt/config_plover_hid_widget_ui.py:116
+msgid "How often to scan for newly plugged-in devices."
+msgstr ""
+
+#. Widget: “SerialWidget”, accessible name.
+#: plover/gui_qt/config_serial_widget_ui.py:215
+msgid "Serial"
+msgstr ""
+
 #. Widget: “SerialWidget”, title.
-#: plover/gui_qt/config_serial_widget_ui.py:209
+#: plover/gui_qt/config_serial_widget_ui.py:218
 msgid "Connection"
 msgstr "連接"
 
 #. Widget: “SerialWidget”, text.
-#: plover/gui_qt/config_serial_widget_ui.py:211
+#. Widget: “SerialWidget”, accessible name.
+#: plover/gui_qt/config_serial_widget_ui.py:220
+#: plover/gui_qt/config_serial_widget_ui.py:223
 msgid "Port"
 msgstr "連接埠"
 
-#. Widget: “SerialWidget”, text.
-#: plover/gui_qt/config_serial_widget_ui.py:213
-msgid "Scan"
-msgstr "偵測"
+#. Widget: “SerialWidget”, accessible description.
+#: plover/gui_qt/config_serial_widget_ui.py:227
+msgid "Serial port device name."
+msgstr ""
+
+#. Widget: “SerialWidget”, accessible description.
+#: plover/gui_qt/config_serial_widget_ui.py:231
+msgid "Reload all available serial ports."
+msgstr ""
 
 #. Widget: “SerialWidget”, text.
-#: plover/gui_qt/config_serial_widget_ui.py:215
+#. Widget: “PluginsManager”, text.
+#: plover/gui_qt/config_serial_widget_ui.py:234
+#: plover/gui_qt/plugins_manager_ui.py:146
+msgid "Refresh"
+msgstr ""
+
+#. Widget: “SerialWidget”, text.
+#. Widget: “SerialWidget”, accessible name.
+#: plover/gui_qt/config_serial_widget_ui.py:236
+#: plover/gui_qt/config_serial_widget_ui.py:239
 msgid "Baudrate"
 msgstr "傳輸速率"
 
 #. Widget: “SerialWidget”, title.
-#: plover/gui_qt/config_serial_widget_ui.py:217
+#: plover/gui_qt/config_serial_widget_ui.py:242
 msgid "Data format"
 msgstr "資料形式"
 
 #. Widget: “SerialWidget”, text.
-#: plover/gui_qt/config_serial_widget_ui.py:219
+#. Widget: “SerialWidget”, accessible name.
+#: plover/gui_qt/config_serial_widget_ui.py:244
+#: plover/gui_qt/config_serial_widget_ui.py:247
 msgid "Data bits"
 msgstr "資料位元數"
 
 #. Widget: “SerialWidget”, text.
-#: plover/gui_qt/config_serial_widget_ui.py:221
+#. Widget: “SerialWidget”, accessible name.
+#: plover/gui_qt/config_serial_widget_ui.py:250
+#: plover/gui_qt/config_serial_widget_ui.py:253
 msgid "Stop bits"
 msgstr "停止位元數"
 
 #. Widget: “SerialWidget”, text.
-#: plover/gui_qt/config_serial_widget_ui.py:223
+#. Widget: “SerialWidget”, accessible name.
+#: plover/gui_qt/config_serial_widget_ui.py:256
+#: plover/gui_qt/config_serial_widget_ui.py:259
 msgid "Parity"
 msgstr "同位元檢查"
 
 #. Widget: “SerialWidget”, title.
-#: plover/gui_qt/config_serial_widget_ui.py:225
+#: plover/gui_qt/config_serial_widget_ui.py:265
 msgid "Timeout"
 msgstr "等待時間"
 
 #. Widget: “SerialWidget”, text.
-#: plover/gui_qt/config_serial_widget_ui.py:227
-msgid "seconds"
-msgstr "秒"
+#: plover/gui_qt/config_serial_widget_ui.py:267
+msgid "Duration (s)"
+msgstr ""
 
-#. Widget: “SerialWidget”, text.
-#: plover/gui_qt/config_serial_widget_ui.py:229
-msgid "Use timeout"
-msgstr "使用等待時間"
+#. Widget: “SerialWidget”, accessible name.
+#: plover/gui_qt/config_serial_widget_ui.py:270
+#, fuzzy
+msgid "Duration"
+msgstr "字根"
+
+#. Widget: “SerialWidget”, accessible description.
+#: plover/gui_qt/config_serial_widget_ui.py:274
+msgid "Timeout duration in seconds."
+msgstr ""
 
 #. Widget: “SerialWidget”, title.
-#: plover/gui_qt/config_serial_widget_ui.py:231
+#: plover/gui_qt/config_serial_widget_ui.py:277
 msgid "Flow control"
 msgstr "流量控制"
 
 #. Widget: “SerialWidget”, text.
-#: plover/gui_qt/config_serial_widget_ui.py:233
+#: plover/gui_qt/config_serial_widget_ui.py:279
 msgid "Xon/Xoff"
 msgstr "Xon/Xoff"
 
 #. Widget: “SerialWidget”, text.
-#: plover/gui_qt/config_serial_widget_ui.py:235
+#: plover/gui_qt/config_serial_widget_ui.py:281
 msgid "RTS/CTS"
 msgstr "RTS/CTS"
 
 #. Widget: “NopeOption” (empty config option message,
 #. e.g. the machine option when selecting the Treal machine).
-#: plover/gui_qt/config_window.py:45
+#: plover/gui_qt/config_window.py:51
 msgid "Nothing to see here!"
 msgstr "這裡沒有東西！"
 
 #. Widget: “KeymapOption”.
-#: plover/gui_qt/config_window.py:145
+#: plover/gui_qt/config_window.py:173
 msgid "Key"
 msgstr "按鍵"
 
 #. Widget: “KeymapOption”.
-#: plover/gui_qt/config_window.py:147
+#: plover/gui_qt/config_window.py:175
 msgid "Action"
 msgstr "字根"
 
 #. Widget: “MultipleChoicesOption”.
-#: plover/gui_qt/config_window.py:196
-msgid "Choice"
-msgstr "選項"
-
-#. Widget: “MultipleChoicesOption”.
-#: plover/gui_qt/config_window.py:198
+#: plover/gui_qt/config_window.py:221
 msgid "Selected"
 msgstr "已選取"
 
-#. Widget: “ConfigWindow”.
-#: plover/gui_qt/config_window.py:294
+#. Widget: “MultipleChoicesOption”.
+#: plover/gui_qt/config_window.py:223
+msgid "Choice"
+msgstr "選項"
+
+#: plover/gui_qt/config_window.py:354
 msgid "Interface"
 msgstr "界面"
 
-#: plover/gui_qt/config_window.py:295
+#: plover/gui_qt/config_window.py:357
+msgid "Appearance:"
+msgstr ""
+
+#: plover/gui_qt/config_window.py:362 plover/gui_qt/config_window.py:586
+msgid "System"
+msgstr "語言系統"
+
+#: plover/gui_qt/config_window.py:363
+msgid "Light"
+msgstr ""
+
+#: plover/gui_qt/config_window.py:364
+msgid "Dark"
+msgstr ""
+
+#: plover/gui_qt/config_window.py:368
+msgid ""
+"Set the application appearance:\n"
+"- System: follow the operating system mode\n"
+"- Light: force light mode\n"
+"- Dark: force dark mode"
+msgstr ""
+
+#: plover/gui_qt/config_window.py:375
 msgid "Start minimized:"
 msgstr "啟用時最小化:"
 
-#: plover/gui_qt/config_window.py:296
+#: plover/gui_qt/config_window.py:378
 msgid "Minimize the main window to systray on startup."
 msgstr "開啟程式時將主視窗最小化。"
 
-#: plover/gui_qt/config_window.py:297
+#: plover/gui_qt/config_window.py:381
 msgid "Show paper tape:"
 msgstr "顯示輸入紙帶:"
 
-#: plover/gui_qt/config_window.py:298
+#: plover/gui_qt/config_window.py:384
 msgid "Open the paper tape on startup."
 msgstr "開啟程式時同時開啟輸入紙帶。"
 
-#: plover/gui_qt/config_window.py:299
+#: plover/gui_qt/config_window.py:387
 msgid "Show suggestions:"
 msgstr "顯示和弦建議:"
 
-#: plover/gui_qt/config_window.py:300
+#: plover/gui_qt/config_window.py:390
 msgid "Open the suggestions dialog on startup."
 msgstr "開啟程式時同時開啟和弦建議視窗。"
 
-#: plover/gui_qt/config_window.py:301
+#: plover/gui_qt/config_window.py:393
 msgid "Add translation dialog opacity:"
 msgstr "「新增翻譯」視窗透明度:"
 
-#: plover/gui_qt/config_window.py:303
+#: plover/gui_qt/config_window.py:397
 msgid ""
 "Set the translation dialog opacity:\n"
 "- 0 makes the dialog invisible\n"
@@ -272,99 +457,96 @@ msgstr ""
 "設定「新增翻譯」視窗透明度\n"
 "-0為完全透明，100為完全不透明"
 
-#: plover/gui_qt/config_window.py:306
+#: plover/gui_qt/config_window.py:403
 msgid "Dictionaries display order:"
 msgstr "字典顯示順序："
 
-#: plover/gui_qt/config_window.py:308
+#: plover/gui_qt/config_window.py:406
 msgid "top-down"
 msgstr "由上而下"
 
-#: plover/gui_qt/config_window.py:308
+#: plover/gui_qt/config_window.py:406
 msgid "bottom-up"
 msgstr "由下而上"
 
-#: plover/gui_qt/config_window.py:309
+#: plover/gui_qt/config_window.py:409
 msgid ""
 "Set the display order for dictionaries:\n"
 "- top-down: match the search order; highest priority first\n"
 "- bottom-up: reverse search order; lowest priority first\n"
 msgstr "設定字典的顯示順序。\n"
 
-#. Widget: “ConfigWindow”.
-#: plover/gui_qt/config_window.py:314
+#: plover/gui_qt/config_window.py:418
 msgid "Logging"
 msgstr "輸入紀錄"
 
-#: plover/gui_qt/config_window.py:315
+#: plover/gui_qt/config_window.py:421
 msgid "Log file:"
 msgstr "紀錄檔："
 
-#: plover/gui_qt/config_window.py:317
+#: plover/gui_qt/config_window.py:424
 msgid "Select a log file"
 msgstr "選擇紀錄檔"
 
-#: plover/gui_qt/config_window.py:318
+#: plover/gui_qt/config_window.py:424
 msgid "Log files (*.log)"
 msgstr "記錄檔（*.log）"
 
-#: plover/gui_qt/config_window.py:319
+#: plover/gui_qt/config_window.py:426
 msgid "File to use for logging strokes/translations."
 msgstr "用來記錄輸入過的和弦、翻譯的檔案。"
 
-#: plover/gui_qt/config_window.py:320
+#: plover/gui_qt/config_window.py:429
 msgid "Log strokes:"
 msgstr "紀錄和弦："
 
-#: plover/gui_qt/config_window.py:321
+#: plover/gui_qt/config_window.py:432
 msgid "Save strokes to the logfile."
 msgstr "將和弦紀錄至紀錄檔。"
 
-#: plover/gui_qt/config_window.py:322
+#: plover/gui_qt/config_window.py:435
 msgid "Log translations:"
 msgstr "紀錄翻譯："
 
-#: plover/gui_qt/config_window.py:323
+#: plover/gui_qt/config_window.py:438
 msgid "Save translations to the logfile."
 msgstr "將翻譯紀錄至紀錄檔。"
 
-#. Widget: “ConfigWindow”.
 #. Widget: “MainWindow”, title.
-#: plover/gui_qt/config_window.py:326 plover/gui_qt/main_window_ui.py:170
+#: plover/gui_qt/config_window.py:444 plover/gui_qt/main_window_ui.py:260
 msgid "Machine"
 msgstr "輸入硬體"
 
-#: plover/gui_qt/config_window.py:327
+#: plover/gui_qt/config_window.py:447
 msgid "Machine:"
 msgstr "輸入硬體:"
 
-#: plover/gui_qt/config_window.py:332
+#: plover/gui_qt/config_window.py:459
 msgid "Options:"
 msgstr "選項:"
 
-#: plover/gui_qt/config_window.py:333
+#: plover/gui_qt/config_window.py:461
 msgid "Keymap:"
 msgstr "按鍵映射:"
 
-#. Widget: “ConfigWindow”.
 #. Widget: “MainWindow”, title.
-#: plover/gui_qt/config_window.py:336 plover/gui_qt/main_window_ui.py:174
+#: plover/gui_qt/config_window.py:466 plover/gui_qt/main_window_ui.py:292
 msgid "Output"
 msgstr "輸出"
 
-#: plover/gui_qt/config_window.py:337
+#: plover/gui_qt/config_window.py:469
 msgid "Enable at start:"
 msgstr "啟用時啟用輸出："
 
-#: plover/gui_qt/config_window.py:338
+#: plover/gui_qt/config_window.py:472
 msgid "Enable output on startup."
 msgstr "啟用時啟用輸出。"
 
-#: plover/gui_qt/config_window.py:339
+#: plover/gui_qt/config_window.py:475
 msgid "Start attached:"
 msgstr "首字取消空白："
 
-#: plover/gui_qt/config_window.py:340
+#: plover/gui_qt/config_window.py:479
 msgid ""
 "Disable preceding space on first output.\n"
 "\n"
@@ -374,35 +556,35 @@ msgstr ""
 "\n"
 "這個選項只適用於空白放置於字串前方時。"
 
-#: plover/gui_qt/config_window.py:343
+#: plover/gui_qt/config_window.py:485
 msgid "Start capitalized:"
 msgstr "首字大寫："
 
-#: plover/gui_qt/config_window.py:344
+#: plover/gui_qt/config_window.py:488
 msgid "Capitalize the first word."
 msgstr "將第一個字母大寫。"
 
-#: plover/gui_qt/config_window.py:345
+#: plover/gui_qt/config_window.py:491
 msgid "Space placement:"
 msgstr "空白的放置位置："
 
-#: plover/gui_qt/config_window.py:347
+#: plover/gui_qt/config_window.py:496
 msgid "Before Output"
 msgstr "在字串前面"
 
-#: plover/gui_qt/config_window.py:348
+#: plover/gui_qt/config_window.py:497
 msgid "After Output"
 msgstr "在字串後面"
 
-#: plover/gui_qt/config_window.py:350
+#: plover/gui_qt/config_window.py:500
 msgid "Set automatic space placement: before or after each word."
 msgstr "設定空白的放置位置。"
 
-#: plover/gui_qt/config_window.py:351
+#: plover/gui_qt/config_window.py:503
 msgid "Undo levels:"
 msgstr "最大回復次數："
 
-#: plover/gui_qt/config_window.py:355
+#: plover/gui_qt/config_window.py:507
 msgid ""
 "Set how many preceding strokes can be undone.\n"
 "\n"
@@ -410,138 +592,206 @@ msgid ""
 "dictionaries entry with the maximum number of strokes."
 msgstr "設定回復的最大次數。"
 
-#. Widget: “ConfigWindow”.
-#: plover/gui_qt/config_window.py:361
+#: plover/gui_qt/config_window.py:514
+msgid "Key press delay (ms):"
+msgstr ""
+
+#: plover/gui_qt/config_window.py:522
+msgid ""
+"Set the delay between emulated key presses (in milliseconds).\n"
+"\n"
+"Some programs may drop key presses if too many are sent\n"
+"within a short period of time. Increasing the delay gives\n"
+"programs time to process each key press.\n"
+"Setting the delay too high will negatively impact the\n"
+"performance of key stroke output."
+msgstr ""
+
+#: plover/gui_qt/config_window.py:532
+msgid "Linux keyboard layout:"
+msgstr ""
+
+#: plover/gui_qt/config_window.py:546
+msgid ""
+"Set the keyboard layout configured in your system.\n"
+"This only applies when using Linux/BSD and not using X11.\n"
+"\n"
+"When Wayland auto detect is selected,Plover is only able to detect the "
+"first keyboard layout\n"
+"and can not detect layout switches."
+msgstr ""
+
+#: plover/gui_qt/config_window.py:556
+msgid ""
+"When Wayland auto detect is selected, Plover is only able to detect the "
+"first keyboard layout and can not detect layout switches."
+msgstr ""
+
+#: plover/gui_qt/config_window.py:567
 msgid "Plugins"
 msgstr "外掛程式"
 
-#: plover/gui_qt/config_window.py:362
-msgid "Extension:"
+#: plover/gui_qt/config_window.py:570
+#, fuzzy
+msgid "Extensions:"
 msgstr "擴充程式："
 
-#: plover/gui_qt/config_window.py:366
-msgid "Name"
-msgstr "名稱"
-
 #. Widget: “MainWindow”, text.
-#: plover/gui_qt/config_window.py:366 plover/gui_qt/main_window_ui.py:176
+#: plover/gui_qt/config_window.py:578 plover/gui_qt/main_window_ui.py:294
 msgid "Enabled"
 msgstr "已啟用"
 
-#: plover/gui_qt/config_window.py:367
+#. Widget: “PluginsManager”, text.
+#: plover/gui_qt/config_window.py:578 plover/gui_qt/plugins_manager_ui.py:136
+msgid "Name"
+msgstr "名稱"
+
+#: plover/gui_qt/config_window.py:580
 msgid "Configure enabled plugin extensions."
 msgstr "設定已開啟的外掛程式。"
 
-#. Widget: “ConfigWindow”.
-#: plover/gui_qt/config_window.py:370
-msgid "System"
-msgstr "語言系統"
-
-#: plover/gui_qt/config_window.py:371
+#: plover/gui_qt/config_window.py:589
 msgid "System:"
 msgstr "語言系統："
 
-#. Widget: “ConfigWindow”, windowtitle.
-#: plover/gui_qt/config_window_ui.py:43
+#. Widget: “ConfigWindow”, window title.
+#: plover/gui_qt/config_window_ui.py:61
 msgid "Plover: Configuration"
 msgstr "Plover: 設定"
 
+#. Widget: “ConsoleWidget”, window title.
+#: plover/gui_qt/console_widget_ui.py:49
+msgid "Form"
+msgstr ""
+
 #. Widget: “DictionariesWidget”, file picker.
-#: plover/gui_qt/dictionaries_widget.py:43
+#: plover/gui_qt/dictionaries_widget.py:46
+#, python-brace-format
 msgid "Dictionaries ({extensions})"
 msgstr "字典 ({extensions})"
 
 #. Widget: “DictionariesWidget”, file picker.
-#: plover/gui_qt/dictionaries_widget.py:46
+#: plover/gui_qt/dictionaries_widget.py:49
+#, python-brace-format
 msgid "{format} dictionaries ({extensions})"
 msgstr "{format} 字典 ({extensions})"
 
-#. Widget: “DictionariesWidget”, “add” menu.
-#: plover/gui_qt/dictionaries_widget.py:106
-msgid "Open dictionaries"
-msgstr "開啟字典"
+#. Widget: “DictionariesWidget”, accessible text.
+#: plover/gui_qt/dictionaries_widget.py:391
+#, fuzzy
+msgid "disabled"
+msgstr "已禁用"
 
-#. Widget: “DictionariesWidget”, “add” menu.
-#. Widget: “DictionariesWidget”, “new” file picker.
-#: plover/gui_qt/dictionaries_widget.py:110
-#: plover/gui_qt/dictionaries_widget.py:483
-msgid "New dictionary"
-msgstr "新字典"
+#. Widget: “DictionariesWidget”, accessible text.
+#: plover/gui_qt/dictionaries_widget.py:394
+msgid "favorite"
+msgstr ""
 
-#. Widget: “DictionariesWidget”, “save” menu.
-#: plover/gui_qt/dictionaries_widget.py:117
-msgid "Create a copy of each dictionary"
-msgstr "複製每一個字典"
+#: plover/gui_qt/dictionaries_widget.py:398
+#, python-brace-format
+msgid "errored: {exception}."
+msgstr ""
 
-#. Widget: “DictionariesWidget”, “save” menu.
-#: plover/gui_qt/dictionaries_widget.py:121
-msgid "Merge dictionaries into a new one"
-msgstr "合併字典"
+#. Widget: “DictionariesWidget”, accessible text.
+#: plover/gui_qt/dictionaries_widget.py:402
+#, fuzzy
+msgid "loading"
+msgstr "輸入紀錄"
+
+#. Widget: “DictionariesWidget”, accessible text.
+#: plover/gui_qt/dictionaries_widget.py:405
+msgid "read-only"
+msgstr ""
 
 #. Widget: “DictionariesWidget”, tooltip.
-#: plover/gui_qt/dictionaries_widget.py:196
+#: plover/gui_qt/dictionaries_widget.py:411
+#, python-brace-format
+msgid "Full path: {path}."
+msgstr ""
+
+#. Widget: “DictionariesWidget”, tool tip.
+#: plover/gui_qt/dictionaries_widget.py:414
+#, fuzzy
+msgid "This dictionary is marked as the favorite."
+msgstr "字典已被加到最愛。"
+
+#. Widget: “DictionariesWidget”, tool tip.
+#: plover/gui_qt/dictionaries_widget.py:417
 msgid "This dictionary is being loaded."
 msgstr "字典正在載入中…"
 
-#. Widget: “DictionariesWidget”, tooltip.
-#: plover/gui_qt/dictionaries_widget.py:205
+#: plover/gui_qt/dictionaries_widget.py:421
+#, fuzzy, python-brace-format
+msgid "Loading this dictionary failed: {exception}."
+msgstr "字典為唯讀狀態。"
+
+#. Widget: “DictionariesWidget”, tool tip.
+#: plover/gui_qt/dictionaries_widget.py:427
 msgid "This dictionary is read-only."
 msgstr "字典為唯讀狀態。"
 
-#. Widget: “DictionariesWidget”, tooltip.
-#: plover/gui_qt/dictionaries_widget.py:209
-msgid "This dictionary is marked as a favorite."
-msgstr "字典已被加到最愛。"
-
 #. Widget: “DictionariesWidget”, “save as copy” file picker.
-#: plover/gui_qt/dictionaries_widget.py:399
+#: plover/gui_qt/dictionaries_widget.py:618
+#, python-brace-format
 msgid "Save a copy of {name} as..."
 msgstr "將{name}另存至..."
 
 #. Widget: “DictionariesWidget”, “save as copy” file picker.
-#: plover/gui_qt/dictionaries_widget.py:401
+#: plover/gui_qt/dictionaries_widget.py:620
+#, python-brace-format
 msgid "{name} - Copy"
 msgstr "{name} - 副本"
 
 #. Widget: “DictionariesWidget”, “save as merge” file picker.
-#: plover/gui_qt/dictionaries_widget.py:422
+#: plover/gui_qt/dictionaries_widget.py:642
+#, python-brace-format
 msgid "Merge {names} as..."
 msgstr "合併 {names} 為..."
 
-#. Widget: “DictionariesWidget”, “add” file picker.
-#. Widget: “DictionariesWidget”, tooltip.
-#: plover/gui_qt/dictionaries_widget.py:466
-#: plover/gui_qt/dictionaries_widget_ui.py:130
-msgid "Add dictionaries"
+#. Widget: “DictionariesWidget”, text.
+#: plover/gui_qt/dictionaries_widget.py:671
+#: plover/gui_qt/dictionaries_widget_ui.py:203
+#, fuzzy
+msgid "Load dictionaries"
 msgstr "新增字典"
 
+#. Widget: “DictionariesWidget”, “new” file picker.
 #. Widget: “DictionariesWidget”, text.
-#: plover/gui_qt/dictionaries_widget_ui.py:102
+#: plover/gui_qt/dictionaries_widget.py:683
+#: plover/gui_qt/dictionaries_widget_ui.py:205
+#, fuzzy
+msgid "Create dictionary"
+msgstr "新字典"
+
+#. Widget: “DictionariesWidget”, title.
+#. Widget: “DictionariesWidget”, accessible name.
+#: plover/gui_qt/dictionaries_widget_ui.py:125
+#: plover/gui_qt/dictionaries_widget_ui.py:208
 msgid "Dictionaries"
 msgstr "字典"
 
 #. Widget: “DictionariesWidget”, text.
-#: plover/gui_qt/dictionaries_widget_ui.py:104
+#: plover/gui_qt/dictionaries_widget_ui.py:127
 msgid "&Edit dictionaries"
 msgstr "&編輯字典"
 
-#. Widget: “DictionariesWidget”, tooltip.
-#: plover/gui_qt/dictionaries_widget_ui.py:106
+#. Widget: “DictionariesWidget”, tool tip.
+#: plover/gui_qt/dictionaries_widget_ui.py:130
 msgid "Edit selected dictionaries"
 msgstr "編輯選中的字典"
 
 #. Widget: “DictionariesWidget”, shortcut.
-#: plover/gui_qt/dictionaries_widget_ui.py:108
+#: plover/gui_qt/dictionaries_widget_ui.py:134
 msgid "Ctrl+E"
 msgstr "Ctrl+E"
 
 #. Widget: “DictionariesWidget”, text.
-#: plover/gui_qt/dictionaries_widget_ui.py:110
+#: plover/gui_qt/dictionaries_widget_ui.py:137
 msgid "&Save dictionaries as..."
 msgstr "&另存字典為..."
 
-#. Widget: “DictionariesWidget”, tooltip.
-#: plover/gui_qt/dictionaries_widget_ui.py:112
+#. Widget: “DictionariesWidget”, tool tip.
+#: plover/gui_qt/dictionaries_widget_ui.py:140
 msgid ""
 "Save the selected dictionaries: create a new copy of each dictionary, or "
 "merge them into a new dictionary."
@@ -549,176 +799,243 @@ msgstr "將字典存檔：各自存檔或是合成一個檔案。"
 
 #. Widget: “DictionariesWidget”, shortcut.
 #. Widget: “PaperTape”, shortcut.
-#: plover/gui_qt/dictionaries_widget_ui.py:114
-#: plover/gui_qt/paper_tape_ui.py:99
+#: plover/gui_qt/dictionaries_widget_ui.py:144
+#: plover/gui_qt/paper_tape_ui.py:129
 msgid "Ctrl+S"
 msgstr "Ctrl+S"
 
 #. Widget: “DictionariesWidget”, text.
-#: plover/gui_qt/dictionaries_widget_ui.py:116
+#: plover/gui_qt/dictionaries_widget_ui.py:147
 msgid "&Remove dictionaries"
 msgstr "&移除字典"
 
-#. Widget: “DictionariesWidget”, tooltip.
-#: plover/gui_qt/dictionaries_widget_ui.py:118
+#. Widget: “DictionariesWidget”, tool tip.
+#: plover/gui_qt/dictionaries_widget_ui.py:150
 msgid "Remove selected dictionaries"
 msgstr "移除選中的字典"
 
 #. Widget: “DictionariesWidget”, shortcut.
 #. Widget: “DictionaryEditor”, shortcut.
-#: plover/gui_qt/dictionaries_widget_ui.py:120
-#: plover/gui_qt/dictionary_editor_ui.py:116
+#: plover/gui_qt/dictionaries_widget_ui.py:154
+#: plover/gui_qt/dictionary_editor_ui.py:149
 msgid "Del"
 msgstr "刪除"
 
 #. Widget: “DictionariesWidget”, text.
 #. Widget: “DictionaryEditor”, text.
-#: plover/gui_qt/dictionaries_widget_ui.py:122
-#: plover/gui_qt/dictionary_editor_ui.py:118
+#: plover/gui_qt/dictionaries_widget_ui.py:157
+#: plover/gui_qt/dictionary_editor_ui.py:152
 msgid "&Undo"
 msgstr "&回復"
 
-#. Widget: “DictionariesWidget”, tooltip.
-#: plover/gui_qt/dictionaries_widget_ui.py:124
+#. Widget: “DictionariesWidget”, tool tip.
+#: plover/gui_qt/dictionaries_widget_ui.py:160
 msgid "Undo last add/delete/reorder operation."
 msgstr "回復上一個動作。"
 
 #. Widget: “DictionariesWidget”, shortcut.
 #. Widget: “DictionaryEditor”, shortcut.
-#: plover/gui_qt/dictionaries_widget_ui.py:126
-#: plover/gui_qt/dictionary_editor_ui.py:122
+#: plover/gui_qt/dictionaries_widget_ui.py:164
+#: plover/gui_qt/dictionary_editor_ui.py:159
 msgid "Ctrl+Z"
 msgstr "Ctrl+Z"
 
 #. Widget: “DictionariesWidget”, text.
-#: plover/gui_qt/dictionaries_widget_ui.py:128
+#: plover/gui_qt/dictionaries_widget_ui.py:167
 msgid "&Add dictionaries"
 msgstr "&新增字典"
 
+#. Widget: “DictionariesWidget”, tool tip.
+#: plover/gui_qt/dictionaries_widget_ui.py:170
+msgid "Add dictionaries"
+msgstr "新增字典"
+
 #. Widget: “DictionariesWidget”, shortcut.
-#: plover/gui_qt/dictionaries_widget_ui.py:132
+#: plover/gui_qt/dictionaries_widget_ui.py:174
 msgid "Ctrl+O"
 msgstr "Ctrl+O"
 
 #. Widget: “DictionariesWidget”, text.
-#: plover/gui_qt/dictionaries_widget_ui.py:134
+#: plover/gui_qt/dictionaries_widget_ui.py:177
 msgid "Add &translation"
 msgstr "新增 &翻譯"
 
-#. Widget: “DictionariesWidget”, tooltip.
-#. Widget: “DictionaryEditor”, tooltip.
-#: plover/gui_qt/dictionaries_widget_ui.py:136
-#: plover/gui_qt/dictionary_editor_ui.py:126
+#. Widget: “DictionariesWidget”, tool tip.
+#. Widget: “DictionaryEditor”, tool tip.
+#: plover/gui_qt/dictionaries_widget_ui.py:180
+#: plover/gui_qt/dictionary_editor_ui.py:165
 msgid "Add a new translation"
 msgstr "新增新的翻譯"
 
 #. Widget: “DictionariesWidget”, shortcut.
 #. Widget: “DictionaryEditor”, shortcut.
-#: plover/gui_qt/dictionaries_widget_ui.py:138
-#: plover/gui_qt/dictionary_editor_ui.py:128
+#: plover/gui_qt/dictionaries_widget_ui.py:184
+#: plover/gui_qt/dictionary_editor_ui.py:169
 msgid "Ctrl+N"
 msgstr "Ctrl+N"
 
 #. Widget: “DictionariesWidget”, text.
-#: plover/gui_qt/dictionaries_widget_ui.py:140
+#: plover/gui_qt/dictionaries_widget_ui.py:187
 msgid "Move dictionaries &up"
 msgstr "將字典向&上 移動"
 
-#. Widget: “DictionariesWidget”, tooltip.
-#: plover/gui_qt/dictionaries_widget_ui.py:142
+#. Widget: “DictionariesWidget”, tool tip.
+#: plover/gui_qt/dictionaries_widget_ui.py:190
 msgid "Move selected dictionaries up."
 msgstr "將字典向上移動。"
 
 #. Widget: “DictionariesWidget”, text.
-#: plover/gui_qt/dictionaries_widget_ui.py:144
+#: plover/gui_qt/dictionaries_widget_ui.py:193
 msgid "Move dictionaries &down"
 msgstr "將字典向&下 移動"
 
-#. Widget: “DictionariesWidget”, tooltip.
-#: plover/gui_qt/dictionaries_widget_ui.py:146
+#. Widget: “DictionariesWidget”, tool tip.
+#: plover/gui_qt/dictionaries_widget_ui.py:196
 msgid "Move selected dictionaries down."
 msgstr "將字典向下移動。"
 
-#. Widget: “DictionaryEditor”.
-#: plover/gui_qt/dictionary_editor.py:163
-msgid "Strokes"
-msgstr "和弦"
+#. Widget: “DictionariesWidget”, text.
+#: plover/gui_qt/dictionaries_widget_ui.py:199
+msgid "Create a copy of each dictionary"
+msgstr "複製每一個字典"
 
-#. Widget: “DictionaryEditor”.
-#: plover/gui_qt/dictionary_editor.py:166
-msgid "Translation"
-msgstr "翻譯"
+#. Widget: “DictionariesWidget”, text.
+#: plover/gui_qt/dictionaries_widget_ui.py:201
+msgid "Merge dictionaries into a new one"
+msgstr "合併字典"
 
-#. Widget: “DictionaryEditor”.
-#: plover/gui_qt/dictionary_editor.py:169
-msgid "Dictionary"
-msgstr "字典"
-
-#. Widget: “DictionaryEditor”, windowtitle.
-#: plover/gui_qt/dictionary_editor_ui.py:100
+#. Widget: “DictionaryEditor”, window title.
+#: plover/gui_qt/dictionary_editor_ui.py:140
 msgid "Plover: Dictionary Editor"
 msgstr "Plover:字典編輯器"
 
-#. Widget: “DictionaryEditor”, title.
-#: plover/gui_qt/dictionary_editor_ui.py:102
-msgid "Filter"
-msgstr "過濾"
-
 #. Widget: “DictionaryEditor”, text.
-#: plover/gui_qt/dictionary_editor_ui.py:104
-msgid "By strokes:"
-msgstr "依照和弦："
-
-#. Widget: “DictionaryEditor”, text.
-#: plover/gui_qt/dictionary_editor_ui.py:106
-msgid "Apply"
-msgstr "適用"
-
-#. Widget: “DictionaryEditor”, text.
-#: plover/gui_qt/dictionary_editor_ui.py:108
-msgid "By translation:"
-msgstr "依照翻譯："
-
-#. Widget: “DictionaryEditor”, text.
-#: plover/gui_qt/dictionary_editor_ui.py:110
-msgid "Clear"
-msgstr "清除"
-
-#. Widget: “DictionaryEditor”, text.
-#: plover/gui_qt/dictionary_editor_ui.py:112
+#: plover/gui_qt/dictionary_editor_ui.py:142
 msgid "&Delete"
 msgstr "&刪除"
 
-#. Widget: “DictionaryEditor”, tooltip.
-#: plover/gui_qt/dictionary_editor_ui.py:114
+#. Widget: “DictionaryEditor”, tool tip.
+#: plover/gui_qt/dictionary_editor_ui.py:145
 msgid "Delete selected entries."
 msgstr "刪除所選項目。"
 
-#. Widget: “DictionaryEditor”, tooltip.
-#: plover/gui_qt/dictionary_editor_ui.py:120
+#. Widget: “DictionaryEditor”, tool tip.
+#: plover/gui_qt/dictionary_editor_ui.py:155
 msgid "Undo last add/delete/edit operation."
 msgstr "回復上一個動作。"
 
 #. Widget: “DictionaryEditor”, text.
-#: plover/gui_qt/dictionary_editor_ui.py:124
+#: plover/gui_qt/dictionary_editor_ui.py:162
 msgid "&New translation"
 msgstr "&新增新的翻譯"
 
+#. Widget: “DictionaryEditor”, accessible name.
+#. Widget: “DictionaryEditor”, title.
+#: plover/gui_qt/dictionary_editor_ui.py:173
+#: plover/gui_qt/dictionary_editor_ui.py:176
+msgid "Filter"
+msgstr "過濾"
+
+#. Widget: “DictionaryEditor”, text.
+#: plover/gui_qt/dictionary_editor_ui.py:178
+msgid "By strokes:"
+msgstr "依照和弦："
+
+#. Widget: “DictionaryEditor”, accessible name.
+#: plover/gui_qt/dictionary_editor_ui.py:181
+#, fuzzy
+msgid "Strokes filter"
+msgstr "和弦"
+
+#. Widget: “DictionaryEditor”, accessible name.
+#: plover/gui_qt/dictionary_editor_ui.py:185
+#, fuzzy
+msgid "Apply filter"
+msgstr "過濾"
+
+#. Widget: “DictionaryEditor”, text.
+#: plover/gui_qt/dictionary_editor_ui.py:188
+msgid "Apply"
+msgstr "適用"
+
+#. Widget: “DictionaryEditor”, text.
+#: plover/gui_qt/dictionary_editor_ui.py:190
+msgid "By translation:"
+msgstr "依照翻譯："
+
+#. Widget: “DictionaryEditor”, accessible name.
+#: plover/gui_qt/dictionary_editor_ui.py:193
+#, fuzzy
+msgid "Translation filter"
+msgstr "翻譯"
+
+#. Widget: “DictionaryEditor”, accessible name.
+#: plover/gui_qt/dictionary_editor_ui.py:197
+#, fuzzy
+msgid "Clear filter"
+msgstr "過濾"
+
+#. Widget: “DictionaryEditor”, text.
+#: plover/gui_qt/dictionary_editor_ui.py:203
+msgid "Clear"
+msgstr "清除"
+
+#. Widget: “DictionaryEditor”, accessible name.
+#: plover/gui_qt/dictionary_editor_ui.py:206
+msgid "Mappings"
+msgstr ""
+
 #. Widget: “LookupDialog”, tooltip.
-#: plover/gui_qt/lookup_dialog.py:13
+#: plover/gui_qt/lookup_dialog.py:12
 msgid "Search the dictionary for translations."
 msgstr "在字典內尋找翻譯。"
 
-#: plover/gui_qt/lookup_dialog.py:15
+#: plover/gui_qt/lookup_dialog.py:14
 msgid "Lookup"
 msgstr "查詢"
 
-#. Widget: “LookupDialog”, windowtitle.
-#: plover/gui_qt/lookup_dialog_ui.py:56
+#. Widget: “LookupDialog”, window title.
+#: plover/gui_qt/lookup_dialog_ui.py:72
 msgid "Plover: Dictionary Lookup"
 msgstr "Plover:字典查詢"
 
-#: plover/gui_qt/machine_options.py:104
+#. Widget: “LookupDialog”, accessible name.
+#: plover/gui_qt/lookup_dialog_ui.py:75
+#, fuzzy
+msgid "Pattern"
+msgstr "紙帶模式"
+
+#. Widget: “LookupDialog”, accessible description.
+#: plover/gui_qt/lookup_dialog_ui.py:79
+msgid "Translation pattern to lookup."
+msgstr ""
+
+#. Widget: “LookupDialog”, accessible name.
+#: plover/gui_qt/lookup_dialog_ui.py:83
+msgid "Results"
+msgstr ""
+
+#: plover/gui_qt/machine_options.py:36
+#, python-brace-format
+msgid "product: {value}"
+msgstr ""
+
+#: plover/gui_qt/machine_options.py:37
+#, python-brace-format
+msgid "manufacturer: {value}"
+msgstr ""
+
+#: plover/gui_qt/machine_options.py:38
+#, python-brace-format
+msgid "serial number: {value}"
+msgstr ""
+
+#: plover/gui_qt/machine_options.py:46
+#, python-brace-format
+msgid "description: {value}"
+msgstr ""
+
+#: plover/gui_qt/machine_options.py:199
 msgid ""
 "Arpeggiate allows using non-NKRO keyboards.\n"
 "\n"
@@ -730,257 +1047,357 @@ msgstr ""
 "每個鍵可以分開來輸出，\n"
 "最後按下空白鍵以送出和弦。"
 
-#. Widget: “MainWindow”, tooltip.
-#: plover/gui_qt/main_window_ui.py:172 plover/gui_qt/main_window_ui.py:212
-msgid "Disconnect and reconnect the machine."
-msgstr "將輸入硬體重新連接。"
+#: plover/gui_qt/main_window.py:312
+msgid "Application is still running."
+msgstr ""
 
 #. Widget: “MainWindow”, text.
-#: plover/gui_qt/main_window_ui.py:178
-msgid "Disabled"
-msgstr "已禁用"
-
-#. Widget: “MainWindow”, title.
-#: plover/gui_qt/main_window_ui.py:180
-msgid "&File"
-msgstr "&檔案"
-
-#. Widget: “MainWindow”, title.
-#: plover/gui_qt/main_window_ui.py:182
-msgid "&Tools"
-msgstr "&工具"
-
-#. Widget: “MainWindow”, title.
-#: plover/gui_qt/main_window_ui.py:184
-msgid "&Help"
-msgstr "&協助"
-
-#. Widget: “MainWindow”, title.
-#: plover/gui_qt/main_window_ui.py:186
-msgid "&Edit"
-msgstr "&編輯"
-
-#. Widget: “MainWindow”, windowtitle.
-#: plover/gui_qt/main_window_ui.py:188
-msgid "Plover: Toolbar"
-msgstr "Plover: 工具列"
-
-#. Widget: “MainWindow”, text.
-#: plover/gui_qt/main_window_ui.py:190
+#: plover/gui_qt/main_window_ui.py:202
 msgid "&Quit Plover"
 msgstr "&離開 Plover"
 
-#. Widget: “MainWindow”, tooltip.
-#: plover/gui_qt/main_window_ui.py:192
+#. Widget: “MainWindow”, tool tip.
+#: plover/gui_qt/main_window_ui.py:205
 msgid "Quit the application."
 msgstr "關閉應用程式。"
 
 #. Widget: “MainWindow”, shortcut.
-#: plover/gui_qt/main_window_ui.py:194
+#: plover/gui_qt/main_window_ui.py:209
 msgid "Ctrl+Q"
 msgstr "Ctrl+Q"
 
 #. Widget: “MainWindow”, text.
-#: plover/gui_qt/main_window_ui.py:196
+#: plover/gui_qt/main_window_ui.py:212
 msgid "&Configure"
 msgstr "&設定"
 
-#. Widget: “MainWindow”, tooltip.
-#: plover/gui_qt/main_window_ui.py:198
+#. Widget: “MainWindow”, tool tip.
+#: plover/gui_qt/main_window_ui.py:215
 msgid "Open the configuration dialog."
 msgstr "開啟設定視窗。"
 
 #. Widget: “MainWindow”, shortcut.
-#: plover/gui_qt/main_window_ui.py:200
+#: plover/gui_qt/main_window_ui.py:219
 msgid "Ctrl+,"
 msgstr "Ctrl+,"
 
 #. Widget: “MainWindow”, text.
-#: plover/gui_qt/main_window_ui.py:202
+#: plover/gui_qt/main_window_ui.py:222
 msgid "Open config &folder"
 msgstr "開啟設定檔目錄"
 
-#. Widget: “MainWindow”, tooltip.
-#: plover/gui_qt/main_window_ui.py:204
+#. Widget: “MainWindow”, tool tip.
+#: plover/gui_qt/main_window_ui.py:225
 msgid "Open the configuration folder."
 msgstr "開啟設定檔所在目錄。"
 
 #. Widget: “MainWindow”, text.
-#: plover/gui_qt/main_window_ui.py:206
+#: plover/gui_qt/main_window_ui.py:228
 msgid "&About"
 msgstr "&關於"
 
-#. Widget: “MainWindow”, tooltip.
-#: plover/gui_qt/main_window_ui.py:208
+#. Widget: “MainWindow”, tool tip.
+#: plover/gui_qt/main_window_ui.py:231
 msgid "Open the about dialog."
 msgstr "開啟關於視窗。"
 
 #. Widget: “MainWindow”, text.
-#: plover/gui_qt/main_window_ui.py:210
+#: plover/gui_qt/main_window_ui.py:234
 msgid "&Reconnect machine"
 msgstr "&重新連接輸入硬體"
 
+#. Widget: “MainWindow”, tool tip.
+#. Widget: “MainWindow”, accessible description.
+#: plover/gui_qt/main_window_ui.py:237 plover/gui_qt/main_window_ui.py:272
+#: plover/gui_qt/main_window_ui.py:280
+msgid "Disconnect and reconnect the machine."
+msgstr "將輸入硬體重新連接。"
+
 #. Widget: “MainWindow”, shortcut.
-#: plover/gui_qt/main_window_ui.py:214
+#: plover/gui_qt/main_window_ui.py:241
 msgid "Ctrl+R"
 msgstr "Ctrl+R"
 
 #. Widget: “MainWindow”, text.
-#: plover/gui_qt/main_window_ui.py:216
+#: plover/gui_qt/main_window_ui.py:244
 msgid "&Show"
 msgstr "&顯示"
 
-#. Widget: “MainWindow”, tooltip.
-#: plover/gui_qt/main_window_ui.py:218
+#. Widget: “MainWindow”, tool tip.
+#: plover/gui_qt/main_window_ui.py:247
 msgid "Show the main window."
 msgstr "顯示主視窗。"
 
 #. Widget: “MainWindow”, text.
-#: plover/gui_qt/main_window_ui.py:220
+#: plover/gui_qt/main_window_ui.py:250
 msgid "Toggle &output"
 msgstr "切換&輸出"
 
-#. Widget: “MainWindow”, tooltip.
-#: plover/gui_qt/main_window_ui.py:222
+#. Widget: “MainWindow”, tool tip.
+#: plover/gui_qt/main_window_ui.py:253
 msgid "Toggle the output."
 msgstr "切換輸出。"
 
 #. Widget: “MainWindow”, shortcut.
-#: plover/gui_qt/main_window_ui.py:224
+#: plover/gui_qt/main_window_ui.py:257
 msgid "Ctrl+."
 msgstr "Ctrl+."
 
-#: plover/gui_qt/paper_tape.py:25
-msgid "Paper Tape"
-msgstr "紙帶"
+#. Widget: “MainWindow”, accessible name.
+#. Widget: “PluginsManager”, text.
+#: plover/gui_qt/main_window_ui.py:263 plover/gui_qt/plugins_manager_ui.py:133
+#, fuzzy
+msgid "State"
+msgstr "&存檔"
+
+#. Widget: “MainWindow”, accessible description.
+#: plover/gui_qt/main_window_ui.py:267
+msgid "Connection state for the current machine."
+msgstr ""
+
+#. Widget: “MainWindow”, accessible name.
+#: plover/gui_qt/main_window_ui.py:276
+#, fuzzy
+msgid "Reconnect"
+msgstr "已連接"
+
+#. Widget: “MainWindow”, accessible name.
+#: plover/gui_qt/main_window_ui.py:285
+msgid "Type"
+msgstr ""
+
+#. Widget: “MainWindow”, accessible description.
+#: plover/gui_qt/main_window_ui.py:289
+msgid "Change the current machine type."
+msgstr ""
+
+#. Widget: “MainWindow”, text.
+#: plover/gui_qt/main_window_ui.py:296
+msgid "Disabled"
+msgstr "已禁用"
+
+#. Widget: “MainWindow”, title.
+#: plover/gui_qt/main_window_ui.py:298
+msgid "&File"
+msgstr "&檔案"
+
+#. Widget: “MainWindow”, title.
+#: plover/gui_qt/main_window_ui.py:300
+msgid "&Tools"
+msgstr "&工具"
+
+#. Widget: “MainWindow”, title.
+#: plover/gui_qt/main_window_ui.py:302
+msgid "&Help"
+msgstr "&協助"
+
+#. Widget: “MainWindow”, title.
+#: plover/gui_qt/main_window_ui.py:304
+msgid "&Edit"
+msgstr "&編輯"
+
+#. Widget: “MainWindow”, window title.
+#: plover/gui_qt/main_window_ui.py:306
+msgid "Plover: Toolbar"
+msgstr "Plover: 工具列"
 
 #. Paper tape style.
-#: plover/gui_qt/paper_tape.py:32
+#: plover/gui_qt/paper_tape.py:30
 msgid "Paper"
 msgstr "紙帶模式"
 
 #. Paper tape style.
-#: plover/gui_qt/paper_tape.py:34
+#: plover/gui_qt/paper_tape.py:32
 msgid "Raw"
 msgstr "原始模式"
 
-#: plover/gui_qt/paper_tape.py:158
+#. Widget: “PaperTape”, tooltip.
+#: plover/gui_qt/paper_tape.py:122
+msgid "Paper tape display of strokes."
+msgstr ""
+
+#: plover/gui_qt/paper_tape.py:124
+msgid "Paper Tape"
+msgstr "紙帶"
+
+#: plover/gui_qt/paper_tape.py:237
 msgid "Do you want to clear the paper tape?"
 msgstr "確認要清除紙帶嗎？"
 
-#: plover/gui_qt/paper_tape.py:172
+#: plover/gui_qt/paper_tape.py:255
 msgid "Save Paper Tape"
 msgstr "將紙帶存檔"
 
 #. Paper tape, "save" file picker.
-#: plover/gui_qt/paper_tape.py:174
+#: plover/gui_qt/paper_tape.py:258
 msgid "Text files (*.txt)"
 msgstr "Text 文字檔 (*.txt)"
 
 #. Widget: “PaperTape”, text.
-#: plover/gui_qt/paper_tape_ui.py:87
-msgid "Mode"
-msgstr "模式"
-
-#. Widget: “PaperTape”, text.
 #. Widget: “SuggestionsDialog”, text.
-#: plover/gui_qt/paper_tape_ui.py:89 plover/gui_qt/suggestions_dialog_ui.py:53
+#: plover/gui_qt/paper_tape_ui.py:112 plover/gui_qt/suggestions_dialog_ui.py:70
 msgid "&Clear"
 msgstr "&清除"
 
-#. Widget: “PaperTape”, tooltip.
-#: plover/gui_qt/paper_tape_ui.py:91
+#. Widget: “PaperTape”, tool tip.
+#: plover/gui_qt/paper_tape_ui.py:115
 msgid "Clear paper tape."
 msgstr "清除紙帶。"
 
 #. Widget: “PaperTape”, shortcut.
 #. Widget: “SuggestionsDialog”, shortcut.
-#: plover/gui_qt/paper_tape_ui.py:93 plover/gui_qt/suggestions_dialog_ui.py:57
+#: plover/gui_qt/paper_tape_ui.py:119 plover/gui_qt/suggestions_dialog_ui.py:77
 msgid "Ctrl+L"
 msgstr "Ctrl+L"
 
 #. Widget: “PaperTape”, text.
-#: plover/gui_qt/paper_tape_ui.py:95
+#: plover/gui_qt/paper_tape_ui.py:122
 msgid "&Save"
 msgstr "&存檔"
 
-#. Widget: “PaperTape”, tooltip.
-#: plover/gui_qt/paper_tape_ui.py:97
+#. Widget: “PaperTape”, tool tip.
+#: plover/gui_qt/paper_tape_ui.py:125
 msgid "Save paper tape to file."
 msgstr "將輸入紙帶存檔。"
 
 #. Widget: “PaperTape”, text.
 #. Widget: “SuggestionsDialog”, text.
-#: plover/gui_qt/paper_tape_ui.py:101 plover/gui_qt/suggestions_dialog_ui.py:59
+#: plover/gui_qt/paper_tape_ui.py:132 plover/gui_qt/suggestions_dialog_ui.py:80
 msgid "&Toggle \"always on top\""
 msgstr "&切換懸浮視窗"
 
-#. Widget: “PaperTape”, tooltip.
-#. Widget: “SuggestionsDialog”, tooltip.
-#: plover/gui_qt/paper_tape_ui.py:103 plover/gui_qt/suggestions_dialog_ui.py:61
+#. Widget: “PaperTape”, tool tip.
+#. Widget: “SuggestionsDialog”, tool tip.
+#: plover/gui_qt/paper_tape_ui.py:135 plover/gui_qt/suggestions_dialog_ui.py:83
 msgid "Toggle \"always on top\"."
 msgstr "切換懸浮視窗。"
 
 #. Widget: “PaperTape”, shortcut.
 #. Widget: “SuggestionsDialog”, shortcut.
-#: plover/gui_qt/paper_tape_ui.py:105 plover/gui_qt/suggestions_dialog_ui.py:63
+#: plover/gui_qt/paper_tape_ui.py:139 plover/gui_qt/suggestions_dialog_ui.py:87
 msgid "Ctrl+T"
 msgstr "Ctrl+T"
 
 #. Widget: “PaperTape”, text.
 #. Widget: “SuggestionsDialog”, text.
-#: plover/gui_qt/paper_tape_ui.py:107 plover/gui_qt/suggestions_dialog_ui.py:65
+#: plover/gui_qt/paper_tape_ui.py:142 plover/gui_qt/suggestions_dialog_ui.py:90
 msgid "Select &font"
 msgstr "選擇&字體"
 
-#. Widget: “PaperTape”, tooltip.
-#. Widget: “SuggestionsDialog”, tooltip.
-#: plover/gui_qt/paper_tape_ui.py:109 plover/gui_qt/suggestions_dialog_ui.py:67
+#. Widget: “PaperTape”, tool tip.
+#. Widget: “SuggestionsDialog”, tool tip.
+#: plover/gui_qt/paper_tape_ui.py:145 plover/gui_qt/suggestions_dialog_ui.py:93
 msgid "Open font selection dialog."
 msgstr "開啟字體選擇視窗。"
+
+#. Widget: “PaperTape”, text.
+#: plover/gui_qt/paper_tape_ui.py:148
+#, fuzzy
+msgid "Mode:"
+msgstr "模式"
+
+#. Widget: “PaperTape”, accessible name.
+#: plover/gui_qt/paper_tape_ui.py:151
+msgid "Mode"
+msgstr "模式"
+
+#. Widget: “PaperTape”, accessible description.
+#: plover/gui_qt/paper_tape_ui.py:155
+#, fuzzy
+msgid "Select paper tape display mode."
+msgstr "將輸入紙帶存檔。"
+
+#. Widget: “PaperTape”, accessible name.
+#: plover/gui_qt/paper_tape_ui.py:159
+#, fuzzy
+msgid "Tape"
+msgstr "紙帶模式"
+
+#. Widget: “PluginsManager”, window title.
+#. Widget: “RunDialog”, window title.
+#: plover/gui_qt/plugins_manager_ui.py:130 plover/gui_qt/run_dialog_ui.py:51
+msgid "Dialog"
+msgstr ""
+
+#. Widget: “PluginsManager”, text.
+#: plover/gui_qt/plugins_manager_ui.py:139
+msgid "Version"
+msgstr ""
+
+#. Widget: “PluginsManager”, text.
+#: plover/gui_qt/plugins_manager_ui.py:142
+msgid "Summary"
+msgstr ""
+
+#. Widget: “PluginsManager”, text.
+#: plover/gui_qt/plugins_manager_ui.py:144
+msgid "Restart"
+msgstr ""
+
+#. Widget: “PluginsManager”, text.
+#: plover/gui_qt/plugins_manager_ui.py:148
+msgid "Uninstall"
+msgstr ""
+
+#. Widget: “PluginsManager”, text.
+#: plover/gui_qt/plugins_manager_ui.py:150
+msgid "Install/Update"
+msgstr ""
+
+#. Widget: “PluginsManager”, text.
+#: plover/gui_qt/plugins_manager_ui.py:152
+msgid "..."
+msgstr ""
 
 #. Widget: “SuggestionsDialog”, tooltip.
 #: plover/gui_qt/suggestions_dialog.py:26
 msgid "Suggest possible strokes for the last written words."
 msgstr "列出上一和弦的所有可能和弦。"
 
+#. Widget: “SuggestionsDialog”, accessible name.
 #: plover/gui_qt/suggestions_dialog.py:28
+#: plover/gui_qt/suggestions_dialog_ui.py:97
 msgid "Suggestions"
 msgstr "和弦建議"
 
 #. Widget: “SuggestionsDialog”, “font” menu.
-#: plover/gui_qt/suggestions_dialog.py:57
+#: plover/gui_qt/suggestions_dialog.py:62
 msgid "&Text"
 msgstr "&文字"
 
 #. Widget: “SuggestionsDialog”, “font” menu.
-#: plover/gui_qt/suggestions_dialog.py:59
+#: plover/gui_qt/suggestions_dialog.py:64
 msgid "&Strokes"
 msgstr "&和弦"
 
-#. Widget: “SuggestionsDialog”, tooltip.
-#: plover/gui_qt/suggestions_dialog_ui.py:55
+#. Widget: “SuggestionsDialog”, tool tip.
+#: plover/gui_qt/suggestions_dialog_ui.py:73
 msgid "Clear the history."
 msgstr "清除歷史紀錄。"
 
 #. Widget: “SuggestionsWidget”.
-#: plover/gui_qt/suggestions_widget.py:42
+#: plover/gui_qt/suggestions_widget.py:27
 msgid "no suggestions"
 msgstr "無和弦建議"
 
-#: plover/gui_qt/trayicon.py:116
+#: plover/gui_qt/trayicon.py:118
+#, python-brace-format
 msgid "{machine} is {state}"
 msgstr "{machine}{state}"
 
 #. Tray icon tooltip.
-#: plover/gui_qt/trayicon.py:122
+#: plover/gui_qt/trayicon.py:124
 msgid "output is enabled"
 msgstr "輸出已開啟"
 
 #. Tray icon tooltip.
-#: plover/gui_qt/trayicon.py:125
+#: plover/gui_qt/trayicon.py:127
 msgid "output is disabled"
 msgstr "輸出已關閉"
+
+#: plover/gui_qt/utils.py:28
+msgid "Copy selection to clipboard"
+msgstr ""
 
 #. Machine state.
 #: plover/machine/base.py:20
@@ -1006,3 +1423,16 @@ msgstr "尚未連接"
 #: plover/machine/keyboard.py:14
 msgid "Keyboard"
 msgstr "鍵盤"
+
+#~ msgid "Scan"
+#~ msgstr "偵測"
+
+#~ msgid "seconds"
+#~ msgstr "秒"
+
+#~ msgid "Use timeout"
+#~ msgstr "使用等待時間"
+
+#~ msgid "Open dictionaries"
+#~ msgstr "開啟字典"
+

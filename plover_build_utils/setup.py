@@ -72,6 +72,7 @@ def babel_options(package, resource_dir=None):
         },
         "update_catalog": {
             "domain": package,
+            "input_file": template,
             "output_dir": localedir,
         },
     }
