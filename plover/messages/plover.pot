@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plover 5.2.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-07 10:58+0100\n"
+"POT-Creation-Date: 2026-03-09 20:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1264,6 +1264,59 @@ msgstr ""
 #. Widget: “PaperTape”, accessible name.
 #: plover/gui_qt/paper_tape_ui.py:159
 msgid "Tape"
+msgstr ""
+
+#: plover/gui_qt/plugins_manager.py:26
+msgid "Plugins Manager"
+msgstr ""
+
+#: plover/gui_qt/plugins_manager.py:75
+msgid "N/A"
+msgstr ""
+
+#. Metadata field.
+#: plover/gui_qt/plugins_manager.py:127
+#, python-format
+msgid "<p><b>Author: </b><a href=\"mailto:%s\">%s</a></p>"
+msgstr ""
+
+#. Metadata field.
+#: plover/gui_qt/plugins_manager.py:133
+#, python-format
+msgid "<p><b>Home page: </b><a href=\"%s\">%s</a></p>"
+msgstr ""
+
+#: plover/gui_qt/plugins_manager.py:180
+msgid "Install from Git repo"
+msgstr ""
+
+#: plover/gui_qt/plugins_manager.py:182
+msgid ""
+"<b>WARNING: Installing plugins is a security risk.<br>A plugin from a Git"
+" repo can contain malicious code.<br>Only install it if you got it from a"
+" trusted source.</b><br><br>Enter repository link for plugin<br>(will "
+"look similar to https://github.com/user/repository.git): <br>"
+msgstr ""
+
+#: plover/gui_qt/plugins_manager.py:204
+#, python-brace-format
+msgid "Install {packages}"
+msgstr ""
+
+#: plover/gui_qt/plugins_manager.py:206
+msgid ""
+"Installing plugins is a <b>security risk</b>. A plugin can contain "
+"virus/malware. Only install it if you got it from a trusted source. Are "
+"you sure you want to proceed?"
+msgstr ""
+
+#: plover/gui_qt/plugins_manager.py:233
+#, python-brace-format
+msgid "Uninstall {packages}"
+msgstr ""
+
+#: plover/gui_qt/plugins_manager.py:234
+msgid "Are you sure you want to proceed?"
 msgstr ""
 
 #. Widget: “PluginsManager”, window title.

@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plover 5.2.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-07 10:58+0100\n"
-"PO-Revision-Date: 2021-10-16 12:48+0900\n"
-"Last-Translator: Benoit Pierre <benoit.pierre@gmail.com>\n"
+"POT-Creation-Date: 2026-03-09 20:26+0100\n"
+"PO-Revision-Date: 2026-03-08 12:00+0100\n"
+"Last-Translator: Gemini CLI\n"
 "Language: fr\n"
 "Language-Team: fr <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -54,7 +54,6 @@ msgid "Open Source Stenography Software"
 msgstr "Logiciel libre de sténographie"
 
 #: plover/__init__.py:39
-#, fuzzy
 msgid ""
 "Plover is a free open source program intended to bring realtime\n"
 "stenographic technology not just to stenographers, but also to\n"
@@ -68,7 +67,7 @@ msgstr ""
 #: plover/dictionary/helpers.py:24
 #, python-format
 msgid "dictionary `%s` loaded with %u invalid steno errors"
-msgstr ""
+msgstr "dictionnaire « %s » chargé avec %u erreurs de sténo invalides"
 
 #. Widget: “AboutDialog”, window title.
 #: plover/gui_qt/about_dialog_ui.py:53
@@ -159,9 +158,8 @@ msgstr "Dictionnaire"
 
 #. Widget: “AddTranslationWidget”, accessible description.
 #: plover/gui_qt/add_translation_widget_ui.py:143
-#, fuzzy
 msgid "Select the target dictionary for the new translation."
-msgstr "Cherche les nouvelles traductions dans le dictionnaire."
+msgstr "Sélectionnez le dictionnaire cible pour la nouvelle traduction."
 
 #. Widget: “AddTranslationWidget”, accessible name.
 #: plover/gui_qt/add_translation_widget_ui.py:147
@@ -170,7 +168,6 @@ msgstr "Traductions existantes (accords)"
 
 #. Widget: “AddTranslationWidget”, accessible name.
 #: plover/gui_qt/add_translation_widget_ui.py:152
-#, fuzzy
 msgid "Existing mappings (translations)"
 msgstr "Traductions existantes (traductions)"
 
@@ -207,11 +204,14 @@ msgid ""
 "When the first key in a chord is released, the chord is sent.\n"
 "If the key is pressed and released again, another chord is sent."
 msgstr ""
+"Quand la première touche d'un accord est relâchée, l'accord est envoyé.\n"
+"Si la touche est pressée et relâchée de nouveau, un autre accord est "
+"envoyé."
 
 #. Widget: “KeyboardWidget”, text.
 #: plover/gui_qt/config_keyboard_widget_ui.py:60
 msgid "First-up chord send"
-msgstr ""
+msgstr "Envoyer l'accord au relâchement de la touche"
 
 #. Widget: “KeyboardWidget”, text.
 #: plover/gui_qt/config_keyboard_widget_ui.py:62
@@ -221,53 +221,52 @@ msgstr "Arpéger"
 #. Widget: “PloverHidWidget”, text.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:93
 msgid "Send chord on first key release"
-msgstr ""
+msgstr "Envoyer l'accord dès le relâchement de la première touche"
 
 #. Widget: “PloverHidWidget”, tool tip.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:96
 msgid "Tap and then hold a chord to send it repeatedly."
-msgstr ""
+msgstr "Appuyez puis maintenez un accord pour l'envoyer de façon répétée."
 
 #. Widget: “PloverHidWidget”, text.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:99
 msgid "Double tap to repeat"
-msgstr ""
+msgstr "Double appui pour répéter"
 
 #. Widget: “PloverHidWidget”, text.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:101
 msgid "Repeat delay (ms)"
-msgstr ""
+msgstr "Délai de répétition (ms)"
 
 #. Widget: “PloverHidWidget”, tool tip.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:104
 msgid "Delay before chord starts repeating."
-msgstr ""
+msgstr "Délai avant que l'accord ne commence à se répéter."
 
 #. Widget: “PloverHidWidget”, text.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:107
 msgid "Repeat interval (ms)"
-msgstr ""
+msgstr "Intervalle de répétition (ms)"
 
 #. Widget: “PloverHidWidget”, tool tip.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:110
 msgid "Interval between chord repetitions."
-msgstr ""
+msgstr "Intervalle entre les répétitions d'un accord."
 
 #. Widget: “PloverHidWidget”, text.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:113
 msgid "Device scan interval (ms)"
-msgstr ""
+msgstr "Intervalle de détection des périphériques (ms)"
 
 #. Widget: “PloverHidWidget”, tool tip.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:116
 msgid "How often to scan for newly plugged-in devices."
-msgstr ""
+msgstr "Fréquence de détection des nouveaux périphériques."
 
 #. Widget: “SerialWidget”, accessible name.
 #: plover/gui_qt/config_serial_widget_ui.py:215
-#, fuzzy
 msgid "Serial"
-msgstr "Connexion en série"
+msgstr "Série"
 
 #. Widget: “SerialWidget”, title.
 #: plover/gui_qt/config_serial_widget_ui.py:218
@@ -283,13 +282,11 @@ msgstr "Port"
 
 #. Widget: “SerialWidget”, accessible description.
 #: plover/gui_qt/config_serial_widget_ui.py:227
-#, fuzzy
 msgid "Serial port device name."
 msgstr "Nom du périphérique de port série."
 
 #. Widget: “SerialWidget”, accessible description.
 #: plover/gui_qt/config_serial_widget_ui.py:231
-#, fuzzy
 msgid "Reload all available serial ports."
 msgstr "Scanner les ports série."
 
@@ -298,7 +295,7 @@ msgstr "Scanner les ports série."
 #: plover/gui_qt/config_serial_widget_ui.py:234
 #: plover/gui_qt/plugins_manager_ui.py:146
 msgid "Refresh"
-msgstr ""
+msgstr "Actualiser"
 
 #. Widget: “SerialWidget”, text.
 #. Widget: “SerialWidget”, accessible name.
@@ -340,9 +337,8 @@ msgstr "Délai de transmission"
 
 #. Widget: “SerialWidget”, text.
 #: plover/gui_qt/config_serial_widget_ui.py:267
-#, fuzzy
 msgid "Duration (s)"
-msgstr "Durée"
+msgstr "Durée (s)"
 
 #. Widget: “SerialWidget”, accessible name.
 #: plover/gui_qt/config_serial_widget_ui.py:270
@@ -351,7 +347,6 @@ msgstr "Durée"
 
 #. Widget: “SerialWidget”, accessible description.
 #: plover/gui_qt/config_serial_widget_ui.py:274
-#, fuzzy
 msgid "Timeout duration in seconds."
 msgstr "Durée du délai d’expiration en secondes."
 
@@ -402,7 +397,7 @@ msgstr "Interface"
 
 #: plover/gui_qt/config_window.py:357
 msgid "Appearance:"
-msgstr ""
+msgstr "Apparence :"
 
 #: plover/gui_qt/config_window.py:362 plover/gui_qt/config_window.py:586
 msgid "System"
@@ -410,11 +405,11 @@ msgstr "Système"
 
 #: plover/gui_qt/config_window.py:363
 msgid "Light"
-msgstr ""
+msgstr "Clair"
 
 #: plover/gui_qt/config_window.py:364
 msgid "Dark"
-msgstr ""
+msgstr "Sombre"
 
 #: plover/gui_qt/config_window.py:368
 msgid ""
@@ -423,6 +418,10 @@ msgid ""
 "- Light: force light mode\n"
 "- Dark: force dark mode"
 msgstr ""
+"Définit l'apparence de l'application :\n"
+"- Système : suit le mode du système d'exploitation\n"
+"- Clair : force le mode clair\n"
+"- Sombre : force le mode sombre"
 
 #: plover/gui_qt/config_window.py:375
 msgid "Start minimized:"
@@ -450,9 +449,7 @@ msgstr "Ouvre la fenêtre des suggestions au démarrage."
 
 #: plover/gui_qt/config_window.py:393
 msgid "Add translation dialog opacity:"
-msgstr ""
-"Opacité de la fenêtre\n"
-"\"Ajouter une traduction\" :"
+msgstr "Opacité de la fenêtre d'ajout de traduction :"
 
 #: plover/gui_qt/config_window.py:397
 msgid ""
@@ -612,7 +609,7 @@ msgstr ""
 
 #: plover/gui_qt/config_window.py:514
 msgid "Key press delay (ms):"
-msgstr ""
+msgstr "Délai de pression des touches (ms) :"
 
 #: plover/gui_qt/config_window.py:522
 msgid ""
@@ -624,10 +621,19 @@ msgid ""
 "Setting the delay too high will negatively impact the\n"
 "performance of key stroke output."
 msgstr ""
+"Définit le délai entre les pressions de touches émulées (en "
+"millisecondes).\n"
+"\n"
+"Certains programmes peuvent ignorer des pressions de touches si trop "
+"d'entre elles sont envoyées\n"
+"dans un court laps de temps. Augmenter le délai donne aux\n"
+"programmes le temps de traiter chaque pression de touche.\n"
+"Définir un délai trop élevé aura un impact négatif sur les\n"
+"performances de sortie des touches."
 
 #: plover/gui_qt/config_window.py:532
 msgid "Linux keyboard layout:"
-msgstr ""
+msgstr "Disposition du clavier Linux :"
 
 #: plover/gui_qt/config_window.py:546
 msgid ""
@@ -638,21 +644,30 @@ msgid ""
 "first keyboard layout\n"
 "and can not detect layout switches."
 msgstr ""
+"Définit la disposition du clavier configurée dans votre système.\n"
+"Cela ne s'applique que lors de l'utilisation de Linux/BSD et de la non-"
+"utilisation de X11.\n"
+"\n"
+"Lorsque la détection automatique de Wayland est sélectionnée, Plover ne "
+"peut détecter que la première disposition du clavier\n"
+"et ne peut pas détecter les changements de disposition."
 
 #: plover/gui_qt/config_window.py:556
 msgid ""
 "When Wayland auto detect is selected, Plover is only able to detect the "
 "first keyboard layout and can not detect layout switches."
 msgstr ""
+"Lorsque la détection automatique de Wayland est sélectionnée, Plover ne "
+"peut détecter que la première disposition du clavier et ne peut pas "
+"détecter les changements de disposition."
 
 #: plover/gui_qt/config_window.py:567
 msgid "Plugins"
 msgstr "Greffons"
 
 #: plover/gui_qt/config_window.py:570
-#, fuzzy
 msgid "Extensions:"
-msgstr "Extension :"
+msgstr "Extensions :"
 
 #. Widget: “MainWindow”, text.
 #: plover/gui_qt/config_window.py:578 plover/gui_qt/main_window_ui.py:294
@@ -680,7 +695,7 @@ msgstr "Plover : Configuration"
 #. Widget: “ConsoleWidget”, window title.
 #: plover/gui_qt/console_widget_ui.py:49
 msgid "Form"
-msgstr ""
+msgstr "Formulaire"
 
 #. Widget: “DictionariesWidget”, file picker.
 #: plover/gui_qt/dictionaries_widget.py:46
@@ -728,7 +743,6 @@ msgstr "Chemin complet : {path}."
 # | msgid "This dictionary is marked as a favorite."
 #. Widget: “DictionariesWidget”, tool tip.
 #: plover/gui_qt/dictionaries_widget.py:414
-#, fuzzy
 msgid "This dictionary is marked as the favorite."
 msgstr "Ce dictionnaire est marqué comme favori."
 
@@ -768,17 +782,15 @@ msgstr "Fusionner {names} sous..."
 #. Widget: “DictionariesWidget”, text.
 #: plover/gui_qt/dictionaries_widget.py:671
 #: plover/gui_qt/dictionaries_widget_ui.py:203
-#, fuzzy
 msgid "Load dictionaries"
-msgstr "Ajoute des dictionnaires"
+msgstr "Charger des dictionnaires"
 
 #. Widget: “DictionariesWidget”, “new” file picker.
 #. Widget: “DictionariesWidget”, text.
 #: plover/gui_qt/dictionaries_widget.py:683
 #: plover/gui_qt/dictionaries_widget_ui.py:205
-#, fuzzy
 msgid "Create dictionary"
-msgstr "Nouveau dictionnaire"
+msgstr "Créer un dictionnaire"
 
 #. Widget: “DictionariesWidget”, title.
 #. Widget: “DictionariesWidget”, accessible name.
@@ -1021,9 +1033,8 @@ msgstr "Motif"
 
 #. Widget: “LookupDialog”, accessible description.
 #: plover/gui_qt/lookup_dialog_ui.py:79
-#, fuzzy
 msgid "Translation pattern to lookup."
-msgstr "Motifs de traduction à chercher."
+msgstr "Motif de traduction à rechercher."
 
 #. Widget: “LookupDialog”, accessible name.
 #: plover/gui_qt/lookup_dialog_ui.py:83
@@ -1033,22 +1044,22 @@ msgstr "Résultats"
 #: plover/gui_qt/machine_options.py:36
 #, python-brace-format
 msgid "product: {value}"
-msgstr ""
+msgstr "produit : {value}"
 
 #: plover/gui_qt/machine_options.py:37
 #, python-brace-format
 msgid "manufacturer: {value}"
-msgstr ""
+msgstr "fabricant : {value}"
 
 #: plover/gui_qt/machine_options.py:38
 #, python-brace-format
 msgid "serial number: {value}"
-msgstr ""
+msgstr "numéro de série : {value}"
 
 #: plover/gui_qt/machine_options.py:46
 #, python-brace-format
 msgid "description: {value}"
-msgstr ""
+msgstr "description : {value}"
 
 #: plover/gui_qt/machine_options.py:199
 msgid ""
@@ -1064,7 +1075,7 @@ msgstr ""
 
 #: plover/gui_qt/main_window.py:312
 msgid "Application is still running."
-msgstr ""
+msgstr "L'application est encore en cours d'exécution."
 
 #. Widget: “MainWindow”, text.
 #: plover/gui_qt/main_window_ui.py:202
@@ -1231,7 +1242,7 @@ msgstr "Affichage des entrées du ruban."
 
 #: plover/gui_qt/paper_tape.py:124
 msgid "Paper Tape"
-msgstr "Ruban"
+msgstr "Bande papier"
 
 #: plover/gui_qt/paper_tape.py:237
 msgid "Do you want to clear the paper tape?"
@@ -1323,47 +1334,108 @@ msgstr "Choisit le mode d'affichage du ruban."
 msgid "Tape"
 msgstr "Ruban"
 
+#: plover/gui_qt/plugins_manager.py:26
+msgid "Plugins Manager"
+msgstr "Greffons"
+
+#: plover/gui_qt/plugins_manager.py:75
+msgid "N/A"
+msgstr "N/A"
+
+#. Metadata field.
+#: plover/gui_qt/plugins_manager.py:127
+#, python-format
+msgid "<p><b>Author: </b><a href=\"mailto:%s\">%s</a></p>"
+msgstr "<p><b>Auteur : </b><a href=\"mailto:%s\">%s</a></p>"
+
+#. Metadata field.
+#: plover/gui_qt/plugins_manager.py:133
+#, python-format
+msgid "<p><b>Home page: </b><a href=\"%s\">%s</a></p>"
+msgstr "<p><b>Page d'accueil : </b><a href=\"%s\">%s</a></p>"
+
+#: plover/gui_qt/plugins_manager.py:180
+msgid "Install from Git repo"
+msgstr "Installer depuis un dépôt Git"
+
+#: plover/gui_qt/plugins_manager.py:182
+msgid ""
+"<b>WARNING: Installing plugins is a security risk.<br>A plugin from a Git"
+" repo can contain malicious code.<br>Only install it if you got it from a"
+" trusted source.</b><br><br>Enter repository link for plugin<br>(will "
+"look similar to https://github.com/user/repository.git): <br>"
+msgstr ""
+"<b>AVERTISSEMENT : L'installation de greffons est un risque pour la "
+"sécurité.<br>Un greffon provenant d'un dépôt Git peut contenir du code "
+"malveillant.<br>Ne l'installez que si vous l'avez obtenu d'une source "
+"fiable.</b><br><br>Entrez le lien du dépôt pour le "
+"greffon<br>(ressemblera à https://github.com/user/repository.git) : <br>"
+
+#: plover/gui_qt/plugins_manager.py:204
+#, python-brace-format
+msgid "Install {packages}"
+msgstr "Installer {packages}"
+
+#: plover/gui_qt/plugins_manager.py:206
+msgid ""
+"Installing plugins is a <b>security risk</b>. A plugin can contain "
+"virus/malware. Only install it if you got it from a trusted source. Are "
+"you sure you want to proceed?"
+msgstr ""
+"L'installation de greffons est un <b>risque pour la sécurité</b>. Un "
+"greffon peut contenir des virus ou des logiciels malveillants. Ne "
+"l'installez que si vous l'avez obtenu d'une source fiable. Êtes-vous sûr "
+"de vouloir continuer ?"
+
+#: plover/gui_qt/plugins_manager.py:233
+#, python-brace-format
+msgid "Uninstall {packages}"
+msgstr "Désinstaller {packages}"
+
+#: plover/gui_qt/plugins_manager.py:234
+msgid "Are you sure you want to proceed?"
+msgstr "Êtes-vous sûr de vouloir continuer ?"
+
 #. Widget: “PluginsManager”, window title.
 #. Widget: “RunDialog”, window title.
 #: plover/gui_qt/plugins_manager_ui.py:130 plover/gui_qt/run_dialog_ui.py:51
 msgid "Dialog"
-msgstr ""
+msgstr "Fenêtre de dialogue"
 
 #. Widget: “PluginsManager”, text.
 #: plover/gui_qt/plugins_manager_ui.py:139
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #. Widget: “PluginsManager”, text.
 #: plover/gui_qt/plugins_manager_ui.py:142
 msgid "Summary"
-msgstr ""
+msgstr "Résumé"
 
 #. Widget: “PluginsManager”, text.
 #: plover/gui_qt/plugins_manager_ui.py:144
-#, fuzzy
 msgid "Restart"
-msgstr "État"
+msgstr "Redémarrer"
 
 #. Widget: “PluginsManager”, text.
 #: plover/gui_qt/plugins_manager_ui.py:148
 msgid "Uninstall"
-msgstr ""
+msgstr "Désinstaller"
 
 #. Widget: “PluginsManager”, text.
 #: plover/gui_qt/plugins_manager_ui.py:150
 msgid "Install/Update"
-msgstr ""
+msgstr "Installer/Mettre à jour"
 
 #. Widget: “PluginsManager”, text.
 #: plover/gui_qt/plugins_manager_ui.py:152
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #. Widget: “SuggestionsDialog”, tooltip.
 #: plover/gui_qt/suggestions_dialog.py:26
 msgid "Suggest possible strokes for the last written words."
-msgstr "Suggère des accords possibles pour les derniers mots écris."
+msgstr "Suggère des accords possibles pour les derniers mots écrits."
 
 #. Widget: “SuggestionsDialog”, accessible name.
 #: plover/gui_qt/suggestions_dialog.py:28
@@ -1408,7 +1480,7 @@ msgstr "la sortie est désactivée"
 
 #: plover/gui_qt/utils.py:28
 msgid "Copy selection to clipboard"
-msgstr ""
+msgstr "Copier la sélection dans le presse-papiers"
 
 #. Machine state.
 #: plover/machine/base.py:20

@@ -12,7 +12,7 @@ from PySide6.QtWidgets import (
     QInputDialog,
 )
 
-from plover import log
+from plover import _, log
 from plover.gui_qt.tool import Tool
 from plover.gui_qt.info_browser import InfoBrowser
 from plover.gui_qt.plugins_manager_ui import Ui_PluginsManager
@@ -23,7 +23,7 @@ from plover.plugins_manager.__main__ import pip
 
 
 class PluginsManager(Tool, Ui_PluginsManager):
-    TITLE = "Plugins Manager"
+    TITLE = _("Plugins Manager")
     ROLE = "plugins_manager"
     ICON = ":/resources/plugins_manager.svg"
 
@@ -67,7 +67,13 @@ class PluginsManager(Tool, Ui_PluginsManager):
         self.table.setRowCount(len(self._packages))
         for row, state in enumerate(self._packages):
             for column, attr in enumerate("status name version summary".split()):
-                item = QTableWidgetItem(getattr(state, attr, "N/A"))
+                value = getattr(state, attr, "N/A")
+                if attr == "status":
+                    if value:
+                        value = _(value)
+                elif value == "N/A":
+                    value = _("N/A")
+                item = QTableWidgetItem(value)
                 item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
                 self.table.setItem(row, column, item)
         self.table.resizeColumnsToContents()
@@ -117,12 +123,14 @@ class PluginsManager(Tool, Ui_PluginsManager):
             html.escape(metadata.version),
         )
         if metadata.author and metadata.author_email:
-            prologue += '<p><b>Author: </b><a href="mailto:%s">%s</a></p>' % (
+            # i18n: Metadata field.
+            prologue += _('<p><b>Author: </b><a href="mailto:%s">%s</a></p>') % (
                 html.escape(metadata.author_email),
                 html.escape(metadata.author),
             )
         if metadata.home_page:
-            prologue += '<p><b>Home page: </b><a href="%s">%s</a></p>' % (
+            # i18n: Metadata field.
+            prologue += _('<p><b>Home page: </b><a href="%s">%s</a></p>') % (
                 metadata.home_page,
                 html.escape(metadata.home_page),
             )
@@ -169,13 +177,15 @@ class PluginsManager(Tool, Ui_PluginsManager):
     def install_from_git(self):
         url, ok = QInputDialog.getText(
             self,
-            "Install from Git repo",
-            "<b>WARNING: Installing plugins is a security risk.<br>"
-            "A plugin from a Git repo can contain malicious code.<br>"
-            "Only install it if you got it from a trusted source.</b><br><br>"
-            "Enter repository link for plugin<br>"
-            "(will look similar to "
-            "https://github.com/user/repository.git): <br>",
+            _("Install from Git repo"),
+            _(
+                "<b>WARNING: Installing plugins is a security risk.<br>"
+                "A plugin from a Git repo can contain malicious code.<br>"
+                "Only install it if you got it from a trusted source.</b><br><br>"
+                "Enter repository link for plugin<br>"
+                "(will look similar to "
+                "https://github.com/user/repository.git): <br>"
+            ),
         )
         if not ok or not url:
             return
@@ -191,11 +201,13 @@ class PluginsManager(Tool, Ui_PluginsManager):
         if (
             QMessageBox.warning(
                 self,
-                "Install " + ", ".join(packages),
-                "Installing plugins is a <b>security risk</b>. "
-                "A plugin can contain virus/malware. "
-                "Only install it if you got it from a trusted source."
-                " Are you sure you want to proceed?",
+                _("Install {packages}").format(packages=", ".join(packages)),
+                _(
+                    "Installing plugins is a <b>security risk</b>. "
+                    "A plugin can contain virus/malware. "
+                    "Only install it if you got it from a trusted source."
+                    " Are you sure you want to proceed?"
+                ),
                 buttons=QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
                 defaultButton=QMessageBox.StandardButton.No,
             )
@@ -215,6 +227,17 @@ class PluginsManager(Tool, Ui_PluginsManager):
     @Slot()
     def uninstall_selected_package(self):
         packages = self._get_selection()[1]
+        if (
+            QMessageBox.warning(
+                self,
+                _("Uninstall {packages}").format(packages=", ".join(packages)),
+                _("Are you sure you want to proceed?"),
+                buttons=QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                defaultButton=QMessageBox.StandardButton.No,
+            )
+            != QMessageBox.StandardButton.Yes
+        ):
+            return
         code = self._run(["uninstall", "-y"] + packages)
         if code == QDialog.DialogCode.Accepted:
             for name in packages:

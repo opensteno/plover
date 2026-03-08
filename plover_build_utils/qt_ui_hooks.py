@@ -35,7 +35,7 @@ def convert_ui_translations(contents: str) -> str:
         (
             r"(?P<ws> *)(?P<pre1>.*?)(?P<pre2>\.set(?P<field>\w+)\()?"
             r'(?:QCoreApplication\.translate)\("(?P<widget>.*?)",\s*'
-            r'(?P<msg>u?"(?:[^"\\]|\\.)*?")'
+            r'(?P<msg>(?:u?"(?:[^"\\]|\\.)*?"\s*)+)'
             r"(?:,\s*None)?"
         ),
         repl,

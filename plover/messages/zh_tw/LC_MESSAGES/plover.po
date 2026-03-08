@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plover 5.2.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-07 10:58+0100\n"
-"PO-Revision-Date: 2021-08-25 14:34+0800\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2026-03-09 20:26+0100\n"
+"PO-Revision-Date: 2026-03-08 12:00+0100\n"
+"Last-Translator: Gemini CLI\n"
 "Language: zh_TW\n"
 "Language-Team: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -65,7 +65,7 @@ msgstr ""
 #: plover/dictionary/helpers.py:24
 #, python-format
 msgid "dictionary `%s` loaded with %u invalid steno errors"
-msgstr ""
+msgstr "字典「%s」載入完畢，共有 %u 個無效速錄錯誤"
 
 #. Widget: “AboutDialog”, window title.
 #: plover/gui_qt/about_dialog_ui.py:53
@@ -156,43 +156,38 @@ msgstr "字典"
 
 #. Widget: “AddTranslationWidget”, accessible description.
 #: plover/gui_qt/add_translation_widget_ui.py:143
-#, fuzzy
 msgid "Select the target dictionary for the new translation."
-msgstr "在字典內尋找翻譯。"
+msgstr "選擇新翻譯的目標字典。"
 
 #. Widget: “AddTranslationWidget”, accessible name.
 #: plover/gui_qt/add_translation_widget_ui.py:147
 msgid "Existing mappings (strokes)"
-msgstr ""
+msgstr "現有的對映 (和弦)"
 
 #. Widget: “AddTranslationWidget”, accessible name.
 #: plover/gui_qt/add_translation_widget_ui.py:152
 msgid "Existing mappings (translations)"
-msgstr ""
+msgstr "現有的對映 (翻譯)"
 
 #. Widget: “FileWidget”, accessible name.
 #: plover/gui_qt/config_file_widget_ui.py:61
-#, fuzzy
 msgid "Log file path."
-msgstr "紀錄檔："
+msgstr "紀錄檔路徑。"
 
 #. Widget: “FileWidget”, accessible description.
 #: plover/gui_qt/config_file_widget_ui.py:65
-#, fuzzy
 msgid "Path to the log file."
-msgstr "將和弦紀錄至紀錄檔。"
+msgstr "紀錄檔的路徑。"
 
 #. Widget: “FileWidget”, accessible name.
 #: plover/gui_qt/config_file_widget_ui.py:69
-#, fuzzy
 msgid "Browse."
-msgstr "瀏覽"
+msgstr "瀏覽。"
 
 #. Widget: “FileWidget”, accessible description.
 #: plover/gui_qt/config_file_widget_ui.py:73
-#, fuzzy
 msgid "Open a file picker to select the log file."
-msgstr "將和弦紀錄至紀錄檔。"
+msgstr "開啟檔案選取器以選擇紀錄檔。"
 
 #. Widget: “FileWidget”, text.
 #: plover/gui_qt/config_file_widget_ui.py:76
@@ -207,11 +202,13 @@ msgid ""
 "When the first key in a chord is released, the chord is sent.\n"
 "If the key is pressed and released again, another chord is sent."
 msgstr ""
+"當和弦中的第一個按鍵放開時，即送出和弦。\n"
+"如果該按鍵再次被按下並放開，則會送出另一個和弦。"
 
 #. Widget: “KeyboardWidget”, text.
 #: plover/gui_qt/config_keyboard_widget_ui.py:60
 msgid "First-up chord send"
-msgstr ""
+msgstr "放開首鍵時送出和弦"
 
 #. Widget: “KeyboardWidget”, text.
 #: plover/gui_qt/config_keyboard_widget_ui.py:62
@@ -221,52 +218,52 @@ msgstr "琶音"
 #. Widget: “PloverHidWidget”, text.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:93
 msgid "Send chord on first key release"
-msgstr ""
+msgstr "放開首鍵時送出和弦"
 
 #. Widget: “PloverHidWidget”, tool tip.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:96
 msgid "Tap and then hold a chord to send it repeatedly."
-msgstr ""
+msgstr "點擊並按住和弦以重複送出。"
 
 #. Widget: “PloverHidWidget”, text.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:99
 msgid "Double tap to repeat"
-msgstr ""
+msgstr "雙擊重複"
 
 #. Widget: “PloverHidWidget”, text.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:101
 msgid "Repeat delay (ms)"
-msgstr ""
+msgstr "重複延遲 (毫秒)"
 
 #. Widget: “PloverHidWidget”, tool tip.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:104
 msgid "Delay before chord starts repeating."
-msgstr ""
+msgstr "和弦開始重複前的延遲時間。"
 
 #. Widget: “PloverHidWidget”, text.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:107
 msgid "Repeat interval (ms)"
-msgstr ""
+msgstr "重複間隔 (毫秒)"
 
 #. Widget: “PloverHidWidget”, tool tip.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:110
 msgid "Interval between chord repetitions."
-msgstr ""
+msgstr "和弦重複之間的間隔時間。"
 
 #. Widget: “PloverHidWidget”, text.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:113
 msgid "Device scan interval (ms)"
-msgstr ""
+msgstr "設備掃描間隔 (毫秒)"
 
 #. Widget: “PloverHidWidget”, tool tip.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:116
 msgid "How often to scan for newly plugged-in devices."
-msgstr ""
+msgstr "掃描新插入設備的頻率。"
 
 #. Widget: “SerialWidget”, accessible name.
 #: plover/gui_qt/config_serial_widget_ui.py:215
 msgid "Serial"
-msgstr ""
+msgstr "序列埠"
 
 #. Widget: “SerialWidget”, title.
 #: plover/gui_qt/config_serial_widget_ui.py:218
@@ -283,19 +280,19 @@ msgstr "連接埠"
 #. Widget: “SerialWidget”, accessible description.
 #: plover/gui_qt/config_serial_widget_ui.py:227
 msgid "Serial port device name."
-msgstr ""
+msgstr "序列埠設備名稱。"
 
 #. Widget: “SerialWidget”, accessible description.
 #: plover/gui_qt/config_serial_widget_ui.py:231
 msgid "Reload all available serial ports."
-msgstr ""
+msgstr "重新載入所有可用的序列埠。"
 
 #. Widget: “SerialWidget”, text.
 #. Widget: “PluginsManager”, text.
 #: plover/gui_qt/config_serial_widget_ui.py:234
 #: plover/gui_qt/plugins_manager_ui.py:146
 msgid "Refresh"
-msgstr ""
+msgstr "重新整理"
 
 #. Widget: “SerialWidget”, text.
 #. Widget: “SerialWidget”, accessible name.
@@ -338,18 +335,17 @@ msgstr "等待時間"
 #. Widget: “SerialWidget”, text.
 #: plover/gui_qt/config_serial_widget_ui.py:267
 msgid "Duration (s)"
-msgstr ""
+msgstr "持續時間 (秒)"
 
 #. Widget: “SerialWidget”, accessible name.
 #: plover/gui_qt/config_serial_widget_ui.py:270
-#, fuzzy
 msgid "Duration"
-msgstr "字根"
+msgstr "持續時間"
 
 #. Widget: “SerialWidget”, accessible description.
 #: plover/gui_qt/config_serial_widget_ui.py:274
 msgid "Timeout duration in seconds."
-msgstr ""
+msgstr "等待時間 (以秒計)。"
 
 #. Widget: “SerialWidget”, title.
 #: plover/gui_qt/config_serial_widget_ui.py:277
@@ -398,19 +394,19 @@ msgstr "界面"
 
 #: plover/gui_qt/config_window.py:357
 msgid "Appearance:"
-msgstr ""
+msgstr "外觀："
 
 #: plover/gui_qt/config_window.py:362 plover/gui_qt/config_window.py:586
 msgid "System"
-msgstr "語言系統"
+msgstr "系統"
 
 #: plover/gui_qt/config_window.py:363
 msgid "Light"
-msgstr ""
+msgstr "淺色"
 
 #: plover/gui_qt/config_window.py:364
 msgid "Dark"
-msgstr ""
+msgstr "深色"
 
 #: plover/gui_qt/config_window.py:368
 msgid ""
@@ -419,6 +415,10 @@ msgid ""
 "- Light: force light mode\n"
 "- Dark: force dark mode"
 msgstr ""
+"設定應用程式外觀：\n"
+"- 系統：跟隨作業系統設定\n"
+"- 淺色：強制使用淺色模式\n"
+"- 深色：強制使用深色模式"
 
 #: plover/gui_qt/config_window.py:375
 msgid "Start minimized:"
@@ -594,7 +594,7 @@ msgstr "設定回復的最大次數。"
 
 #: plover/gui_qt/config_window.py:514
 msgid "Key press delay (ms):"
-msgstr ""
+msgstr "按鍵延遲 (毫秒)："
 
 #: plover/gui_qt/config_window.py:522
 msgid ""
@@ -606,10 +606,15 @@ msgid ""
 "Setting the delay too high will negatively impact the\n"
 "performance of key stroke output."
 msgstr ""
+"設定模擬按鍵之間的延遲時間 (以毫秒計)。\n"
+"\n"
+"如果在短時間內送出太多按鍵，某些程式可能會漏掉按鍵。\n"
+"增加延遲可以讓程式有時間處理每次按鍵。\n"
+"延遲設定過高會對輸出效能產生負面影響。"
 
 #: plover/gui_qt/config_window.py:532
 msgid "Linux keyboard layout:"
-msgstr ""
+msgstr "Linux 鍵盤佈局："
 
 #: plover/gui_qt/config_window.py:546
 msgid ""
@@ -620,21 +625,25 @@ msgid ""
 "first keyboard layout\n"
 "and can not detect layout switches."
 msgstr ""
+"設定系統中配置的鍵盤佈局。\n"
+"這僅適用於使用 Linux/BSD 且不使用 X11 的情況。\n"
+"\n"
+"當選取 Wayland 自動偵測時，Plover 僅能偵測第一個鍵盤佈局，\n"
+"且無法偵測佈局切換。"
 
 #: plover/gui_qt/config_window.py:556
 msgid ""
 "When Wayland auto detect is selected, Plover is only able to detect the "
 "first keyboard layout and can not detect layout switches."
-msgstr ""
+msgstr "當選取 Wayland 自動偵測時，Plover 僅能偵測第一個鍵盤佈局，且無法偵測佈局切換。"
 
 #: plover/gui_qt/config_window.py:567
 msgid "Plugins"
 msgstr "外掛程式"
 
 #: plover/gui_qt/config_window.py:570
-#, fuzzy
 msgid "Extensions:"
-msgstr "擴充程式："
+msgstr "擴充功能："
 
 #. Widget: “MainWindow”, text.
 #: plover/gui_qt/config_window.py:578 plover/gui_qt/main_window_ui.py:294
@@ -662,7 +671,7 @@ msgstr "Plover: 設定"
 #. Widget: “ConsoleWidget”, window title.
 #: plover/gui_qt/console_widget_ui.py:49
 msgid "Form"
-msgstr ""
+msgstr "表單"
 
 #. Widget: “DictionariesWidget”, file picker.
 #: plover/gui_qt/dictionaries_widget.py:46
@@ -678,42 +687,39 @@ msgstr "{format} 字典 ({extensions})"
 
 #. Widget: “DictionariesWidget”, accessible text.
 #: plover/gui_qt/dictionaries_widget.py:391
-#, fuzzy
 msgid "disabled"
-msgstr "已禁用"
+msgstr "已停用"
 
 #. Widget: “DictionariesWidget”, accessible text.
 #: plover/gui_qt/dictionaries_widget.py:394
 msgid "favorite"
-msgstr ""
+msgstr "最愛"
 
 #: plover/gui_qt/dictionaries_widget.py:398
 #, python-brace-format
 msgid "errored: {exception}."
-msgstr ""
+msgstr "錯誤：{exception}。"
 
 #. Widget: “DictionariesWidget”, accessible text.
 #: plover/gui_qt/dictionaries_widget.py:402
-#, fuzzy
 msgid "loading"
-msgstr "輸入紀錄"
+msgstr "載入中…"
 
 #. Widget: “DictionariesWidget”, accessible text.
 #: plover/gui_qt/dictionaries_widget.py:405
 msgid "read-only"
-msgstr ""
+msgstr "唯讀"
 
 #. Widget: “DictionariesWidget”, tooltip.
 #: plover/gui_qt/dictionaries_widget.py:411
 #, python-brace-format
 msgid "Full path: {path}."
-msgstr ""
+msgstr "完整路徑：{path}。"
 
 #. Widget: “DictionariesWidget”, tool tip.
 #: plover/gui_qt/dictionaries_widget.py:414
-#, fuzzy
 msgid "This dictionary is marked as the favorite."
-msgstr "字典已被加到最愛。"
+msgstr "此字典已標記為最愛。"
 
 #. Widget: “DictionariesWidget”, tool tip.
 #: plover/gui_qt/dictionaries_widget.py:417
@@ -721,9 +727,9 @@ msgid "This dictionary is being loaded."
 msgstr "字典正在載入中…"
 
 #: plover/gui_qt/dictionaries_widget.py:421
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Loading this dictionary failed: {exception}."
-msgstr "字典為唯讀狀態。"
+msgstr "載入此字典失敗：{exception}。"
 
 #. Widget: “DictionariesWidget”, tool tip.
 #: plover/gui_qt/dictionaries_widget.py:427
@@ -751,17 +757,15 @@ msgstr "合併 {names} 為..."
 #. Widget: “DictionariesWidget”, text.
 #: plover/gui_qt/dictionaries_widget.py:671
 #: plover/gui_qt/dictionaries_widget_ui.py:203
-#, fuzzy
 msgid "Load dictionaries"
-msgstr "新增字典"
+msgstr "載入字典"
 
 #. Widget: “DictionariesWidget”, “new” file picker.
 #. Widget: “DictionariesWidget”, text.
 #: plover/gui_qt/dictionaries_widget.py:683
 #: plover/gui_qt/dictionaries_widget_ui.py:205
-#, fuzzy
 msgid "Create dictionary"
-msgstr "新字典"
+msgstr "建立字典"
 
 #. Widget: “DictionariesWidget”, title.
 #. Widget: “DictionariesWidget”, accessible name.
@@ -943,20 +947,18 @@ msgstr "依照和弦："
 
 #. Widget: “DictionaryEditor”, accessible name.
 #: plover/gui_qt/dictionary_editor_ui.py:181
-#, fuzzy
 msgid "Strokes filter"
-msgstr "和弦"
+msgstr "和弦過濾器"
 
 #. Widget: “DictionaryEditor”, accessible name.
 #: plover/gui_qt/dictionary_editor_ui.py:185
-#, fuzzy
 msgid "Apply filter"
-msgstr "過濾"
+msgstr "套用過濾器"
 
 #. Widget: “DictionaryEditor”, text.
 #: plover/gui_qt/dictionary_editor_ui.py:188
 msgid "Apply"
-msgstr "適用"
+msgstr "套用"
 
 #. Widget: “DictionaryEditor”, text.
 #: plover/gui_qt/dictionary_editor_ui.py:190
@@ -965,15 +967,13 @@ msgstr "依照翻譯："
 
 #. Widget: “DictionaryEditor”, accessible name.
 #: plover/gui_qt/dictionary_editor_ui.py:193
-#, fuzzy
 msgid "Translation filter"
-msgstr "翻譯"
+msgstr "翻譯過濾器"
 
 #. Widget: “DictionaryEditor”, accessible name.
 #: plover/gui_qt/dictionary_editor_ui.py:197
-#, fuzzy
 msgid "Clear filter"
-msgstr "過濾"
+msgstr "清除過濾器"
 
 #. Widget: “DictionaryEditor”, text.
 #: plover/gui_qt/dictionary_editor_ui.py:203
@@ -983,7 +983,7 @@ msgstr "清除"
 #. Widget: “DictionaryEditor”, accessible name.
 #: plover/gui_qt/dictionary_editor_ui.py:206
 msgid "Mappings"
-msgstr ""
+msgstr "對映"
 
 #. Widget: “LookupDialog”, tooltip.
 #: plover/gui_qt/lookup_dialog.py:12
@@ -1001,39 +1001,38 @@ msgstr "Plover:字典查詢"
 
 #. Widget: “LookupDialog”, accessible name.
 #: plover/gui_qt/lookup_dialog_ui.py:75
-#, fuzzy
 msgid "Pattern"
-msgstr "紙帶模式"
+msgstr "樣式"
 
 #. Widget: “LookupDialog”, accessible description.
 #: plover/gui_qt/lookup_dialog_ui.py:79
 msgid "Translation pattern to lookup."
-msgstr ""
+msgstr "要查詢的翻譯樣式。"
 
 #. Widget: “LookupDialog”, accessible name.
 #: plover/gui_qt/lookup_dialog_ui.py:83
 msgid "Results"
-msgstr ""
+msgstr "結果"
 
 #: plover/gui_qt/machine_options.py:36
 #, python-brace-format
 msgid "product: {value}"
-msgstr ""
+msgstr "產品：{value}"
 
 #: plover/gui_qt/machine_options.py:37
 #, python-brace-format
 msgid "manufacturer: {value}"
-msgstr ""
+msgstr "製造商：{value}"
 
 #: plover/gui_qt/machine_options.py:38
 #, python-brace-format
 msgid "serial number: {value}"
-msgstr ""
+msgstr "序號：{value}"
 
 #: plover/gui_qt/machine_options.py:46
 #, python-brace-format
 msgid "description: {value}"
-msgstr ""
+msgstr "描述：{value}"
 
 #: plover/gui_qt/machine_options.py:199
 msgid ""
@@ -1049,7 +1048,7 @@ msgstr ""
 
 #: plover/gui_qt/main_window.py:312
 msgid "Application is still running."
-msgstr ""
+msgstr "應用程式仍在執行中。"
 
 #. Widget: “MainWindow”, text.
 #: plover/gui_qt/main_window_ui.py:202
@@ -1146,30 +1145,28 @@ msgstr "Ctrl+."
 #. Widget: “MainWindow”, accessible name.
 #. Widget: “PluginsManager”, text.
 #: plover/gui_qt/main_window_ui.py:263 plover/gui_qt/plugins_manager_ui.py:133
-#, fuzzy
 msgid "State"
-msgstr "&存檔"
+msgstr "狀態"
 
 #. Widget: “MainWindow”, accessible description.
 #: plover/gui_qt/main_window_ui.py:267
 msgid "Connection state for the current machine."
-msgstr ""
+msgstr "目前機器的連接狀態。"
 
 #. Widget: “MainWindow”, accessible name.
 #: plover/gui_qt/main_window_ui.py:276
-#, fuzzy
 msgid "Reconnect"
-msgstr "已連接"
+msgstr "重新連接"
 
 #. Widget: “MainWindow”, accessible name.
 #: plover/gui_qt/main_window_ui.py:285
 msgid "Type"
-msgstr ""
+msgstr "類型"
 
 #. Widget: “MainWindow”, accessible description.
 #: plover/gui_qt/main_window_ui.py:289
 msgid "Change the current machine type."
-msgstr ""
+msgstr "更改目前機器類型。"
 
 #. Widget: “MainWindow”, text.
 #: plover/gui_qt/main_window_ui.py:296
@@ -1214,7 +1211,7 @@ msgstr "原始模式"
 #. Widget: “PaperTape”, tooltip.
 #: plover/gui_qt/paper_tape.py:122
 msgid "Paper tape display of strokes."
-msgstr ""
+msgstr "紙帶顯示和弦。"
 
 #: plover/gui_qt/paper_tape.py:124
 msgid "Paper Tape"
@@ -1292,9 +1289,8 @@ msgstr "開啟字體選擇視窗。"
 
 #. Widget: “PaperTape”, text.
 #: plover/gui_qt/paper_tape_ui.py:148
-#, fuzzy
 msgid "Mode:"
-msgstr "模式"
+msgstr "模式："
 
 #. Widget: “PaperTape”, accessible name.
 #: plover/gui_qt/paper_tape_ui.py:151
@@ -1303,56 +1299,110 @@ msgstr "模式"
 
 #. Widget: “PaperTape”, accessible description.
 #: plover/gui_qt/paper_tape_ui.py:155
-#, fuzzy
 msgid "Select paper tape display mode."
-msgstr "將輸入紙帶存檔。"
+msgstr "選擇紙帶顯示模式。"
 
 #. Widget: “PaperTape”, accessible name.
 #: plover/gui_qt/paper_tape_ui.py:159
-#, fuzzy
 msgid "Tape"
-msgstr "紙帶模式"
+msgstr "紙帶"
+
+#: plover/gui_qt/plugins_manager.py:26
+msgid "Plugins Manager"
+msgstr "外掛程式"
+
+#: plover/gui_qt/plugins_manager.py:75
+msgid "N/A"
+msgstr "不適用"
+
+#. Metadata field.
+#: plover/gui_qt/plugins_manager.py:127
+#, python-format
+msgid "<p><b>Author: </b><a href=\"mailto:%s\">%s</a></p>"
+msgstr "<p><b>作者：</b><a href=\"mailto:%s\">%s</a></p>"
+
+#. Metadata field.
+#: plover/gui_qt/plugins_manager.py:133
+#, python-format
+msgid "<p><b>Home page: </b><a href=\"%s\">%s</a></p>"
+msgstr "<p><b>首頁：</b><a href=\"%s\">%s</a></p>"
+
+#: plover/gui_qt/plugins_manager.py:180
+msgid "Install from Git repo"
+msgstr "從 Git 儲存庫安裝"
+
+#: plover/gui_qt/plugins_manager.py:182
+msgid ""
+"<b>WARNING: Installing plugins is a security risk.<br>A plugin from a Git"
+" repo can contain malicious code.<br>Only install it if you got it from a"
+" trusted source.</b><br><br>Enter repository link for plugin<br>(will "
+"look similar to https://github.com/user/repository.git): <br>"
+msgstr ""
+"<b>警告：安裝外掛程式存在安全風險。<br>來自 Git "
+"儲存庫的外掛程式可能包含惡意代碼。<br>僅在您從信任的來源獲取時才進行安裝。</b><br><br>輸入外掛程式的儲存庫連結<br>（看起來類似於"
+" https://github.com/user/repository.git）：<br>"
+
+#: plover/gui_qt/plugins_manager.py:204
+#, python-brace-format
+msgid "Install {packages}"
+msgstr "安裝 {packages}"
+
+#: plover/gui_qt/plugins_manager.py:206
+msgid ""
+"Installing plugins is a <b>security risk</b>. A plugin can contain "
+"virus/malware. Only install it if you got it from a trusted source. Are "
+"you sure you want to proceed?"
+msgstr "安裝外掛程式是一個<b>安全風險</b>。外掛程式可能包含病毒或惡意軟體。僅在您從信任的來源獲取時才進行安裝。您確定要繼續嗎？"
+
+#: plover/gui_qt/plugins_manager.py:233
+#, python-brace-format
+msgid "Uninstall {packages}"
+msgstr "解除安裝 {packages}"
+
+#: plover/gui_qt/plugins_manager.py:234
+msgid "Are you sure you want to proceed?"
+msgstr "您確定要繼續嗎？"
 
 #. Widget: “PluginsManager”, window title.
 #. Widget: “RunDialog”, window title.
 #: plover/gui_qt/plugins_manager_ui.py:130 plover/gui_qt/run_dialog_ui.py:51
 msgid "Dialog"
-msgstr ""
+msgstr "對話框"
 
 #. Widget: “PluginsManager”, text.
 #: plover/gui_qt/plugins_manager_ui.py:139
 msgid "Version"
-msgstr ""
+msgstr "版本"
 
 #. Widget: “PluginsManager”, text.
 #: plover/gui_qt/plugins_manager_ui.py:142
 msgid "Summary"
-msgstr ""
+msgstr "摘要"
 
 #. Widget: “PluginsManager”, text.
 #: plover/gui_qt/plugins_manager_ui.py:144
 msgid "Restart"
-msgstr ""
+msgstr "重新啟動"
 
 #. Widget: “PluginsManager”, text.
 #: plover/gui_qt/plugins_manager_ui.py:148
 msgid "Uninstall"
-msgstr ""
+msgstr "解除安裝"
 
 #. Widget: “PluginsManager”, text.
 #: plover/gui_qt/plugins_manager_ui.py:150
 msgid "Install/Update"
-msgstr ""
+msgstr "安裝/更新"
 
 #. Widget: “PluginsManager”, text.
 #: plover/gui_qt/plugins_manager_ui.py:152
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #. Widget: “SuggestionsDialog”, tooltip.
 #: plover/gui_qt/suggestions_dialog.py:26
 msgid "Suggest possible strokes for the last written words."
-msgstr "列出上一和弦的所有可能和弦。"
+msgstr "最後輸入文字的所有可能和弦建議。"
 
 #. Widget: “SuggestionsDialog”, accessible name.
 #: plover/gui_qt/suggestions_dialog.py:28
@@ -1397,7 +1447,7 @@ msgstr "輸出已關閉"
 
 #: plover/gui_qt/utils.py:28
 msgid "Copy selection to clipboard"
-msgstr ""
+msgstr "複製選取內容到剪貼簿"
 
 #. Machine state.
 #: plover/machine/base.py:20
