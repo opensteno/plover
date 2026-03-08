@@ -371,7 +371,7 @@ if sys.platform.startswith("linux"):
 options.update(babel_options(__software_name__))
 
 BuildPy.build_dependencies.append("compile_catalog")
-BuildUi.hooks.append("plover_build_utils.pyqt:gettext")
+BuildUi.hooks.append("plover_build_utils.qt_ui_hooks:convert_ui_translations")
 
 # }}}
 

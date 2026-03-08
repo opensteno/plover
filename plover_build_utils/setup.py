@@ -90,7 +90,7 @@ class BuildUi(Command):
     ]
 
     hooks = """
-    plover_build_utils.pyqt:no_autoconnection
+    plover_build_utils.qt_ui_hooks:remove_ui_autoconnection
     """.split()
 
     def initialize_options(self):
@@ -137,7 +137,7 @@ class BuildUi(Command):
 
     def run(self):
         self.run_command("egg_info")
-        std_hook_prefix = __package__ + ".pyqt:"
+        std_hook_prefix = __package__ + ".qt_ui_hooks:"
         hooks_info = [
             h[len(std_hook_prefix) :] if h.startswith(std_hook_prefix) else h
             for h in self.hooks
