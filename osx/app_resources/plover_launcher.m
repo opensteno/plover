@@ -4,88 +4,106 @@
 #include <limits.h>
 #include <unistd.h>
 
+/**
+ * Plover macOS Launcher
+ *
+ * Entry point for the Plover application bundle. It initializes the bundled 
+ * Python interpreter and runs the Plover GUI or a specified CLI module.
+ * It remains in the same process to ensure the macOS menu bar works correctly.
+ */
+
 int main(int argc, char *argv[]) {
     @autoreleasepool {
+        // --- 1. Locate the Bundle ---
+        // Resolve the absolute path to find bundled Frameworks relative to the executable.
+        char *argv0_realpath = realpath(argv[0], NULL);
+        if (argv0_realpath == NULL) {
+            fprintf(stderr, "Fatal error: unable to resolve executable path.\n");
+            return 1;
+        }
+
+        // Move up from MacOS/plover_launcher to the 'Contents' directory.
+        char *contents_dir = dirname(dirname(argv0_realpath));
+
         char python_home[PATH_MAX];
-        char app_dir_c[PATH_MAX];
-        char *app_dir = realpath(argv[0], NULL);
-        app_dir = dirname(dirname(app_dir));
-        strncpy(app_dir_c, app_dir, sizeof(app_dir_c) - 1);
-        app_dir_c[sizeof(app_dir_c) - 1] = '\0';
+        snprintf(python_home, sizeof(python_home), "%s/Frameworks/Python.framework/Versions/Current", contents_dir);
 
-        snprintf(python_home, sizeof(python_home), "%s/Frameworks/Python.framework/Versions/Current", app_dir_c);
-
-        // Set PYTHONUSERBASE to enable user plugins
+        // --- 2. Environment Setup ---
+        // Redirect user plugins to 'Application Support/plover' to follow macOS conventions.
         char *home = getenv("HOME");
         if (home) {
-            char python_user_base[PATH_MAX];
-            snprintf(python_user_base, sizeof(python_user_base), "%s/Library/Application Support/plover/plugins/mac", home);
-            setenv("PYTHONUSERBASE", python_user_base, 1);
+            char p[PATH_MAX];
+            snprintf(p, sizeof(p), "%s/Library/Application Support/plover/plugins/mac", home);
+            setenv("PYTHONUSERBASE", p, 1);
         }
 
-        wchar_t *python_home_w = Py_DecodeLocale(python_home, NULL);
-        if (python_home_w == NULL) {
-            fprintf(stderr, "Fatal error: unable to decode python_home\n");
-            return 1;
-        }
-
-        // Set program name
-        wchar_t* program = Py_DecodeLocale(argv[0], NULL);
-        
+        // --- 3. Interpreter Configuration ---
         PyConfig config;
         PyConfig_InitPythonConfig(&config);
-        PyConfig_SetString(&config, &config.home, python_home_w);
-        PyConfig_SetString(&config, &config.program_name, program);
-        PyConfig_SetBytesArgv(&config, argc, argv); // This automatically populates sys.argv
-        
-        Py_InitializeFromConfig(&config);
-        PyConfig_Clear(&config);
-        // ------------------------------
 
-        // After this point, we are in a Python interpreter.
-
-        // Prepend the site-packages to sys.path
-        char site_packages[PATH_MAX];
-        snprintf(site_packages, sizeof(site_packages), "%s/lib/python3.13/site-packages", python_home);
-        wchar_t *site_packages_w = Py_DecodeLocale(site_packages, NULL);
-        PyObject* sys_path = PySys_GetObject("path");
-        PyList_Insert(sys_path, 0, PyUnicode_FromWideChar(site_packages_w, -1));
-        PyMem_RawFree(site_packages_w);
-
-        // Run the main script
-        PyObject* pName = PyUnicode_FromString("plover.scripts.main");
-        PyObject* pModule = PyImport_Import(pName);
-        Py_DECREF(pName);
-
-        if (pModule != NULL) {
-            PyObject* pFunc = PyObject_GetAttrString(pModule, "main");
-            if (pFunc && PyCallable_Check(pFunc)) {
-                
-                // Call main() - argv is already set in sys.argv!
-                PyObject* pResult = PyObject_CallObject(pFunc, NULL);
-
-                if (pResult == NULL) {
-                    PyErr_Print();
-                    fprintf(stderr, "Call to main failed.\n");
-                    return 1;
-                }
-                Py_DECREF(pResult);
-
-            } else {
-                if (PyErr_Occurred()) PyErr_Print();
-                fprintf(stderr, "Cannot find function \"main\"\n");
-            }
-            Py_XDECREF(pFunc);
-            Py_DECREF(pModule);
-        } else {
-            PyErr_Print();
-            fprintf(stderr, "Failed to load \"plover.scripts.main\"\n");
+        wchar_t *w_home = Py_DecodeLocale(python_home, NULL);
+        if (w_home == NULL) {
+            fprintf(stderr, "Fatal error: failed to decode Python home path.\n");
+            free(argv0_realpath);
             return 1;
         }
+        // Set Python's home directory (equivalent to PYTHONHOME).
+        PyStatus status = PyConfig_SetString(&config, &config.home, w_home);
+        PyMem_RawFree(w_home);
+        if (PyStatus_Exception(status)) goto fatal_error;
 
-        Py_Finalize();
-        PyMem_RawFree(python_home_w);
-        PyMem_RawFree(program);
-        return 0;
+        // --- 4. Argument Handling ---
+        // Forward arguments as-is if -m or -c is used; otherwise, default to the GUI entry point.
+        if (argc >= 2 && (strcmp(argv[1], "-m") == 0 || strcmp(argv[1], "-c") == 0)) {
+            status = PyConfig_SetBytesArgv(&config, argc, argv);
+        } else {
+            // Transform 'plover [args]' into 'python -m plover.scripts.main [args]'.
+            char **n_argv = malloc(sizeof(char*) * (argc + 2));
+            if (n_argv == NULL) {
+                fprintf(stderr, "Fatal error: out of memory while preparing arguments.\n");
+                free(argv0_realpath);
+                return 1;
+            }
+            n_argv[0] = argv[0];
+            n_argv[1] = "-m";
+            n_argv[2] = "plover.scripts.main";
+            for (int i = 1; i < argc; i++) {
+                n_argv[i+2] = argv[i];
+            }
+            status = PyConfig_SetBytesArgv(&config, argc + 2, n_argv);
+            free(n_argv);
+        }
+        if (PyStatus_Exception(status)) goto fatal_error;
+
+        // --- 5. Initialization ---
+        status = Py_InitializeFromConfig(&config);
+        PyConfig_Clear(&config);
+        if (PyStatus_Exception(status)) goto fatal_error;
+
+        // --- 6. Site-Packages Injection ---
+        // Prepend the bundled site-packages to sys.path to ensure bundled dependencies are prioritized.
+        PyObject* sys_path = PySys_GetObject("path");
+        if (sys_path != NULL) {
+            char sp[PATH_MAX];
+            snprintf(sp, sizeof(sp), "%s/lib/python3.13/site-packages", python_home);
+            wchar_t *w_sp = Py_DecodeLocale(sp, NULL);
+            if (w_sp) {
+                PyObject* p_sp = PyUnicode_FromWideChar(w_sp, -1);
+                if (p_sp) {
+                    PyList_Insert(sys_path, 0, p_sp);
+                    Py_DECREF(p_sp);
+                }
+                PyMem_RawFree(w_sp);
+            }
+        }
+
+        // --- 7. Execution ---
+        // Run the interpreter; returns the exit code of the Python process.
+        free(argv0_realpath);
+        return Py_RunMain();
+
+    fatal_error:
+        Py_ExitStatusException(status);
+        return 1;
     }
 }
