@@ -34,7 +34,7 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Calculate skip cache keys
         id: set_cache
@@ -57,7 +57,7 @@ jobs:
           job_cache_extra_deps=('reqs/dist_*.txt' windows/dist_deps.sh); job_id=build_windows; job_name='Build (Windows)'; job_needs=(test_windows); job_os=Windows; job_platform=windows-2022; job_python=3.13.3; job_reqs=(reqs/build.txt reqs/setup.txt); job_skip_cache_name=skip_build_windows_py-3.13.3_windows-2022; job_skip_cache_path=.skip_cache_build_windows; job_skiplists=(job_build os_windows); job_type=build; job_variant=Windows; analyze_set_job_skip_cache_key
 
       - name: Check skip cache for Test (Linux)
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_linux
           key: 0_check_${{ steps.set_cache.outputs.test_linux_skip_cache_key }}_${{ github.run_id }}
@@ -65,7 +65,7 @@ jobs:
             0_${{ steps.set_cache.outputs.test_linux_skip_cache_key }}
 
       - name: Check skip cache for Test (macOS)
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_macos
           key: 0_check_${{ steps.set_cache.outputs.test_macos_skip_cache_key }}_${{ github.run_id }}
@@ -73,7 +73,7 @@ jobs:
             0_${{ steps.set_cache.outputs.test_macos_skip_cache_key }}
 
       - name: Check skip cache for Test (Windows)
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_windows
           key: 0_check_${{ steps.set_cache.outputs.test_windows_skip_cache_key }}_${{ github.run_id }}
@@ -81,7 +81,7 @@ jobs:
             0_${{ steps.set_cache.outputs.test_windows_skip_cache_key }}
 
       - name: Check skip cache for Test (Python Latest Supported)
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_python_latest_supported
           key: 0_check_${{ steps.set_cache.outputs.test_python_latest_supported_skip_cache_key }}_${{ github.run_id }}
@@ -89,7 +89,7 @@ jobs:
             0_${{ steps.set_cache.outputs.test_python_latest_supported_skip_cache_key }}
 
       - name: Check skip cache for Test (Python 3.12)
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_python_312
           key: 0_check_${{ steps.set_cache.outputs.test_python_312_skip_cache_key }}_${{ github.run_id }}
@@ -97,7 +97,7 @@ jobs:
             0_${{ steps.set_cache.outputs.test_python_312_skip_cache_key }}
 
       - name: Check skip cache for Test (Python 3.11)
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_python_311
           key: 0_check_${{ steps.set_cache.outputs.test_python_311_skip_cache_key }}_${{ github.run_id }}
@@ -105,7 +105,7 @@ jobs:
             0_${{ steps.set_cache.outputs.test_python_311_skip_cache_key }}
 
       - name: Check skip cache for Test (Python 3.10)
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_python_310
           key: 0_check_${{ steps.set_cache.outputs.test_python_310_skip_cache_key }}_${{ github.run_id }}
@@ -113,7 +113,7 @@ jobs:
             0_${{ steps.set_cache.outputs.test_python_310_skip_cache_key }}
 
       - name: Check skip cache for Test (Qt GUI)
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_qt_gui
           key: 0_check_${{ steps.set_cache.outputs.test_qt_gui_skip_cache_key }}_${{ github.run_id }}
@@ -121,7 +121,7 @@ jobs:
             0_${{ steps.set_cache.outputs.test_qt_gui_skip_cache_key }}
 
       - name: Check skip cache for Test (Packaging)
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_packaging
           key: 0_check_${{ steps.set_cache.outputs.test_packaging_skip_cache_key }}_${{ github.run_id }}
@@ -129,7 +129,7 @@ jobs:
             0_${{ steps.set_cache.outputs.test_packaging_skip_cache_key }}
 
       - name: Check skip cache for Test (Code Quality)
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_code_quality
           key: 0_check_${{ steps.set_cache.outputs.test_code_quality_skip_cache_key }}_${{ github.run_id }}
@@ -137,7 +137,7 @@ jobs:
             0_${{ steps.set_cache.outputs.test_code_quality_skip_cache_key }}
 
       - name: Check skip cache for Build (Linux)
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: .skip_cache_build_linux
           key: 0_check_${{ steps.set_cache.outputs.build_linux_skip_cache_key }}_${{ github.run_id }}
@@ -145,7 +145,7 @@ jobs:
             0_${{ steps.set_cache.outputs.build_linux_skip_cache_key }}
 
       - name: Check skip cache for Build (macOS App)
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: .skip_cache_build_macos_app
           key: 0_check_${{ steps.set_cache.outputs.build_macos_app_skip_cache_key }}_${{ github.run_id }}
@@ -153,7 +153,7 @@ jobs:
             0_${{ steps.set_cache.outputs.build_macos_app_skip_cache_key }}
 
       - name: Check skip cache for Notarize (macOS App)
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: .skip_cache_notarize_macos_app
           key: 0_check_${{ steps.set_cache.outputs.notarize_macos_app_skip_cache_key }}_${{ github.run_id }}
@@ -161,7 +161,7 @@ jobs:
             0_${{ steps.set_cache.outputs.notarize_macos_app_skip_cache_key }}
 
       - name: Check skip cache for Build (macOS DMG)
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: .skip_cache_build_macos_dmg
           key: 0_check_${{ steps.set_cache.outputs.build_macos_dmg_skip_cache_key }}_${{ github.run_id }}
@@ -169,7 +169,7 @@ jobs:
             0_${{ steps.set_cache.outputs.build_macos_dmg_skip_cache_key }}
 
       - name: Check skip cache for Notarize (macOS DMG)
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: .skip_cache_notarize_macos_dmg
           key: 0_check_${{ steps.set_cache.outputs.notarize_macos_dmg_skip_cache_key }}_${{ github.run_id }}
@@ -177,7 +177,7 @@ jobs:
             0_${{ steps.set_cache.outputs.notarize_macos_dmg_skip_cache_key }}
 
       - name: Check skip cache for Build (Windows)
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: .skip_cache_build_windows
           key: 0_check_${{ steps.set_cache.outputs.build_windows_skip_cache_key }}_${{ github.run_id }}
@@ -256,10 +256,10 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.13.3'
 
@@ -268,7 +268,7 @@ jobs:
         run: setup_cache_name '3.13.3' 'ubuntu-22.04'
 
       - name: Setup cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/dist.txt', 'reqs/test.txt') }}
@@ -289,7 +289,7 @@ jobs:
       # }}}
 
       - name: Update skip cache 1
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_linux
           key: 0_${{ needs.analyze.outputs.test_linux_skip_cache_key }}
@@ -314,14 +314,14 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set cache name
         id: set_cache
         run: setup_cache_name '3.13.3' 'macos-15'
 
       - name: Setup cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/dist.txt', 'reqs/test.txt', 'osx/deps.sh') }}
@@ -342,7 +342,7 @@ jobs:
       # }}}
 
       - name: Update skip cache 1
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_macos
           key: 0_${{ needs.analyze.outputs.test_macos_skip_cache_key }}
@@ -367,10 +367,10 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.13.3'
 
@@ -384,7 +384,7 @@ jobs:
         run: setup_cache_name '3.13.3' 'windows-2022'
 
       - name: Setup cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/dist.txt', 'reqs/test.txt') }}
@@ -401,7 +401,7 @@ jobs:
       # }}}
 
       - name: Update skip cache 1
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_windows
           key: 0_${{ needs.analyze.outputs.test_windows_skip_cache_key }}
@@ -426,10 +426,10 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.13.3'
 
@@ -438,7 +438,7 @@ jobs:
         run: setup_cache_name '3.13.3' 'ubuntu-latest'
 
       - name: Setup cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/dist.txt', 'reqs/test.txt') }}
@@ -459,7 +459,7 @@ jobs:
       # }}}
 
       - name: Update skip cache 1
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_python_latest_supported
           key: 0_${{ needs.analyze.outputs.test_python_latest_supported_skip_cache_key }}
@@ -484,10 +484,10 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
@@ -496,7 +496,7 @@ jobs:
         run: setup_cache_name '3.12' 'ubuntu-latest'
 
       - name: Setup cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/dist.txt', 'reqs/test.txt') }}
@@ -517,7 +517,7 @@ jobs:
       # }}}
 
       - name: Update skip cache 1
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_python_312
           key: 0_${{ needs.analyze.outputs.test_python_312_skip_cache_key }}
@@ -542,10 +542,10 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
@@ -554,7 +554,7 @@ jobs:
         run: setup_cache_name '3.11' 'ubuntu-latest'
 
       - name: Setup cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/dist.txt', 'reqs/test.txt') }}
@@ -575,7 +575,7 @@ jobs:
       # }}}
 
       - name: Update skip cache 1
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_python_311
           key: 0_${{ needs.analyze.outputs.test_python_311_skip_cache_key }}
@@ -600,10 +600,10 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.10'
 
@@ -612,7 +612,7 @@ jobs:
         run: setup_cache_name '3.10' 'ubuntu-latest'
 
       - name: Setup cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/dist.txt', 'reqs/test.txt') }}
@@ -633,7 +633,7 @@ jobs:
       # }}}
 
       - name: Update skip cache 1
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_python_310
           key: 0_${{ needs.analyze.outputs.test_python_310_skip_cache_key }}
@@ -658,10 +658,10 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.13.3'
 
@@ -670,7 +670,7 @@ jobs:
         run: setup_cache_name '3.13.3' 'ubuntu-22.04'
 
       - name: Setup cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/dist.txt', 'reqs/dist_extra_gui_qt.txt', 'reqs/setup.txt', 'reqs/test.txt') }}
@@ -693,7 +693,7 @@ jobs:
       # }}}
 
       - name: Update skip cache 1
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_qt_gui
           key: 0_${{ needs.analyze.outputs.test_qt_gui_skip_cache_key }}
@@ -718,13 +718,13 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           # We need the whole history for patching the version.
           fetch-depth: 0
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.13.3'
 
@@ -733,7 +733,7 @@ jobs:
         run: setup_cache_name '3.13.3' 'ubuntu-latest'
 
       - name: Setup cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/packaging.txt', 'reqs/setup.txt') }}
@@ -758,14 +758,14 @@ jobs:
 
       - name: Archive artifact (sdist)
         if: needs.analyze.outputs.is_release == 'yes'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Source
           path: dist/*.tar.gz
 
       - name: Archive artifact (wheel)
         if: needs.analyze.outputs.is_release == 'yes'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Wheel
           path: dist/*.whl
@@ -776,7 +776,7 @@ jobs:
 
       - name: Archive artifact (translations catalogs)
         if: needs.analyze.outputs.is_release == 'yes'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Translations Catalogs
           path: dist/*-messages.zip
@@ -784,7 +784,7 @@ jobs:
       # }}}
 
       - name: Update skip cache 1
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_packaging
           key: 0_${{ needs.analyze.outputs.test_packaging_skip_cache_key }}
@@ -812,10 +812,10 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.13.3'
 
@@ -824,7 +824,7 @@ jobs:
         run: setup_cache_name '3.13.3' 'ubuntu-latest'
 
       - name: Setup cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/code_quality.txt') }}
@@ -843,7 +843,7 @@ jobs:
         run: ruff format --check
 
       - name: Update skip cache 1
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .skip_cache_test_code_quality
           key: 0_${{ needs.analyze.outputs.test_code_quality_skip_cache_key }}
@@ -869,13 +869,13 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           # We need the whole history for patching the version.
           fetch-depth: 0
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.13.3'
 
@@ -884,7 +884,7 @@ jobs:
         run: setup_cache_name '3.13.3' 'ubuntu-22.04'
 
       - name: Setup cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/build.txt', 'reqs/setup.txt', 'reqs/dist_*.txt', 'linux/appimage/deps.sh') }}
@@ -906,7 +906,7 @@ jobs:
         run: python setup.py -q bdist_appimage --no-update-tools
 
       - name: Archive artifact (Linux AppImage)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Linux AppImage
           path: dist/*.AppImage
@@ -914,7 +914,7 @@ jobs:
       # }}}
 
       - name: Update skip cache 1
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .skip_cache_build_linux
           key: 0_${{ needs.analyze.outputs.build_linux_skip_cache_key }}
@@ -940,7 +940,7 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           # We need the whole history for patching the version.
           fetch-depth: 0
@@ -950,7 +950,7 @@ jobs:
         run: setup_cache_name '3.13.3' 'macos-15'
 
       - name: Setup cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/build.txt', 'reqs/setup.txt', 'reqs/dist_*.txt', 'osx/deps.sh') }}
@@ -978,7 +978,7 @@ jobs:
           tar -C dist -czf dist/Plover.app.tgz Plover.app
 
       - name: Save app tarball to internal cache
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: dist/Plover.app.tgz
           key: 0_macos-app-raw-${{ github.run_id }}
@@ -986,7 +986,7 @@ jobs:
       # }}}
 
       - name: Update skip cache 1
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .skip_cache_build_macos_app
           key: 0_${{ needs.analyze.outputs.build_macos_app_skip_cache_key }}
@@ -1026,14 +1026,14 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set cache name
         id: set_cache
         run: setup_cache_name '3.13.3' 'macos-15'
 
       - name: Setup cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/build.txt', 'reqs/setup.txt', 'reqs/dist_*.txt', 'osx/deps.sh') }}
@@ -1041,7 +1041,7 @@ jobs:
       # Notarize {{{
 
       - name: Restore app tarball from internal cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: dist/Plover.app.tgz
           key: 0_macos-app-raw-${{ github.run_id }}
@@ -1073,7 +1073,7 @@ jobs:
           tar -C dist -czf dist/Plover.app.tgz Plover.app
 
       - name: Save notarized app tarball to internal cache
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: dist/Plover.app.tgz
           key: 0_macos-app-notarized-${{ github.run_id }}
@@ -1081,7 +1081,7 @@ jobs:
 
       # }}}
       - name: Update skip cache 1
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .skip_cache_notarize_macos_app
           key: 0_${{ needs.analyze.outputs.notarize_macos_app_skip_cache_key }}
@@ -1108,7 +1108,7 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           # We need the whole history for patching the version.
           fetch-depth: 0
@@ -1118,7 +1118,7 @@ jobs:
         run: setup_cache_name '3.13.3' 'macos-15'
 
       - name: Setup cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/build.txt', 'reqs/setup.txt', 'reqs/dist_*.txt', 'osx/deps.sh') }}
@@ -1138,7 +1138,7 @@ jobs:
       # Build {{{
 
       - name: Restore app tarball from internal cache (prefer notarized)
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: dist/Plover.app.tgz
           key: 0_macos-app-notarized-${{ github.run_id }}
@@ -1158,7 +1158,7 @@ jobs:
         run: python setup.py -q bdist_dmg --skip-app-build
 
       - name: Upload artifact (macOS DMG)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: macOS DMG
           path: dist/*.dmg
@@ -1166,7 +1166,7 @@ jobs:
       # }}}
 
       - name: Update skip cache 1
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .skip_cache_build_macos_dmg
           key: 0_${{ needs.analyze.outputs.build_macos_dmg_skip_cache_key }}
@@ -1206,14 +1206,14 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set cache name
         id: set_cache
         run: setup_cache_name '3.13.3' 'macos-15'
 
       - name: Setup cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/build.txt', 'reqs/setup.txt', 'reqs/dist_*.txt', 'osx/deps.sh') }}
@@ -1221,7 +1221,7 @@ jobs:
       # Notarize {{{
 
       - name: Download artifact (macOS DMG)
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: macOS DMG
           path: dist
@@ -1244,7 +1244,7 @@ jobs:
         run: cleanup_dev_id_temp_keychain
 
       - name: Upload artifact (macOS DMG)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: macOS DMG
           path: dist/*.dmg
@@ -1252,7 +1252,7 @@ jobs:
 
       # }}}
       - name: Update skip cache 1
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .skip_cache_notarize_macos_dmg
           key: 0_${{ needs.analyze.outputs.notarize_macos_dmg_skip_cache_key }}
@@ -1278,13 +1278,13 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           # We need the whole history for patching the version.
           fetch-depth: 0
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.13.3'
 
@@ -1298,7 +1298,7 @@ jobs:
         run: setup_cache_name '3.13.3' 'windows-2022'
 
       - name: Setup cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .cache
           key: 0_${{ steps.set_cache.outputs.cache_name }}_${{ hashFiles('reqs/constraints.txt', 'reqs/build.txt', 'reqs/setup.txt', 'reqs/dist_*.txt', 'windows/dist_deps.sh') }}
@@ -1320,13 +1320,13 @@ jobs:
           python setup.py -q bdist_win -t -z -i --bash="$bash"
 
       - name: Archive artifact (Windows Installer)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Windows Installer
           path: dist/*.exe
 
       - name: Archive artifact (Windows ZIP)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Windows ZIP
           path: dist/*.zip
@@ -1334,7 +1334,7 @@ jobs:
       # }}}
 
       - name: Update skip cache 1
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .skip_cache_build_windows
           key: 0_${{ needs.analyze.outputs.build_windows_skip_cache_key }}
@@ -1379,10 +1379,10 @@ jobs:
     steps:
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: 3.13.3
 
@@ -1392,7 +1392,7 @@ jobs:
           run "$python" -m pip install -c reqs/constraints.txt -r reqs/release.txt
 
       - name: Download artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           path: dist
 

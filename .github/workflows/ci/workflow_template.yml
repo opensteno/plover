@@ -41,7 +41,7 @@ jobs:
 
       <% for j in jobs %>
       - name: Check skip cache for <@ j.name @>
-        uses: actions/cache@v3
+        uses: <@ action_cache @>
         with:
           path: <@ j.skip_cache_path @>
           key: <@ cache_epoch @>_check_${{ steps.set_cache.outputs.<@ j.id @>_skip_cache_key }}_${{ github.run_id }}
