@@ -47,6 +47,7 @@ jobs:
           key: <@ cache_epoch @>_check_${{ steps.set_cache.outputs.<@ j.id @>_skip_cache_key }}_${{ github.run_id }}
           restore-keys:
             <@ cache_epoch @>_${{ steps.set_cache.outputs.<@ j.id @>_skip_cache_key }}
+          enableCrossOsArchive: true
 
       <% endfor %>
       <% endif %>
@@ -393,6 +394,7 @@ jobs:
         with:
           path: <@ j.skip_cache_path @>
           key: <@ cache_epoch @>_${{ needs.analyze.outputs.<@ j.id @>_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Update skip cache 2
         run: run_eval "echo 'https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID' >'<@ j.skip_cache_path @>'"

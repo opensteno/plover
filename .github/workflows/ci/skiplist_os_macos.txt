@@ -1,5 +1,5 @@
-.github/workflows/ci/skiplist_os_Linux.txt
-.github/workflows/ci/skiplist_os_Windows.txt
+.github/workflows/ci/skiplist_os_linux.txt
+.github/workflows/ci/skiplist_os_windows.txt
 linux/*
 plover/oslayer/linux/*
 plover/oslayer/windows/*

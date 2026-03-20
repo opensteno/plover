@@ -63,6 +63,7 @@ jobs:
           key: 0_check_${{ steps.set_cache.outputs.test_linux_skip_cache_key }}_${{ github.run_id }}
           restore-keys:
             0_${{ steps.set_cache.outputs.test_linux_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Check skip cache for Test (macOS)
         uses: actions/cache@v5
@@ -71,6 +72,7 @@ jobs:
           key: 0_check_${{ steps.set_cache.outputs.test_macos_skip_cache_key }}_${{ github.run_id }}
           restore-keys:
             0_${{ steps.set_cache.outputs.test_macos_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Check skip cache for Test (Windows)
         uses: actions/cache@v5
@@ -79,6 +81,7 @@ jobs:
           key: 0_check_${{ steps.set_cache.outputs.test_windows_skip_cache_key }}_${{ github.run_id }}
           restore-keys:
             0_${{ steps.set_cache.outputs.test_windows_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Check skip cache for Test (Python Latest Supported)
         uses: actions/cache@v5
@@ -87,6 +90,7 @@ jobs:
           key: 0_check_${{ steps.set_cache.outputs.test_python_latest_supported_skip_cache_key }}_${{ github.run_id }}
           restore-keys:
             0_${{ steps.set_cache.outputs.test_python_latest_supported_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Check skip cache for Test (Python 3.12)
         uses: actions/cache@v5
@@ -95,6 +99,7 @@ jobs:
           key: 0_check_${{ steps.set_cache.outputs.test_python_312_skip_cache_key }}_${{ github.run_id }}
           restore-keys:
             0_${{ steps.set_cache.outputs.test_python_312_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Check skip cache for Test (Python 3.11)
         uses: actions/cache@v5
@@ -103,6 +108,7 @@ jobs:
           key: 0_check_${{ steps.set_cache.outputs.test_python_311_skip_cache_key }}_${{ github.run_id }}
           restore-keys:
             0_${{ steps.set_cache.outputs.test_python_311_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Check skip cache for Test (Python 3.10)
         uses: actions/cache@v5
@@ -111,6 +117,7 @@ jobs:
           key: 0_check_${{ steps.set_cache.outputs.test_python_310_skip_cache_key }}_${{ github.run_id }}
           restore-keys:
             0_${{ steps.set_cache.outputs.test_python_310_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Check skip cache for Test (Qt GUI)
         uses: actions/cache@v5
@@ -119,6 +126,7 @@ jobs:
           key: 0_check_${{ steps.set_cache.outputs.test_qt_gui_skip_cache_key }}_${{ github.run_id }}
           restore-keys:
             0_${{ steps.set_cache.outputs.test_qt_gui_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Check skip cache for Test (Packaging)
         uses: actions/cache@v5
@@ -127,6 +135,7 @@ jobs:
           key: 0_check_${{ steps.set_cache.outputs.test_packaging_skip_cache_key }}_${{ github.run_id }}
           restore-keys:
             0_${{ steps.set_cache.outputs.test_packaging_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Check skip cache for Test (Code Quality)
         uses: actions/cache@v5
@@ -135,6 +144,7 @@ jobs:
           key: 0_check_${{ steps.set_cache.outputs.test_code_quality_skip_cache_key }}_${{ github.run_id }}
           restore-keys:
             0_${{ steps.set_cache.outputs.test_code_quality_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Check skip cache for Build (Linux)
         uses: actions/cache@v5
@@ -143,6 +153,7 @@ jobs:
           key: 0_check_${{ steps.set_cache.outputs.build_linux_skip_cache_key }}_${{ github.run_id }}
           restore-keys:
             0_${{ steps.set_cache.outputs.build_linux_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Check skip cache for Build (macOS App)
         uses: actions/cache@v5
@@ -151,6 +162,7 @@ jobs:
           key: 0_check_${{ steps.set_cache.outputs.build_macos_app_skip_cache_key }}_${{ github.run_id }}
           restore-keys:
             0_${{ steps.set_cache.outputs.build_macos_app_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Check skip cache for Notarize (macOS App)
         uses: actions/cache@v5
@@ -159,6 +171,7 @@ jobs:
           key: 0_check_${{ steps.set_cache.outputs.notarize_macos_app_skip_cache_key }}_${{ github.run_id }}
           restore-keys:
             0_${{ steps.set_cache.outputs.notarize_macos_app_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Check skip cache for Build (macOS DMG)
         uses: actions/cache@v5
@@ -167,6 +180,7 @@ jobs:
           key: 0_check_${{ steps.set_cache.outputs.build_macos_dmg_skip_cache_key }}_${{ github.run_id }}
           restore-keys:
             0_${{ steps.set_cache.outputs.build_macos_dmg_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Check skip cache for Notarize (macOS DMG)
         uses: actions/cache@v5
@@ -175,6 +189,7 @@ jobs:
           key: 0_check_${{ steps.set_cache.outputs.notarize_macos_dmg_skip_cache_key }}_${{ github.run_id }}
           restore-keys:
             0_${{ steps.set_cache.outputs.notarize_macos_dmg_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Check skip cache for Build (Windows)
         uses: actions/cache@v5
@@ -183,6 +198,7 @@ jobs:
           key: 0_check_${{ steps.set_cache.outputs.build_windows_skip_cache_key }}_${{ github.run_id }}
           restore-keys:
             0_${{ steps.set_cache.outputs.build_windows_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Set outputs
         id: set_ouputs
@@ -293,6 +309,7 @@ jobs:
         with:
           path: .skip_cache_test_linux
           key: 0_${{ needs.analyze.outputs.test_linux_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Update skip cache 2
         run: run_eval "echo 'https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID' >'.skip_cache_test_linux'"
@@ -346,6 +363,7 @@ jobs:
         with:
           path: .skip_cache_test_macos
           key: 0_${{ needs.analyze.outputs.test_macos_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Update skip cache 2
         run: run_eval "echo 'https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID' >'.skip_cache_test_macos'"
@@ -405,6 +423,7 @@ jobs:
         with:
           path: .skip_cache_test_windows
           key: 0_${{ needs.analyze.outputs.test_windows_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Update skip cache 2
         run: run_eval "echo 'https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID' >'.skip_cache_test_windows'"
@@ -463,6 +482,7 @@ jobs:
         with:
           path: .skip_cache_test_python_latest_supported
           key: 0_${{ needs.analyze.outputs.test_python_latest_supported_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Update skip cache 2
         run: run_eval "echo 'https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID' >'.skip_cache_test_python_latest_supported'"
@@ -521,6 +541,7 @@ jobs:
         with:
           path: .skip_cache_test_python_312
           key: 0_${{ needs.analyze.outputs.test_python_312_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Update skip cache 2
         run: run_eval "echo 'https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID' >'.skip_cache_test_python_312'"
@@ -579,6 +600,7 @@ jobs:
         with:
           path: .skip_cache_test_python_311
           key: 0_${{ needs.analyze.outputs.test_python_311_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Update skip cache 2
         run: run_eval "echo 'https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID' >'.skip_cache_test_python_311'"
@@ -637,6 +659,7 @@ jobs:
         with:
           path: .skip_cache_test_python_310
           key: 0_${{ needs.analyze.outputs.test_python_310_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Update skip cache 2
         run: run_eval "echo 'https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID' >'.skip_cache_test_python_310'"
@@ -697,6 +720,7 @@ jobs:
         with:
           path: .skip_cache_test_qt_gui
           key: 0_${{ needs.analyze.outputs.test_qt_gui_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Update skip cache 2
         run: run_eval "echo 'https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID' >'.skip_cache_test_qt_gui'"
@@ -788,6 +812,7 @@ jobs:
         with:
           path: .skip_cache_test_packaging
           key: 0_${{ needs.analyze.outputs.test_packaging_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Update skip cache 2
         run: run_eval "echo 'https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID' >'.skip_cache_test_packaging'"
@@ -847,6 +872,7 @@ jobs:
         with:
           path: .skip_cache_test_code_quality
           key: 0_${{ needs.analyze.outputs.test_code_quality_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Update skip cache 2
         run: run_eval "echo 'https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID' >'.skip_cache_test_code_quality'"
@@ -918,6 +944,7 @@ jobs:
         with:
           path: .skip_cache_build_linux
           key: 0_${{ needs.analyze.outputs.build_linux_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Update skip cache 2
         run: run_eval "echo 'https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID' >'.skip_cache_build_linux'"
@@ -990,6 +1017,7 @@ jobs:
         with:
           path: .skip_cache_build_macos_app
           key: 0_${{ needs.analyze.outputs.build_macos_app_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Update skip cache 2
         run: run_eval "echo 'https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID' >'.skip_cache_build_macos_app'"
@@ -1085,6 +1113,7 @@ jobs:
         with:
           path: .skip_cache_notarize_macos_app
           key: 0_${{ needs.analyze.outputs.notarize_macos_app_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Update skip cache 2
         run: run_eval "echo 'https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID' >'.skip_cache_notarize_macos_app'"
@@ -1170,6 +1199,7 @@ jobs:
         with:
           path: .skip_cache_build_macos_dmg
           key: 0_${{ needs.analyze.outputs.build_macos_dmg_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Update skip cache 2
         run: run_eval "echo 'https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID' >'.skip_cache_build_macos_dmg'"
@@ -1256,6 +1286,7 @@ jobs:
         with:
           path: .skip_cache_notarize_macos_dmg
           key: 0_${{ needs.analyze.outputs.notarize_macos_dmg_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Update skip cache 2
         run: run_eval "echo 'https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID' >'.skip_cache_notarize_macos_dmg'"
@@ -1338,6 +1369,7 @@ jobs:
         with:
           path: .skip_cache_build_windows
           key: 0_${{ needs.analyze.outputs.build_windows_skip_cache_key }}
+          enableCrossOsArchive: true
 
       - name: Update skip cache 2
         run: run_eval "echo 'https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID' >'.skip_cache_build_windows'"
