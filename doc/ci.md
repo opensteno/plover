@@ -25,15 +25,18 @@ actions), in order to reduce duplications, that file is currently generated:
 
 The current workflow consists of:
 
-- 1 pre-processing job: "Analyze", all other jobs depend on it
-- 3 "platform tests" jobs: Linux, macOS, and Windows
-- 3 "platform build" jobs, again: Linux, macOS and Windows, dependent on their
-    respective "platform tests" job (so if the `Test (macOS)` job fails, the
+- **Analyze**: a pre-processing job, all other jobs depend on it.
+- **Platform tests**: jobs for Linux, macOS, and Windows.
+- **Qt GUI test**: specifically for testing the Qt interface.
+- **Python tests**: for checking compatibility across all supported versions of Python.
+- **Code quality**: runs linting and formatting checks.
+- **Packaging**: runs a number of packaging related checks.
+- **Platform build**: jobs for Linux, macOS and Windows, dependent on their
+    respective platform tests job (so if the `Test (macOS)` job fails, the
     `Build (macOS)` job is skipped).
-- 1 "packaging" job that run a number of packaging related checks
-- 3 "Python tests" jobs: for checking support for older/newer versions of Python
-  (other than the version currently used for the distributions)
-- 1 final, optional, "release" job
+- **macOS notarization**: handles code signing and Apple notarization for
+    the macOS application and disk image.
+- **Release**: a final, optional job.
 
 
 ## Analyze job
@@ -105,6 +108,22 @@ If the key changes, the cache is cleared/reset, and the Python environment
 will be recreated, wheel and extra dependencies re-downloaded, etc...
 
 
+## macOS Notarization
+
+To ensure that Plover can be run on modern macOS versions without being blocked
+by Gatekeeper, the macOS app and DMG are code-signed and notarized by Apple.
+
+This process involves:
+- Importing a Developer ID certificate into a temporary keychain.
+- Signing the application bundle and the disk image.
+- Submitting the artifacts to Apple's notarization service.
+- Stapling the notarization ticket to the artifacts.
+
+Because this requires access to sensitive credentials, notarization is only
+performed for commits on the `main` branch and `maintenance/*` branches. These
+jobs are automatically skipped for all other branches and pull requests from forks.
+
+
 ## Packaging job
 
 This job will run a number of packaging-related checks. See
@@ -138,8 +157,4 @@ The release notes are automatically generated from the last release section in
 
 ## Limitations
 
-- The artifact upload action [always wraps artifacts in a
-  zip](https://github.com/actions/upload-artifact/issues/39),
-  even if they are a single file such as an exe or a dmg.
 - Artifacts can only be downloaded when logged-in.
-- Artifacts are only accessible once all the jobs of a workflow have completed.
