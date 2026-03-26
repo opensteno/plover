@@ -65,9 +65,9 @@ class MainWindow(QMainWindow, Ui_MainWindow, WindowStateMixin):
             "action_Configure",
             "action_OpenConfigFolder",
             "",
+            "action_Show",
             "menu_Help",
             "",
-            "action_Show",
             "action_Quit",
         ):
             if action_name:
