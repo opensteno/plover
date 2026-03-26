@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plover 5.2.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-09 20:26+0100\n"
+"POT-Creation-Date: 2026-03-26 07:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -103,53 +103,53 @@ msgid "{translation} is not in the dictionary"
 msgstr ""
 
 #. Widget: “AddTranslationWidget”, text.
-#: plover/gui_qt/add_translation_widget_ui.py:124
-msgid "Dictionary:"
-msgstr ""
-
-#. Widget: “AddTranslationWidget”, text.
-#: plover/gui_qt/add_translation_widget_ui.py:126
+#: plover/gui_qt/add_translation_widget_ui.py:129
 msgid "Strokes:"
 msgstr ""
 
 #. Widget: “AddTranslationWidget”, accessible name.
 #. Widget: “DictionaryEditor”.
-#: plover/gui_qt/add_translation_widget_ui.py:129
+#: plover/gui_qt/add_translation_widget_ui.py:132
 #: plover/gui_qt/dictionary_editor.py:170
 msgid "Strokes"
 msgstr ""
 
 #. Widget: “AddTranslationWidget”, text.
-#: plover/gui_qt/add_translation_widget_ui.py:132
+#: plover/gui_qt/add_translation_widget_ui.py:135
 msgid "Translation:"
 msgstr ""
 
 #. Widget: “AddTranslationWidget”, accessible name.
 #. Widget: “DictionaryEditor”.
-#: plover/gui_qt/add_translation_widget_ui.py:135
+#: plover/gui_qt/add_translation_widget_ui.py:138
 #: plover/gui_qt/dictionary_editor.py:173
 msgid "Translation"
 msgstr ""
 
+#. Widget: “AddTranslationWidget”, text.
+#: plover/gui_qt/add_translation_widget_ui.py:141
+msgid "Dictionary:"
+msgstr ""
+
 #. Widget: “AddTranslationWidget”, accessible name.
 #. Widget: “DictionaryEditor”.
-#: plover/gui_qt/add_translation_widget_ui.py:139
+#: plover/gui_qt/add_translation_widget_ui.py:144
 #: plover/gui_qt/dictionary_editor.py:176
 msgid "Dictionary"
 msgstr ""
 
 #. Widget: “AddTranslationWidget”, accessible description.
-#: plover/gui_qt/add_translation_widget_ui.py:143
+#: plover/gui_qt/add_translation_widget_ui.py:148
 msgid "Select the target dictionary for the new translation."
 msgstr ""
 
 #. Widget: “AddTranslationWidget”, accessible name.
-#: plover/gui_qt/add_translation_widget_ui.py:147
+#: plover/gui_qt/add_translation_widget_ui.py:152
 msgid "Existing mappings (strokes)"
 msgstr ""
 
 #. Widget: “AddTranslationWidget”, accessible name.
-#: plover/gui_qt/add_translation_widget_ui.py:152
+#: plover/gui_qt/add_translation_widget_ui.py:157
 msgid "Existing mappings (translations)"
 msgstr ""
 
