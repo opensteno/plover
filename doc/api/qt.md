@@ -170,6 +170,8 @@ A unique name to identify this tool when saving and loading state.
 :type: str
 
 A keyboard shortcut to activate this window, for example `Ctrl+F`.
+If shortcut is in use by Plover, this will override it.
+
 ```
 
 ```{method} _save_state(settings: QSettings)
