@@ -146,6 +146,13 @@ The title that would show up in the main window's toolbar and the
 tools list in the main menu.
 ```
 
+```{attribute}  __doc__
+:type: str
+
+The text description that shows up in the tooltip on hover. If 
+not set, this would fallback to the TITLE
+```
+
 ```{attribute} ICON
 :type: str
 
