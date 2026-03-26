@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plover 5.2.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-26 07:11+0100\n"
+"POT-Creation-Date: 2026-03-26 20:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -272,7 +272,7 @@ msgstr ""
 #. Widget: “SerialWidget”, text.
 #. Widget: “PluginsManager”, text.
 #: plover/gui_qt/config_serial_widget_ui.py:234
-#: plover/gui_qt/plugins_manager_ui.py:146
+#: plover/gui_qt/plugins_manager_ui.py:147
 msgid "Refresh"
 msgstr ""
 
@@ -429,8 +429,8 @@ msgstr ""
 #: plover/gui_qt/config_window.py:397
 msgid ""
 "Set the translation dialog opacity:\n"
-"- 0 makes the dialog invisible\n"
-"- 100 is fully opaque"
+"- 0 makes the dialog invisible.\n"
+"- 100 is fully opaque."
 msgstr ""
 
 #: plover/gui_qt/config_window.py:403
@@ -448,8 +448,8 @@ msgstr ""
 #: plover/gui_qt/config_window.py:409
 msgid ""
 "Set the display order for dictionaries:\n"
-"- top-down: match the search order; highest priority first\n"
-"- bottom-up: reverse search order; lowest priority first\n"
+"- top-down: Match the search order; highest priority first.\n"
+"- bottom-up: Reverse search order; lowest priority first.\n"
 msgstr ""
 
 #: plover/gui_qt/config_window.py:418
@@ -614,7 +614,7 @@ msgid "Enabled"
 msgstr ""
 
 #. Widget: “PluginsManager”, text.
-#: plover/gui_qt/config_window.py:578 plover/gui_qt/plugins_manager_ui.py:136
+#: plover/gui_qt/config_window.py:578 plover/gui_qt/plugins_manager_ui.py:137
 msgid "Name"
 msgstr ""
 
@@ -744,7 +744,7 @@ msgstr ""
 
 #. Widget: “DictionariesWidget”, tool tip.
 #: plover/gui_qt/dictionaries_widget_ui.py:130
-msgid "Edit selected dictionaries"
+msgid "Edit selected dictionaries."
 msgstr ""
 
 #. Widget: “DictionariesWidget”, shortcut.
@@ -778,7 +778,7 @@ msgstr ""
 
 #. Widget: “DictionariesWidget”, tool tip.
 #: plover/gui_qt/dictionaries_widget_ui.py:150
-msgid "Remove selected dictionaries"
+msgid "Remove selected dictionaries."
 msgstr ""
 
 #. Widget: “DictionariesWidget”, shortcut.
@@ -814,7 +814,7 @@ msgstr ""
 
 #. Widget: “DictionariesWidget”, tool tip.
 #: plover/gui_qt/dictionaries_widget_ui.py:170
-msgid "Add dictionaries"
+msgid "Add dictionaries."
 msgstr ""
 
 #. Widget: “DictionariesWidget”, shortcut.
@@ -831,7 +831,7 @@ msgstr ""
 #. Widget: “DictionaryEditor”, tool tip.
 #: plover/gui_qt/dictionaries_widget_ui.py:180
 #: plover/gui_qt/dictionary_editor_ui.py:165
-msgid "Add a new translation"
+msgid "Add a new translation."
 msgstr ""
 
 #. Widget: “DictionariesWidget”, shortcut.
@@ -1103,7 +1103,7 @@ msgstr ""
 
 #. Widget: “MainWindow”, accessible name.
 #. Widget: “PluginsManager”, text.
-#: plover/gui_qt/main_window_ui.py:263 plover/gui_qt/plugins_manager_ui.py:133
+#: plover/gui_qt/main_window_ui.py:263 plover/gui_qt/plugins_manager_ui.py:134
 msgid "State"
 msgstr ""
 
@@ -1321,37 +1321,37 @@ msgstr ""
 
 #. Widget: “PluginsManager”, window title.
 #. Widget: “RunDialog”, window title.
-#: plover/gui_qt/plugins_manager_ui.py:130 plover/gui_qt/run_dialog_ui.py:51
+#: plover/gui_qt/plugins_manager_ui.py:131 plover/gui_qt/run_dialog_ui.py:51
 msgid "Dialog"
 msgstr ""
 
 #. Widget: “PluginsManager”, text.
-#: plover/gui_qt/plugins_manager_ui.py:139
+#: plover/gui_qt/plugins_manager_ui.py:140
 msgid "Version"
 msgstr ""
 
 #. Widget: “PluginsManager”, text.
-#: plover/gui_qt/plugins_manager_ui.py:142
+#: plover/gui_qt/plugins_manager_ui.py:143
 msgid "Summary"
 msgstr ""
 
 #. Widget: “PluginsManager”, text.
-#: plover/gui_qt/plugins_manager_ui.py:144
+#: plover/gui_qt/plugins_manager_ui.py:145
 msgid "Restart"
 msgstr ""
 
 #. Widget: “PluginsManager”, text.
-#: plover/gui_qt/plugins_manager_ui.py:148
+#: plover/gui_qt/plugins_manager_ui.py:149
 msgid "Uninstall"
 msgstr ""
 
 #. Widget: “PluginsManager”, text.
-#: plover/gui_qt/plugins_manager_ui.py:150
+#: plover/gui_qt/plugins_manager_ui.py:151
 msgid "Install/Update"
 msgstr ""
 
 #. Widget: “PluginsManager”, text.
-#: plover/gui_qt/plugins_manager_ui.py:152
+#: plover/gui_qt/plugins_manager_ui.py:153
 msgid "..."
 msgstr ""
 
