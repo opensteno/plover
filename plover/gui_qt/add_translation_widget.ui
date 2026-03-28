@@ -88,7 +88,7 @@
         </sizepolicy>
        </property>
        <property name="focusPolicy">
-        <enum>Qt::FocusPolicy::TabFocus</enum>
+        <enum>Qt::FocusPolicy::StrongFocus</enum>
        </property>
        <property name="accessibleName">
         <string>Translation</string>
