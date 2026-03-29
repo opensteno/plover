@@ -144,12 +144,14 @@ class AddTranslationWidget(QWidget, Ui_AddTranslationWidget):
         if self._focus == "strokes":
             return
         self._unfocus_translation()
+        self._engine._update({"space_placement": "Before Output"})
         self._set_engine_state(self._strokes_state)
         self._focus = "strokes"
 
     def _unfocus_strokes(self):
         if self._focus != "strokes":
             return
+        self._engine._update({"space_placement": self._original_space_placement})
         self._set_engine_state(self._original_state)
         self._focus = None
 
@@ -315,4 +317,5 @@ class AddTranslationWidget(QWidget, Ui_AddTranslationWidget):
 
     def reject(self):
         self._unfocus()
+        self._engine._update({"space_placement": self._original_space_placement})
         self._set_engine_state(self._original_state)
