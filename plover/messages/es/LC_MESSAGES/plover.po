@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plover 5.2.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-26 20:54+0100\n"
+"POT-Creation-Date: 2026-03-28 20:21-0700\n"
 "PO-Revision-Date: 2026-03-08 12:00+0100\n"
 "Last-Translator: Gemini CLI\n"
 "Language: es\n"
@@ -83,36 +83,36 @@ msgid "Add Translation"
 msgstr "Añadir traducción"
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:194
+#: plover/gui_qt/add_translation_widget.py:197
 #, python-brace-format
 msgid "{dictionary} (disabled)"
 msgstr "{dictionary} (desactivado)"
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:260
+#: plover/gui_qt/add_translation_widget.py:263
 #, python-brace-format
 msgid "{strokes} maps to "
 msgstr "{strokes} se asigna a "
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:272
+#: plover/gui_qt/add_translation_widget.py:275
 msgid "Overwritten entries:"
 msgstr "Entradas sobrescritas:"
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:277
+#: plover/gui_qt/add_translation_widget.py:280
 #, python-brace-format
 msgid "{strokes} is not mapped in any dictionary"
 msgstr "{strokes} no está asignada en ningún diccionario"
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:291
+#: plover/gui_qt/add_translation_widget.py:294
 #, python-brace-format
 msgid "{translation} is mapped to: {strokes}"
 msgstr "{translation} está asignada a {strokes}"
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:294
+#: plover/gui_qt/add_translation_widget.py:297
 #, python-brace-format
 msgid "{translation} is not in the dictionary"
 msgstr "{translation} no está en el diccionario"
