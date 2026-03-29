@@ -37,6 +37,7 @@ class AddTranslationWidget(QWidget, Ui_AddTranslationWidget):
         self._reverse_order = False
         self._selected_dictionary = None
         self._mapping_is_valid = False
+        self._original_space_placement = self._engine.config["space_placement"]
         engine.signal_connect("config_changed", self.on_config_changed)
         self.on_config_changed(engine.config)
         engine.signal_connect("dictionaries_loaded", self.on_dictionaries_loaded)
