@@ -14,7 +14,11 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from plover import log, system
 from plover.dictionary.loading_manager import DictionaryLoadingManager
-from plover.formatting import Formatter
+from plover.formatting import (
+    Formatter,
+    SPACE_PLACEMENT_BEFORE,
+    SPACE_PLACEMENT_AFTER,
+)
 from plover.misc import shorten_path
 from plover.registry import registry
 from plover.resource import ASSET_SCHEME, resource_filename
@@ -25,7 +29,9 @@ from plover.translation import Translator
 
 
 StartingStrokeState = namedtuple(
-    "StartingStrokeState", "attach capitalize space_char", defaults=(False, False, " ")
+    "StartingStrokeState",
+    "attach capitalize space_char space_placement",
+    defaults=(False, False, " ", None),
 )
 
 StartingStrokeState.__doc__ = """An object representing the starting state of the formatter before any
@@ -36,7 +42,14 @@ Attributes:
         initial stroke is translated.
     capitalize (bool): Whether to capitalize the translation when the initial
         stroke is translated.
-"""
+    space_char (str): The character to use as a space.
+    space_placement (Optional[str]): The space placement to use for this state.
+        One of ``{SPACE_PLACEMENT_BEFORE}`` or ``{SPACE_PLACEMENT_AFTER}``. If ``None``, the current
+        engine configuration is used.
+""".format(
+    SPACE_PLACEMENT_BEFORE=SPACE_PLACEMENT_BEFORE,
+    SPACE_PLACEMENT_AFTER=SPACE_PLACEMENT_AFTER,
+)
 
 MachineParams = namedtuple("MachineParams", "type options keymap")
 
@@ -698,6 +711,9 @@ class StenoEngine:
             self._formatter.start_attached,
             self._formatter.start_capitalized,
             self._formatter.space_char,
+            SPACE_PLACEMENT_AFTER
+            if self._formatter.spaces_after
+            else SPACE_PLACEMENT_BEFORE,
         )
 
     @starting_stroke_state.setter
@@ -706,6 +722,10 @@ class StenoEngine:
         self._formatter.start_attached = state.attach
         self._formatter.start_capitalized = state.capitalize
         self._formatter.space_char = state.space_char
+        space_placement = state.space_placement
+        if space_placement is None:
+            space_placement = self._config["space_placement"]
+        self._formatter.set_space_placement(space_placement)
 
     @with_lock
     def add_translation(

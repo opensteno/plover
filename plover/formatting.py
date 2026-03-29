@@ -31,6 +31,9 @@ Case = Enum(
     ),
 )
 
+SPACE_PLACEMENT_BEFORE = "Before Output"
+SPACE_PLACEMENT_AFTER = "After Output"
+
 SPACE = " "
 
 META_ATTACH_FLAG = "^"
@@ -381,7 +384,7 @@ class Formatter:
     def set_space_placement(self, s):
         # Set whether spaces will be inserted
         # before the output or after the output
-        self.spaces_after = bool(s == "After Output")
+        self.spaces_after = bool(s == SPACE_PLACEMENT_AFTER)
 
     def last_action(self, previous_translations):
         if previous_translations and previous_translations[-1].formatting:

@@ -14,6 +14,7 @@ from plover.translation import escape_translation, unescape_translation
 from plover.formatting import RetroFormatter
 from plover.resource import resource_filename
 
+from plover.formatting import SPACE_PLACEMENT_BEFORE
 from plover.gui_qt.add_translation_widget_ui import Ui_AddTranslationWidget
 from plover.gui_qt.steno_validator import StenoValidator
 
@@ -37,7 +38,6 @@ class AddTranslationWidget(QWidget, Ui_AddTranslationWidget):
         self._reverse_order = False
         self._selected_dictionary = None
         self._mapping_is_valid = False
-        self._original_space_placement = self._engine.config["space_placement"]
         engine.signal_connect("config_changed", self.on_config_changed)
         self.on_config_changed(engine.config)
         engine.signal_connect("dictionaries_loaded", self.on_dictionaries_loaded)
@@ -86,7 +86,7 @@ class AddTranslationWidget(QWidget, Ui_AddTranslationWidget):
             self._strokes_state = self.EngineState(
                 self._dictionary_filter,
                 engine.translator_state,
-                StartingStrokeState(True, False, "/"),
+                StartingStrokeState(True, False, "/", SPACE_PLACEMENT_BEFORE),
             )
             engine.clear_translator_state()
             self._translations_state = self.EngineState(
@@ -144,14 +144,12 @@ class AddTranslationWidget(QWidget, Ui_AddTranslationWidget):
         if self._focus == "strokes":
             return
         self._unfocus_translation()
-        self._engine._update({"space_placement": "Before Output"})
         self._set_engine_state(self._strokes_state)
         self._focus = "strokes"
 
     def _unfocus_strokes(self):
         if self._focus != "strokes":
             return
-        self._engine._update({"space_placement": self._original_space_placement})
         self._set_engine_state(self._original_state)
         self._focus = None
 
@@ -317,5 +315,4 @@ class AddTranslationWidget(QWidget, Ui_AddTranslationWidget):
 
     def reject(self):
         self._unfocus()
-        self._engine._update({"space_placement": self._original_space_placement})
         self._set_engine_state(self._original_state)
