@@ -9,6 +9,7 @@ import threading
 from xkbcommon import xkb
 from evdev import ecodes as e, util
 
+from plover.key_combo import add_modifiers_aliases
 from plover.oslayer.linux.wayland_connection import (
     WaylandConnection,
     wayland_keymap_event_loop,
@@ -198,6 +199,8 @@ def generate_plover_keymap_from_xkb_keymap_and_modifiers(
     # Ensures that "\n" is mapped to the enter/return key instead of Linefeed.
     if "return" in plover_key_to_keycode:
         plover_key_to_keycode["\n"] = plover_key_to_keycode["return"]
+
+    add_modifiers_aliases(plover_key_to_keycode)
 
     return plover_key_to_keycode
 
