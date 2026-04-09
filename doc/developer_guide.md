@@ -129,7 +129,8 @@ changelog entry.
 Plover uses [towncrier](https://pypi.org/project/towncrier) for changelog
 management, so when making a PR, please add a news fragment in the `news.d/`
 folder. Changelog files are written in Markdown and should be a 1 or 2 sentence
-description of the substantive changes in the PR.
+description of the substantive changes in the PR; they can also contain multiple
+rows if the PR contains multiple distinct changes.
 
 They should be named `<section>/<pr_number>.<category>.md`, where the sections
 / categories are:

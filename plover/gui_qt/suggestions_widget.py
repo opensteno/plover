@@ -60,12 +60,12 @@ class SuggestionsDelegate(QStyledItemDelegate):
 
     def _format_suggestion(self, index):
         suggestion = index.data(Qt.ItemDataRole.DisplayRole)
-        translation = escape_translation(suggestion.text) + ":"
-        if not suggestion.steno_list:
+        translation = escape_translation(suggestion[0]) + ":"
+        if not suggestion[1]:
             translation += " " + NO_SUGGESTIONS_STRING
             return translation, None
         strokes = ""
-        for strokes_list in suggestion.steno_list[:MAX_SUGGESTIONS_COUNT]:
+        for strokes_list in suggestion[1][:MAX_SUGGESTIONS_COUNT]:
             strokes += "\n    " + "/".join(strokes_list)
         return translation, strokes
 
@@ -119,11 +119,11 @@ class SuggestionsModel(QAbstractListModel):
         if role == Qt.ItemDataRole.DisplayRole:
             return suggestion
         if role == Qt.ItemDataRole.AccessibleTextRole:
-            translation = escape_translation(suggestion.text)
-            if suggestion.steno_list:
+            translation = escape_translation(suggestion[0])
+            if suggestion[1]:
                 steno = ", ".join(
                     "/".join(strokes_list)
-                    for strokes_list in suggestion.steno_list[:MAX_SUGGESTIONS_COUNT]
+                    for strokes_list in suggestion[1][:MAX_SUGGESTIONS_COUNT]
                 )
             else:
                 steno = NO_SUGGESTIONS_STRING

@@ -11,6 +11,7 @@ import re
 from typing import Any, Dict
 
 from plover.exception import InvalidConfigurationError
+from plover.formatting import SPACE_PLACEMENT_BEFORE, SPACE_PLACEMENT_AFTER
 from plover.machine.keymap import Keymap
 from plover.registry import registry
 from plover.resource import resource_update
@@ -435,7 +436,7 @@ class Config:
             # Output.
             choice_option(
                 "space_placement",
-                ("Before Output", "After Output"),
+                (SPACE_PLACEMENT_BEFORE, SPACE_PLACEMENT_AFTER),
                 OUTPUT_CONFIG_SECTION,
             ),
             boolean_option("start_attached", False, OUTPUT_CONFIG_SECTION),

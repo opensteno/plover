@@ -30,6 +30,7 @@ from PySide6.QtWidgets import (
 )
 
 from plover import _
+from plover.formatting import SPACE_PLACEMENT_BEFORE, SPACE_PLACEMENT_AFTER
 from plover.config import MINIMUM_UNDO_LEVELS, MINIMUM_TIME_BETWEEN_KEY_PRESSES
 from plover.gui_qt import appearance
 from plover.misc import expand_path, shorten_path
@@ -395,8 +396,8 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
                         partial(IntOption, maximum=100, minimum=0),
                         _(
                             "Set the translation dialog opacity:\n"
-                            "- 0 makes the dialog invisible\n"
-                            "- 100 is fully opaque"
+                            "- 0 makes the dialog invisible.\n"
+                            "- 100 is fully opaque."
                         ),
                     ),
                     ConfigOption(
@@ -407,8 +408,8 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
                         ),
                         _(
                             "Set the display order for dictionaries:\n"
-                            "- top-down: match the search order; highest priority first\n"
-                            "- bottom-up: reverse search order; lowest priority first\n"
+                            "- top-down: Match the search order; highest priority first.\n"
+                            "- bottom-up: Reverse search order; lowest priority first.\n"
                         ),
                     ),
                 ),
@@ -493,8 +494,8 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
                         partial(
                             ChoiceOption,
                             choices={
-                                "Before Output": _("Before Output"),
-                                "After Output": _("After Output"),
+                                SPACE_PLACEMENT_BEFORE: _("Before Output"),
+                                SPACE_PLACEMENT_AFTER: _("After Output"),
                             },
                         ),
                         _("Set automatic space placement: before or after each word."),

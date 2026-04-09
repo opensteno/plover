@@ -7,7 +7,11 @@ import shlex
 import textwrap
 
 from plover import system
-from plover.formatting import Formatter
+from plover.formatting import (
+    Formatter,
+    SPACE_PLACEMENT_BEFORE,
+    SPACE_PLACEMENT_AFTER,
+)
 from plover.steno import normalize_steno
 from plover.steno_dictionary import StenoDictionary
 from plover.translation import Translator
@@ -92,10 +96,10 @@ def _blackbox_replay_action(blackbox, action_spec):
         blackbox.formatter.start_attached = True
     elif action == "spaces_after":
         assert not args
-        blackbox.formatter.set_space_placement("After Output")
+        blackbox.formatter.set_space_placement(SPACE_PLACEMENT_AFTER)
     elif action == "spaces_before":
         assert not args
-        blackbox.formatter.set_space_placement("Before Output")
+        blackbox.formatter.set_space_placement(SPACE_PLACEMENT_BEFORE)
     elif action == "system":
         assert len(args) == 1
         system.setup(args[0])

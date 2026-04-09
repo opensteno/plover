@@ -128,7 +128,7 @@ class TrayIcon(QObject):
         self._trayicon.setIcon(icon)
         self._trayicon.setToolTip(
             # i18n: Tray icon tooltip.
-            "Plover:\n- %s\n- %s" % (output_state, machine_state)
+            "Plover:\n- %s\n- %s." % (output_state, machine_state)
         )
 
     def _on_activated(self, reason):
