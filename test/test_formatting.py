@@ -8,7 +8,10 @@ import inspect
 import pytest
 
 from plover import formatting
-from plover.formatting import Case
+from plover.formatting import (
+    Case,
+    SPACE_PLACEMENT_AFTER,
+)
 
 from plover_build_utils.testing import CaptureOutput, parametrize
 
@@ -1421,7 +1424,7 @@ def test_replace(translations, expected_instructions):
     output = CaptureOutput()
     formatter = formatting.Formatter()
     formatter.set_output(output)
-    formatter.set_space_placement("After Output")
+    formatter.set_space_placement(SPACE_PLACEMENT_AFTER)
     prev = []
     for t in translations:
         formatter.format([], [t], prev)
@@ -1434,7 +1437,7 @@ def test_undo_replace():
     output = CaptureOutput()
     formatter = formatting.Formatter()
     formatter.set_output(output)
-    formatter.set_space_placement("After Output")
+    formatter.set_space_placement(SPACE_PLACEMENT_AFTER)
     prev = [translation(english="test")]
     formatter.format([], prev, None)
     undo = translation(english="{^,}")
@@ -1558,7 +1561,7 @@ class TestRetroFormatter:
     @parametrize(ITER_LAST_FRAGMENTS_TESTS)
     def test_iter_last_fragments(self, spaces_after, translation_list, fragment_list):
         if spaces_after:
-            self.formatter.set_space_placement("After Output")
+            self.formatter.set_space_placement(SPACE_PLACEMENT_AFTER)
         for t in translation_list:
             self.format(t)
         assert list(self.retro_formatter.iter_last_fragments()) == fragment_list
@@ -1574,7 +1577,7 @@ class TestRetroFormatter:
     @parametrize(ITER_LAST_WORDS_TESTS)
     def test_iter_last_words(self, spaces_after, translation_list, word_list):
         if spaces_after:
-            self.formatter.set_space_placement("After Output")
+            self.formatter.set_space_placement(SPACE_PLACEMENT_AFTER)
         for t in translation_list:
             self.format(t)
         assert list(self.retro_formatter.iter_last_words()) == word_list
@@ -1590,7 +1593,7 @@ class TestRetroFormatter:
     @parametrize(LAST_TEXT_TESTS)
     def test_last_text(self, spaces_after, translation_list, count, text):
         if spaces_after:
-            self.formatter.set_space_placement("After Output")
+            self.formatter.set_space_placement(SPACE_PLACEMENT_AFTER)
         for t in translation_list:
             self.format(t)
         assert self.retro_formatter.last_text(count) == text

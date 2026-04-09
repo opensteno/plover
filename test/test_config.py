@@ -18,6 +18,8 @@ import textwrap
 import appdirs
 import pytest
 
+from plover.formatting import SPACE_PLACEMENT_BEFORE, SPACE_PLACEMENT_AFTER
+
 from plover import config
 from plover.config import DictionaryConfig
 from plover.oslayer.config import PLATFORM
@@ -125,7 +127,7 @@ DEFAULT_KEYMAP = Keymap(
 DEFAULT_KEYMAP.set_mappings(english_stenotype.KEYMAPS["Keyboard"])
 
 DEFAULTS = {
-    "space_placement": "Before Output",
+    "space_placement": SPACE_PLACEMENT_BEFORE,
     "start_attached": False,
     "start_capitalized": False,
     "undo_levels": config.DEFAULT_UNDO_LEVELS,
@@ -163,22 +165,22 @@ CONFIG_TESTS = (
         "simple_options",
         """
      [Output Configuration]
-     space_placement = After Output
+     space_placement = {SPACE_PLACEMENT_AFTER}
      start_attached = true
      start_capitalized = yes
      undo_levels = 42
-     """,
+     """.format(SPACE_PLACEMENT_AFTER=SPACE_PLACEMENT_AFTER),
         dict_replace(
             DEFAULTS,
             {
-                "space_placement": "After Output",
+                "space_placement": SPACE_PLACEMENT_AFTER,
                 "start_attached": True,
                 "start_capitalized": True,
                 "undo_levels": 42,
             },
         ),
         {
-            "space_placement": "Before Output",
+            "space_placement": SPACE_PLACEMENT_BEFORE,
             "start_attached": False,
             "start_capitalized": False,
             "undo_levels": 200,
@@ -186,11 +188,11 @@ CONFIG_TESTS = (
         None,
         """
      [Output Configuration]
-     space_placement = Before Output
+     space_placement = {SPACE_PLACEMENT_BEFORE}
      start_attached = False
      start_capitalized = False
      undo_levels = 200
-     """,
+     """.format(SPACE_PLACEMENT_BEFORE=SPACE_PLACEMENT_BEFORE),
     ),
     (
         "machine_options",

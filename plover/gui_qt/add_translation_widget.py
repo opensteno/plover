@@ -14,6 +14,7 @@ from plover.translation import escape_translation, unescape_translation
 from plover.formatting import RetroFormatter
 from plover.resource import resource_filename
 
+from plover.formatting import SPACE_PLACEMENT_BEFORE
 from plover.gui_qt.add_translation_widget_ui import Ui_AddTranslationWidget
 from plover.gui_qt.steno_validator import StenoValidator
 
@@ -85,7 +86,7 @@ class AddTranslationWidget(QWidget, Ui_AddTranslationWidget):
             self._strokes_state = self.EngineState(
                 self._dictionary_filter,
                 engine.translator_state,
-                StartingStrokeState(True, False, "/"),
+                StartingStrokeState(True, False, "/", SPACE_PLACEMENT_BEFORE),
             )
             engine.clear_translator_state()
             self._translations_state = self.EngineState(

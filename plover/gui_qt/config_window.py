@@ -30,6 +30,7 @@ from PySide6.QtWidgets import (
 )
 
 from plover import _
+from plover.formatting import SPACE_PLACEMENT_BEFORE, SPACE_PLACEMENT_AFTER
 from plover.config import MINIMUM_UNDO_LEVELS, MINIMUM_TIME_BETWEEN_KEY_PRESSES
 from plover.gui_qt import appearance
 from plover.misc import expand_path, shorten_path
@@ -493,8 +494,8 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
                         partial(
                             ChoiceOption,
                             choices={
-                                "Before Output": _("Before Output"),
-                                "After Output": _("After Output"),
+                                SPACE_PLACEMENT_BEFORE: _("Before Output"),
+                                SPACE_PLACEMENT_AFTER: _("After Output"),
                             },
                         ),
                         _("Set automatic space placement: before or after each word."),

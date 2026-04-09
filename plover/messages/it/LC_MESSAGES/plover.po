@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plover 5.2.3\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-03-26 20:54+0100\n"
+"POT-Creation-Date: 2026-03-29 13:13+0200\n"
 "PO-Revision-Date: 2026-03-08 12:00+0100\n"
 "Last-Translator: Gemini CLI\n"
 "Language: it\n"
@@ -77,7 +77,7 @@ msgstr "Plover: Informazioni"
 #. Widget: “AddTranslationDialog”, tooltip.
 #. Widget: “AddTranslationWidget”, tooltip.
 #: plover/gui_qt/add_translation_dialog.py:11
-#: plover/gui_qt/add_translation_widget.py:23
+#: plover/gui_qt/add_translation_widget.py:24
 msgid "Add a new translation to the dictionary."
 msgstr "Aggiungi una nuova traduzione al dizionario."
 
@@ -86,36 +86,36 @@ msgid "Add Translation"
 msgstr "Aggiungi traduzione"
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:194
+#: plover/gui_qt/add_translation_widget.py:195
 #, python-brace-format
 msgid "{dictionary} (disabled)"
 msgstr "{dictionary} (disabilitato)"
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:260
+#: plover/gui_qt/add_translation_widget.py:261
 #, python-brace-format
 msgid "{strokes} maps to "
 msgstr "{strokes} corrisponde a "
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:272
+#: plover/gui_qt/add_translation_widget.py:273
 msgid "Overwritten entries:"
 msgstr "Voci sovrascritte:"
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:277
+#: plover/gui_qt/add_translation_widget.py:278
 #, python-brace-format
 msgid "{strokes} is not mapped in any dictionary"
 msgstr "{strokes} non è presente in alcun dizionario"
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:291
+#: plover/gui_qt/add_translation_widget.py:292
 #, python-brace-format
 msgid "{translation} is mapped to: {strokes}"
 msgstr "{translation} è associato a: {strokes}"
 
 #. Widget: “AddTranslationWidget”.
-#: plover/gui_qt/add_translation_widget.py:294
+#: plover/gui_qt/add_translation_widget.py:295
 #, python-brace-format
 msgid "{translation} is not in the dictionary"
 msgstr "{translation} non è nel dizionario"
@@ -368,51 +368,51 @@ msgstr "RTS/CTS"
 
 #. Widget: “NopeOption” (empty config option message,
 #. e.g. the machine option when selecting the Treal machine).
-#: plover/gui_qt/config_window.py:51
+#: plover/gui_qt/config_window.py:52
 msgid "Nothing to see here!"
 msgstr "Nulla da vedere qui!"
 
 #. Widget: “KeymapOption”.
-#: plover/gui_qt/config_window.py:173
+#: plover/gui_qt/config_window.py:174
 msgid "Key"
 msgstr "Tasto"
 
 #. Widget: “KeymapOption”.
-#: plover/gui_qt/config_window.py:175
+#: plover/gui_qt/config_window.py:176
 msgid "Action"
 msgstr "Azione"
 
 #. Widget: “MultipleChoicesOption”.
-#: plover/gui_qt/config_window.py:221
+#: plover/gui_qt/config_window.py:222
 msgid "Selected"
 msgstr "Selezionato"
 
 #. Widget: “MultipleChoicesOption”.
-#: plover/gui_qt/config_window.py:223
+#: plover/gui_qt/config_window.py:224
 msgid "Choice"
 msgstr "Scelta"
 
-#: plover/gui_qt/config_window.py:354
+#: plover/gui_qt/config_window.py:355
 msgid "Interface"
 msgstr "Interfaccia"
 
-#: plover/gui_qt/config_window.py:357
+#: plover/gui_qt/config_window.py:358
 msgid "Appearance:"
 msgstr "Aspetto:"
 
-#: plover/gui_qt/config_window.py:362 plover/gui_qt/config_window.py:586
+#: plover/gui_qt/config_window.py:363 plover/gui_qt/config_window.py:587
 msgid "System"
 msgstr "Sistema"
 
-#: plover/gui_qt/config_window.py:363
+#: plover/gui_qt/config_window.py:364
 msgid "Light"
 msgstr "Chiaro"
 
-#: plover/gui_qt/config_window.py:364
+#: plover/gui_qt/config_window.py:365
 msgid "Dark"
 msgstr "Scuro"
 
-#: plover/gui_qt/config_window.py:368
+#: plover/gui_qt/config_window.py:369
 msgid ""
 "Set the application appearance:\n"
 "- System: follow the operating system mode\n"
@@ -424,35 +424,35 @@ msgstr ""
 "- Chiaro: forza la modalità chiara\n"
 "- Scuro: forza la modalità scura"
 
-#: plover/gui_qt/config_window.py:375
+#: plover/gui_qt/config_window.py:376
 msgid "Start minimized:"
 msgstr "Avvia ridotto a icona:"
 
-#: plover/gui_qt/config_window.py:378
+#: plover/gui_qt/config_window.py:379
 msgid "Minimize the main window to systray on startup."
 msgstr "Riduci la finestra principale nella systray all'avvio."
 
-#: plover/gui_qt/config_window.py:381
+#: plover/gui_qt/config_window.py:382
 msgid "Show paper tape:"
 msgstr "Mostra nastro di carta:"
 
-#: plover/gui_qt/config_window.py:384
+#: plover/gui_qt/config_window.py:385
 msgid "Open the paper tape on startup."
 msgstr "Apri il nastro di carta all'avvio."
 
-#: plover/gui_qt/config_window.py:387
+#: plover/gui_qt/config_window.py:388
 msgid "Show suggestions:"
 msgstr "Mostra suggerimenti:"
 
-#: plover/gui_qt/config_window.py:390
+#: plover/gui_qt/config_window.py:391
 msgid "Open the suggestions dialog on startup."
 msgstr "Apri la finestra dei suggerimenti all'avvio."
 
-#: plover/gui_qt/config_window.py:393
+#: plover/gui_qt/config_window.py:394
 msgid "Add translation dialog opacity:"
 msgstr "Opacità finestra aggiunta traduzione:"
 
-#: plover/gui_qt/config_window.py:397
+#: plover/gui_qt/config_window.py:398
 msgid ""
 "Set the translation dialog opacity:\n"
 "- 0 makes the dialog invisible.\n"
@@ -462,19 +462,19 @@ msgstr ""
 "- 0 rende la finestra invisibile.\n"
 "- 100 è completamente opaco."
 
-#: plover/gui_qt/config_window.py:403
+#: plover/gui_qt/config_window.py:404
 msgid "Dictionaries display order:"
 msgstr "Ordine di visualizzazione dizionari:"
 
-#: plover/gui_qt/config_window.py:406
+#: plover/gui_qt/config_window.py:407
 msgid "top-down"
 msgstr "dall'alto in basso"
 
-#: plover/gui_qt/config_window.py:406
+#: plover/gui_qt/config_window.py:407
 msgid "bottom-up"
 msgstr "dal basso in alto"
 
-#: plover/gui_qt/config_window.py:409
+#: plover/gui_qt/config_window.py:410
 msgid ""
 "Set the display order for dictionaries:\n"
 "- top-down: Match the search order; highest priority first.\n"
@@ -486,77 +486,77 @@ msgstr ""
 "- dal basso in alto: Ordine di ricerca inverso; priorità più bassa per "
 "prima.\n"
 
-#: plover/gui_qt/config_window.py:418
+#: plover/gui_qt/config_window.py:419
 msgid "Logging"
 msgstr "Log"
 
-#: plover/gui_qt/config_window.py:421
+#: plover/gui_qt/config_window.py:422
 msgid "Log file:"
 msgstr "File di log:"
 
-#: plover/gui_qt/config_window.py:424
+#: plover/gui_qt/config_window.py:425
 msgid "Select a log file"
 msgstr "Seleziona un file di log"
 
-#: plover/gui_qt/config_window.py:424
+#: plover/gui_qt/config_window.py:425
 msgid "Log files (*.log)"
 msgstr "File di log (*.log)"
 
-#: plover/gui_qt/config_window.py:426
+#: plover/gui_qt/config_window.py:427
 msgid "File to use for logging strokes/translations."
 msgstr "File da utilizzare per il log di battute/traduzioni."
 
-#: plover/gui_qt/config_window.py:429
+#: plover/gui_qt/config_window.py:430
 msgid "Log strokes:"
 msgstr "Log battute:"
 
-#: plover/gui_qt/config_window.py:432
+#: plover/gui_qt/config_window.py:433
 msgid "Save strokes to the logfile."
 msgstr "Salva le battute nel file di log."
 
-#: plover/gui_qt/config_window.py:435
+#: plover/gui_qt/config_window.py:436
 msgid "Log translations:"
 msgstr "Log traduzioni:"
 
-#: plover/gui_qt/config_window.py:438
+#: plover/gui_qt/config_window.py:439
 msgid "Save translations to the logfile."
 msgstr "Salva le traduzioni nel file di log."
 
 #. Widget: “MainWindow”, title.
-#: plover/gui_qt/config_window.py:444 plover/gui_qt/main_window_ui.py:260
+#: plover/gui_qt/config_window.py:445 plover/gui_qt/main_window_ui.py:260
 msgid "Machine"
 msgstr "Macchina"
 
-#: plover/gui_qt/config_window.py:447
+#: plover/gui_qt/config_window.py:448
 msgid "Machine:"
 msgstr "Macchina:"
 
-#: plover/gui_qt/config_window.py:459
+#: plover/gui_qt/config_window.py:460
 msgid "Options:"
 msgstr "Opzioni:"
 
-#: plover/gui_qt/config_window.py:461
+#: plover/gui_qt/config_window.py:462
 msgid "Keymap:"
 msgstr "Mappatura tasti:"
 
 #. Widget: “MainWindow”, title.
-#: plover/gui_qt/config_window.py:466 plover/gui_qt/main_window_ui.py:292
+#: plover/gui_qt/config_window.py:467 plover/gui_qt/main_window_ui.py:292
 msgid "Output"
 msgstr "Uscita"
 
-#: plover/gui_qt/config_window.py:469
+#: plover/gui_qt/config_window.py:470
 msgid "Enable at start:"
 msgstr "Abilita all'avvio:"
 
-#: plover/gui_qt/config_window.py:472
+#: plover/gui_qt/config_window.py:473
 msgid "Enable output on startup."
 msgstr "Abilita l'uscita all'avvio."
 
-#: plover/gui_qt/config_window.py:475
+#: plover/gui_qt/config_window.py:476
 msgid "Start attached:"
 msgstr "Inizia senza spazio:"
 
-#: plover/gui_qt/config_window.py:479
+#: plover/gui_qt/config_window.py:480
 msgid ""
 "Disable preceding space on first output.\n"
 "\n"
@@ -566,37 +566,37 @@ msgstr ""
 "\n"
 "Questa opzione è applicabile solo quando gli spazi sono posizionati prima."
 
-#: plover/gui_qt/config_window.py:485
+#: plover/gui_qt/config_window.py:486
 msgid "Start capitalized:"
 msgstr "Inizia con la maiuscola:"
 
-#: plover/gui_qt/config_window.py:488
+#: plover/gui_qt/config_window.py:489
 msgid "Capitalize the first word."
 msgstr "Scrivi la prima parola con la maiuscola."
 
-#: plover/gui_qt/config_window.py:491
+#: plover/gui_qt/config_window.py:492
 msgid "Space placement:"
 msgstr "Posizionamento spazio:"
 
-#: plover/gui_qt/config_window.py:496
+#: plover/gui_qt/config_window.py:497
 msgid "Before Output"
 msgstr "Prima dell'uscita"
 
-#: plover/gui_qt/config_window.py:497
+#: plover/gui_qt/config_window.py:498
 msgid "After Output"
 msgstr "Dopo l'uscita"
 
-#: plover/gui_qt/config_window.py:500
+#: plover/gui_qt/config_window.py:501
 msgid "Set automatic space placement: before or after each word."
 msgstr ""
 "Imposta il posizionamento automatico dello spazio: prima o dopo ogni "
 "parola."
 
-#: plover/gui_qt/config_window.py:503
+#: plover/gui_qt/config_window.py:504
 msgid "Undo levels:"
 msgstr "Livelli di annullamento:"
 
-#: plover/gui_qt/config_window.py:507
+#: plover/gui_qt/config_window.py:508
 msgid ""
 "Set how many preceding strokes can be undone.\n"
 "\n"
@@ -608,11 +608,11 @@ msgstr ""
 "Nota: il valore effettivo terrà conto della voce\n"
 "dei dizionari con il numero massimo di battute."
 
-#: plover/gui_qt/config_window.py:514
+#: plover/gui_qt/config_window.py:515
 msgid "Key press delay (ms):"
 msgstr "Ritardo pressione tasti (ms):"
 
-#: plover/gui_qt/config_window.py:522
+#: plover/gui_qt/config_window.py:523
 msgid ""
 "Set the delay between emulated key presses (in milliseconds).\n"
 "\n"
@@ -631,11 +631,11 @@ msgstr ""
 "Impostare un ritardo troppo alto influirà negativamente sulle\n"
 "prestazioni dell'uscita delle battute."
 
-#: plover/gui_qt/config_window.py:532
+#: plover/gui_qt/config_window.py:533
 msgid "Linux keyboard layout:"
 msgstr "Layout tastiera Linux:"
 
-#: plover/gui_qt/config_window.py:546
+#: plover/gui_qt/config_window.py:547
 msgid ""
 "Set the keyboard layout configured in your system.\n"
 "This only applies when using Linux/BSD and not using X11.\n"
@@ -652,7 +652,7 @@ msgstr ""
 "grado di rilevare solo il primo layout di tastiera\n"
 "e non può rilevare i cambi di layout."
 
-#: plover/gui_qt/config_window.py:556
+#: plover/gui_qt/config_window.py:557
 msgid ""
 "When Wayland auto detect is selected, Plover is only able to detect the "
 "first keyboard layout and can not detect layout switches."
@@ -661,29 +661,29 @@ msgstr ""
 "grado di rilevare solo il primo layout di tastiera e non può rilevare i "
 "cambi di layout."
 
-#: plover/gui_qt/config_window.py:567
+#: plover/gui_qt/config_window.py:568
 msgid "Plugins"
 msgstr "Plugin"
 
-#: plover/gui_qt/config_window.py:570
+#: plover/gui_qt/config_window.py:571
 msgid "Extensions:"
 msgstr "Estensioni:"
 
 #. Widget: “MainWindow”, text.
-#: plover/gui_qt/config_window.py:578 plover/gui_qt/main_window_ui.py:294
+#: plover/gui_qt/config_window.py:579 plover/gui_qt/main_window_ui.py:294
 msgid "Enabled"
 msgstr "Abilitata"
 
 #. Widget: “PluginsManager”, text.
-#: plover/gui_qt/config_window.py:578 plover/gui_qt/plugins_manager_ui.py:137
+#: plover/gui_qt/config_window.py:579 plover/gui_qt/plugins_manager_ui.py:137
 msgid "Name"
 msgstr "Nome"
 
-#: plover/gui_qt/config_window.py:580
+#: plover/gui_qt/config_window.py:581
 msgid "Configure enabled plugin extensions."
 msgstr "Configura le estensioni dei plugin abilitate."
 
-#: plover/gui_qt/config_window.py:589
+#: plover/gui_qt/config_window.py:590
 msgid "System:"
 msgstr "Sistema:"
 
