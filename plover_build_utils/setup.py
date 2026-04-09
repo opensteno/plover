@@ -112,14 +112,19 @@ class BuildUi(Command):
 
         subprocess.check_call(["pyside6-uic", "--from-imports", src, "-o", dst])
 
+        if sys.platform.startswith("win32"):
+            platform_encoding = "cp1252"
+        else:
+            platform_encoding = "utf-8"
+
         for hook in self.hooks:
             mod_name, attr_name = hook.split(":")
             mod = importlib.import_module(mod_name)
             hook_fn = getattr(mod, attr_name)
-            with open(dst, "r") as fp:
+            with open(dst, "r", encoding=platform_encoding) as fp:
                 contents = fp.read()
             contents = hook_fn(contents)
-            with open(dst, "w") as fp:
+            with open(dst, "w", encoding="utf-8") as fp:
                 fp.write(contents)
 
     def _build_resources(self, src):
