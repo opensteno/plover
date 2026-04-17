@@ -111,9 +111,11 @@ SectionEnd
 Section "Uninstall"
 
   RMDir /r "$INSTDIR\data"
+  RMDir /r "$INSTDIR\hidapi-src"
   Delete "$INSTDIR\LICENSE.txt"
   Delete "$INSTDIR\plover.exe"
   Delete "$INSTDIR\plover_console.exe"
+  Delete "$INSTDIR\vcruntime140.dll"
   Delete "$INSTDIR\uninstall.exe"
   RMDir "$INSTDIR"
 
