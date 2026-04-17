@@ -181,8 +181,7 @@ def main():
             args[0:1] = [sys.executable, "-m", spec.name]
         if PLATFORM == "win":
             # Workaround https://bugs.python.org/issue19066
-            win_cwd = os.path.dirname(sys.executable)
-            subprocess.Popen(args, cwd=win_cwd)
+            subprocess.Popen(args, cwd=os.getcwd())
             code = 0
         else:
             os.execv(args[0], args)
