@@ -14,7 +14,6 @@ def main():
     os.environ["PYTHONUSERBASE"] = os.path.join(CONFIG_DIR, "plugins", PLUGINS_PLATFORM)
     if PLATFORM == "win":
         # Workaround https://bugs.python.org/issue19066
-        args[0] = '"' + sys.executable + '"'
         subprocess.Popen(args, cwd=os.getcwd())
         sys.exit(0)
     os.execv(args[0], args)
