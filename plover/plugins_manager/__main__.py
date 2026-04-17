@@ -82,7 +82,7 @@ def list_plugins(freeze=False):
 def main(args=None):
     if args is None:
         args = sys.argv[1:]
-    if args[0] == "list_plugins":
+    if args and args[0] == "list_plugins":
         assert len(args) <= 2
         if len(args) > 1:
             assert args[1] == "--freeze"
