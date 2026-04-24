@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plover 5.3.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-04-24 06:30+0200\n"
+"POT-Creation-Date: 2026-04-24 06:48+0200\n"
 "PO-Revision-Date: 2026-03-08 12:00+0100\n"
 "Last-Translator: Gemini CLI\n"
 "Language: nl\n"
@@ -200,7 +200,7 @@ msgstr "Bladeren"
 
 #. Widget: “KeyboardWidget”, tool tip.
 #. Widget: “PloverHidWidget”, tool tip.
-#: plover/gui_qt/config_keyboard_widget_ui.py:56
+#: plover/gui_qt/config_keyboard_widget_ui.py:67
 #: plover/gui_qt/config_plover_hid_widget_ui.py:89
 msgid ""
 "When the first key in a chord is released, the chord is sent.\n"
@@ -212,14 +212,27 @@ msgstr ""
 "akkoord verzonden."
 
 #. Widget: “KeyboardWidget”, text.
-#: plover/gui_qt/config_keyboard_widget_ui.py:60
+#: plover/gui_qt/config_keyboard_widget_ui.py:71
 msgid "First-up chord send"
 msgstr "Verzend akkoord bij loslaten"
 
 #. Widget: “KeyboardWidget”, text.
-#: plover/gui_qt/config_keyboard_widget_ui.py:62
+#: plover/gui_qt/config_keyboard_widget_ui.py:73
 msgid "Arpeggiate"
 msgstr "Arpeggiëren"
+
+#. Widget: “KeyboardWidget”, text.
+#: plover/gui_qt/config_keyboard_widget_ui.py:75
+msgid "Keyboard Selection"
+msgstr "Toetsenbordkeuze"
+
+#. Widget: “KeyboardWidget”, tool tip.
+#: plover/gui_qt/config_keyboard_widget_ui.py:78
+#: plover/gui_qt/config_keyboard_widget_ui.py:82
+msgid "Linux Wayland only: Select the keyboard which will be used by Plover"
+msgstr ""
+"Alleen Linux Wayland: selecteer het toetsenbord dat door Plover wordt "
+"gebruikt"
 
 #. Widget: “PloverHidWidget”, text.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:93

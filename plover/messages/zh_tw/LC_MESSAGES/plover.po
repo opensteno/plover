@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plover 5.3.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-04-24 06:30+0200\n"
+"POT-Creation-Date: 2026-04-24 06:48+0200\n"
 "PO-Revision-Date: 2026-03-08 12:00+0100\n"
 "Last-Translator: Gemini CLI\n"
 "Language: zh_TW\n"
@@ -196,7 +196,7 @@ msgstr "瀏覽"
 
 #. Widget: “KeyboardWidget”, tool tip.
 #. Widget: “PloverHidWidget”, tool tip.
-#: plover/gui_qt/config_keyboard_widget_ui.py:56
+#: plover/gui_qt/config_keyboard_widget_ui.py:67
 #: plover/gui_qt/config_plover_hid_widget_ui.py:89
 msgid ""
 "When the first key in a chord is released, the chord is sent.\n"
@@ -206,14 +206,25 @@ msgstr ""
 "如果該按鍵再次被按下並放開，則會送出另一個和弦。"
 
 #. Widget: “KeyboardWidget”, text.
-#: plover/gui_qt/config_keyboard_widget_ui.py:60
+#: plover/gui_qt/config_keyboard_widget_ui.py:71
 msgid "First-up chord send"
 msgstr "放開首鍵時送出和弦"
 
 #. Widget: “KeyboardWidget”, text.
-#: plover/gui_qt/config_keyboard_widget_ui.py:62
+#: plover/gui_qt/config_keyboard_widget_ui.py:73
 msgid "Arpeggiate"
 msgstr "琶音"
+
+#. Widget: “KeyboardWidget”, text.
+#: plover/gui_qt/config_keyboard_widget_ui.py:75
+msgid "Keyboard Selection"
+msgstr "鍵盤選擇"
+
+#. Widget: “KeyboardWidget”, tool tip.
+#: plover/gui_qt/config_keyboard_widget_ui.py:78
+#: plover/gui_qt/config_keyboard_widget_ui.py:82
+msgid "Linux Wayland only: Select the keyboard which will be used by Plover"
+msgstr "僅限 Linux Wayland：選擇 Plover 將使用的鍵盤"
 
 #. Widget: “PloverHidWidget”, text.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:93
