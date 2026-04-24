@@ -15,21 +15,36 @@ from plover import log
 import hid
 import time
 import platform
-import ctypes
 import threading
+import ctypes
 from queue import Queue, Empty
-from typing import Dict
+from typing import Any, Dict
 from dataclasses import dataclass
 
 
-def _darwin_disable_exclusive_open():
-    lib = getattr(hid, "hidapi", None)
-    if lib is not None:
-        func = getattr(lib, "hid_darwin_set_open_exclusive")
-        func.argtypes = (ctypes.c_int,)
-        func.restype = None
+def _darwin_disable_exclusive_open() -> None:
+    """Disable macOS exclusive HID opens while cython-hidapi lacks a Python API.
+
+    Keep this workaround until https://github.com/trezor/cython-hidapi/issues/178
+    is resolved.
+    """
+    lib_path = getattr(hid, "__file__", None)
+    if not lib_path:
+        log.warning("hidapi extension path not found; HID may open exclusively")
+        return
+    try:
+        lib = ctypes.CDLL(lib_path)
+        func = ctypes.CFUNCTYPE(None, ctypes.c_int)(
+            ("hid_darwin_set_open_exclusive", lib)
+        )
+    except Exception:
+        log.warning(
+            "failed to load hid_darwin_set_open_exclusive; HID may open exclusively"
+        )
+        return
+    try:
         func(0)
-    else:
+    except Exception:
         log.warning(
             "could not call hid_darwin_set_open_exclusive; HID may open exclusively"
         )
@@ -69,7 +84,7 @@ class InvalidReport(Exception):
 
 @dataclass
 class HidDeviceRecord:
-    device: hid.Device
+    device: hid.device
     thread: threading.Thread
 
 
@@ -86,18 +101,19 @@ class PloverHid(ThreadedStenotypeBase):
     '''
     # fmt: on
 
-    def __init__(self, params):
+    def __init__(self, params: Dict[str, Any]) -> None:
         super().__init__()
         self._params = params
-        self._devices: Dict[str, HidDeviceRecord] = {}
+        self._devices: Dict[bytes, HidDeviceRecord] = {}
         self._report_queue: Queue[bytes] = Queue()
         self._lock: threading.Lock = threading.Lock()
         self._device_watcher: threading.Thread | None = None
 
-    def _add_device(self, path):
+    def _add_device(self, path: bytes) -> bool:
         """Open a HID device at `path`, start its reader, and mark ready if first."""
         try:
-            device = hid.Device(path=path)
+            device = hid.device()
+            device.open_path(path)
         except Exception as e:
             log.debug(f"open failed for {path!r}: {e}")
             return False
@@ -112,7 +128,7 @@ class PloverHid(ThreadedStenotypeBase):
             self._ready()
         return True
 
-    def _remove_device(self, path):
+    def _remove_device(self, path: bytes) -> None:
         """Close and forget a HID device by path; if none remain, mark disconnected."""
         with self._lock:
             entry = self._devices.pop(path, None)
@@ -137,7 +153,7 @@ class PloverHid(ThreadedStenotypeBase):
         if not self._devices and not self.finished.is_set():
             self._error()
 
-    def _scan_device_loop(self):
+    def _scan_device_loop(self) -> None:
         """Scan for new matching HID devices and start readers for them."""
         scan_ms = self._params["device_scan_interval_ms"]
         while not self.finished.is_set():
@@ -145,7 +161,7 @@ class PloverHid(ThreadedStenotypeBase):
                 paths = [
                     d["path"]
                     for d in hid.enumerate()
-                    if d.get("usage_page") == USAGE_PAGE and d.get("usage") == USAGE
+                    if (d.get("usage_page") == USAGE_PAGE and d.get("usage") == USAGE)
                 ]
             except Exception as e:
                 log.debug(f"device scan enumerate failed: {e}")
@@ -166,7 +182,7 @@ class PloverHid(ThreadedStenotypeBase):
             if self.finished.wait(scan_ms / 1000.0):
                 break
 
-    def _read_from_device_loop(self, path: str, device: hid.Device) -> None:
+    def _read_from_device_loop(self, path: bytes, device: hid.device) -> None:
         """Per-device reader thread: blocking read, push reports to the report queue."""
         slice_ms = self._params["repeat_interval_ms"]
         while not self.finished.is_set():
@@ -177,13 +193,18 @@ class PloverHid(ThreadedStenotypeBase):
                 break
             if report:
                 try:
-                    self._report_queue.put_nowait(report)
+                    report_bytes = (
+                        report
+                        if isinstance(report, (bytes, bytearray))
+                        else bytes(report)
+                    )
+                    self._report_queue.put_nowait(report_bytes)
                 except Exception:
                     log.debug("failed to put report in queue")
                     pass
         self._remove_device(path)
 
-    def _parse(self, report):
+    def _parse(self, report: bytes) -> int:
         # The first byte is the report id, and due to idiosyncrasies
         # in how HID-apis work on different operating system we can't
         # map the report id to the contents in a good way, so we force
@@ -193,14 +214,14 @@ class PloverHid(ThreadedStenotypeBase):
         else:
             raise InvalidReport()
 
-    def _send(self, key_state):
+    def _send(self, key_state: int) -> None:
         steno_actions = self.keymap.keys_to_actions(
             [key for i, key in enumerate(STENO_KEY_CHART) if key_state >> (63 - i) & 1]
         )
         if steno_actions:
             self._notify(steno_actions)
 
-    def run(self):
+    def run(self) -> None:
         key_state = 0
         current = 0
         last_sent = 0
@@ -248,13 +269,13 @@ class PloverHid(ThreadedStenotypeBase):
                     last_sent = key_state
                     key_state = 0
 
-    def start_capture(self):
+    def start_capture(self) -> None:
         self.finished.clear()
         self._initializing()
         # Enumerate all hid devices on the machine and if we find one with our
         # usage page and usage we try to connect to it.
         try:
-            devices = [
+            devices: list[bytes] = [
                 device["path"]
                 for device in hid.enumerate()
                 if device["usage_page"] == USAGE_PAGE and device["usage"] == USAGE
@@ -278,7 +299,7 @@ class PloverHid(ThreadedStenotypeBase):
             return
         self.start()
 
-    def stop_capture(self):
+    def stop_capture(self) -> None:
         super().stop_capture()
         # Stop device watcher
         t_watch = getattr(self, "_device_watcher", None)

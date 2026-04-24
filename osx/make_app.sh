@@ -2,7 +2,6 @@
 
 set -e
 
-. ./plover_build_utils/deps.sh
 . ./plover_build_utils/functions.sh
 
 topdir="$PWD"
@@ -63,42 +62,40 @@ run_eval "export SSL_CERT_FILE='$SSL_CERT_FILE'"
 run_eval "unset __PYVENV_LAUNCHER__"
 python='appdir_python'
 
-# Install Plover and dependencies.
-bootstrap_dist "$plover_wheel"
+# Ensure pip prefers universal2 wheels and source builds target both architectures.
+export _PYTHON_HOST_PLATFORM="macosx-${py_installer_macos}.0-universal2"
+export ARCHFLAGS="-arch x86_64 -arch arm64"
 
-# ------- Start: Build & bundle hidapi from source  -------
-. ./osx/build_hidapi.sh
+# Remove single-architecture macOS wheels from the cache. The tox dev environment
+# shares .cache/wheels/ and populates it with host-arch-only wheels during its own
+# dependency installation, before make_app.sh runs. Removing them forces pip to
+# re-download universal2 wheels or rebuild from source with ARCHFLAGS.
+for whl in .cache/wheels/*.whl; do
+    [ -f "$whl" ] || continue
+    case "$(basename "$whl")" in
+        *universal2*) ;;
+        *macosx*) echo "Removing single-arch cached wheel: $whl"; rm -f "$whl" ;;
+    esac
+done
 
-hidapi_src="$builddir/hidapi-src"
-hidapi_bld="$builddir/hidapi-build"
-
-echo "Downloading and unpacking hidapi ${hidapi_version}…"
-fetch_hidapi "$hidapi_src" "$builddir"
-
-echo "Building hidapi…"
-cmake_build_macos "$hidapi_src" "$hidapi_bld" "x86_64;arm64" "Release"
-
-# Locate the produced dylib
-hidapi_dylib="$(/usr/bin/find "$hidapi_bld" -name 'libhidapi*.dylib' -type f -print -quit)"
-if [ -z "$hidapi_dylib" ] || [ ! -f "$hidapi_dylib" ]; then
-  echo "Error: built libhidapi*.dylib not found." >&2
-  exit 3
+# Determine which packages lack universal2 wheels and must be built from source.
+echo "Checking PyPI for universal2 wheel availability..."
+no_binary_list=$(python3 osx/find_non_universal_wheels.py "${py_version%.*}" reqs/constraints.txt)
+extra_args=(--no-cache-dir)
+if [ -n "$no_binary_list" ]; then
+    echo "Packages requiring source builds for universal2: $no_binary_list"
+    extra_args+=(--no-binary "$no_binary_list")
 fi
 
-# Bundle into the app's Frameworks directory
-run cp "$hidapi_dylib" "$frameworks_dir/"
-base="$(basename "$hidapi_dylib")"
+# Install Plover and dependencies.
+bootstrap_dist "$plover_wheel" "${extra_args[@]}"
 
-# Add alias to Frameworks dir
-ln -sfn "$base" "$frameworks_dir/libhidapi.dylib"
-
-# Add RPATH to the Python binary itself and re-sign it
-run install_name_tool -add_rpath "@executable_path/../../../../../Frameworks" "$py_binary"
-run /usr/bin/codesign -f -s - "$py_binary"
-# ------- End: Build & bundle hidapi from source  -------
+# Verify all installed binaries are universal.
+run bash osx/check_universal.sh "$frameworks_dir/Python.framework" "${py_version%.*}"
 
 # Create launcher.
-run gcc -Wall -O2 -arch x86_64 -arch arm64 'osx/app_resources/plover_launcher.c' -o "$macos_dir/Plover"
+run gcc -Wall -O2 -arch x86_64 -arch arm64 -F"$appdir/Contents/Frameworks" -Wl,-rpath,@executable_path/../Frameworks -Wl,-rpath,@executable_path/../Frameworks/Python.framework -I"$py_home/include/python${py_version%.*}" -framework Cocoa -framework Python 'osx/app_resources/plover_launcher.m' -o "$macos_dir/Plover"
+run install_name_tool -change "@rpath/Versions/${py_version%.*}/Python" "@rpath/Python.framework/Versions/${py_version%.*}/Python" "$macos_dir/Plover"
 
 # Copy icon.
 run cp 'osx/app_resources/plover.icns' "$resources_dir/plover.icns"

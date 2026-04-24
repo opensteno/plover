@@ -4,6 +4,8 @@ import ast
 
 import pytest
 
+from plover.formatting import SPACE_PLACEMENT_AFTER
+
 from plover.command.set_config import set_config
 from plover.config import Config, DictionaryConfig
 
@@ -29,7 +31,12 @@ class FakeEngine:
 
 
 SET_CONFIG_TESTS = (
-    lambda: ('"space_placement":"After Output"', "After Output"),
+    lambda: (
+        '"space_placement":"{SPACE_PLACEMENT_AFTER}"'.format(
+            SPACE_PLACEMENT_AFTER=SPACE_PLACEMENT_AFTER
+        ),
+        SPACE_PLACEMENT_AFTER,
+    ),
     lambda: ('"start_attached":True', True),
     lambda: ('"undo_levels":10', 10),
     lambda: (

@@ -30,6 +30,7 @@ from PySide6.QtWidgets import (
 )
 
 from plover import _
+from plover.formatting import SPACE_PLACEMENT_BEFORE, SPACE_PLACEMENT_AFTER
 from plover.config import MINIMUM_UNDO_LEVELS, MINIMUM_TIME_BETWEEN_KEY_PRESSES
 from plover.gui_qt import appearance
 from plover.misc import expand_path, shorten_path
@@ -306,9 +307,23 @@ class BooleanAsDualChoiceOption(ChoiceOption):
         super().__init__(choices)
 
 
+class TextWrapQLabel(QLabel):
+    """Simple QLabel wrapper that enables wordWrap"""
+
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.setWordWrap(True)
+
+
 class ConfigOption:
     def __init__(
-        self, display_name, option_name, widget_class, help_text="", dependents=()
+        self,
+        display_name,
+        option_name,
+        widget_class,
+        help_text="",
+        dependents=(),
+        additional_widget_classes=[],
     ):
         self.display_name = display_name
         self.option_name = option_name
@@ -318,6 +333,10 @@ class ConfigOption:
         self.layout = None
         self.widget = None
         self.label = None
+        # Other widgets to be added immediately after the main widget_class
+        # Does not work in dependents
+        self.additional_widget_classes = additional_widget_classes
+        self.additional_widgets = []
 
 
 class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
@@ -377,8 +396,8 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
                         partial(IntOption, maximum=100, minimum=0),
                         _(
                             "Set the translation dialog opacity:\n"
-                            "- 0 makes the dialog invisible\n"
-                            "- 100 is fully opaque"
+                            "- 0 makes the dialog invisible.\n"
+                            "- 100 is fully opaque."
                         ),
                     ),
                     ConfigOption(
@@ -389,8 +408,8 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
                         ),
                         _(
                             "Set the display order for dictionaries:\n"
-                            "- top-down: match the search order; highest priority first\n"
-                            "- bottom-up: reverse search order; lowest priority first\n"
+                            "- top-down: Match the search order; highest priority first.\n"
+                            "- bottom-up: Reverse search order; lowest priority first.\n"
                         ),
                     ),
                 ),
@@ -475,8 +494,8 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
                         partial(
                             ChoiceOption,
                             choices={
-                                "Before Output": _("Before Output"),
-                                "After Output": _("After Output"),
+                                SPACE_PLACEMENT_BEFORE: _("Before Output"),
+                                SPACE_PLACEMENT_AFTER: _("After Output"),
                             },
                         ),
                         _("Set automatic space placement: before or after each word."),
@@ -521,12 +540,26 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
                                 "colemak": "colemak",
                                 "colemak-dh": "colemak-dh",
                                 "dvorak": "dvorak",
+                                "wayland-auto": "Wayland auto detect",
                             },
                         ),
                         _(
-                            "Set the keyboard layout configurad in your system.\n"
-                            "This only applies when using Linux/BSD and not using X11."
+                            "Set the keyboard layout configured in your system.\n"
+                            "This only applies when using Linux/BSD and not using X11.\n\n"
+                            "When Wayland auto detect is selected,"
+                            "Plover is only able to detect the first keyboard layout\n"
+                            "and can not detect layout switches."
                         ),
+                        additional_widget_classes=[
+                            partial(
+                                TextWrapQLabel,
+                                _(
+                                    "When Wayland auto detect is selected, "
+                                    "Plover is only able to detect the first keyboard layout "
+                                    "and can not detect layout switches."
+                                ),
+                            )
+                        ],
                     ),
                 ),
             ),
@@ -592,6 +625,10 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
                 option.label.setToolTip(option.help_text)
                 option.label.setBuddy(option.widget)
                 layout.addRow(option.label, option.widget)
+                for additional_widget_class in option.additional_widget_classes:
+                    additional_widget = additional_widget_class()
+                    layout.addRow(None, additional_widget)
+                    option.additional_widgets.append(additional_widget)
             frame = QFrame()
             frame.setLayout(layout)
             frame.setAccessibleName(section)
@@ -615,6 +652,8 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
             if keyboard_layout_option is not None:
                 keyboard_layout_option.label.hide()
                 keyboard_layout_option.widget.hide()
+                for additional_widget in keyboard_layout_option.additional_widgets:
+                    additional_widget.hide()
 
         # temporary hiding start_minimized setting on macOS due to bug in
         # macOS 26, see https://github.com/openstenoproject/plover/issues/1782

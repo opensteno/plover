@@ -15,6 +15,7 @@ build:
   apt_packages:
     - python3-dev
     - build-essential
+    - libxkbcommon-dev
 
 python:
   install:

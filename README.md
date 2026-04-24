@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="300" alt="Plover logo" src="https://raw.githubusercontent.com/openstenoproject/plover/main/doc/_static/dolores.svg" />
+    <img width="300" alt="Plover logo" src="https://raw.githubusercontent.com/opensteno/plover/main/doc/_static/dolores.svg" />
 </p>
 
 <h1 align="center">Plover</h1>
@@ -7,12 +7,12 @@
 <p align="center"><i>Bringing stenography to everyone.</i></p>
 
 <p align="center">
-    <a href="https://github.com/openstenoproject/plover/releases">
-        <img alt="Latest release" src="https://img.shields.io/github/v/release/openstenoproject/plover?filter=v*" />
+    <a href="https://github.com/opensteno/plover/releases">
+        <img alt="Latest release" src="https://img.shields.io/github/v/release/opensteno/plover?filter=v*" />
     </a>
-    <img alt="License" src="https://img.shields.io/github/license/openstenoproject/plover" />
-    <a href="https://github.com/openstenoproject/plover/actions/workflows/ci.yml?query=branch%3Amain">
-        <img alt="CI status" src="https://github.com/openstenoproject/plover/actions/workflows/ci.yml/badge.svg?branch=main" />
+    <img alt="License" src="https://img.shields.io/github/license/opensteno/plover" />
+    <a href="https://github.com/opensteno/plover/actions/workflows/ci.yml?query=branch%3Amain">
+        <img alt="CI status" src="https://github.com/opensteno/plover/actions/workflows/ci.yml/badge.svg?branch=main" />
     </a>
     <a href="https://plover.readthedocs.io/">
         <img alt="ReadTheDocs" src="https://img.shields.io/readthedocs/plover?logo=readthedocs&logoColor=white" />
@@ -121,14 +121,14 @@ Please follow through for your system:
 
 [Beginner's Guide]: https://plover.wiki/index.php/Beginner%27s_Guide
 [Blog]: http://plover.stenoknight.com
-[Contributing]: https://github.com/openstenoproject/plover/blob/main/CONTRIBUTING.md
-[Donate]: http://www.openstenoproject.org/donate
+[Contributing]: https://github.com/opensteno/plover/blob/main/CONTRIBUTING.md
+[Donate]: http://www.opensteno.org/donate
 [Google Group]: https://groups.google.com/forum/#!forum/ploversteno
-[Homepage Source]: https://github.com/openstenoproject/plover/tree/gh-pages
+[Homepage Source]: https://github.com/opensteno/plover/tree/gh-pages
 [Homepage]: http://opensteno.org/plover
-[Issues]: https://github.com/openstenoproject/plover/issues?q=is:issue
-[License]: https://github.com/openstenoproject/plover/blob/main/LICENSE.txt
-[Open Steno Project Homepage Source]: https://github.com/openstenoproject/openstenoproject.github.io
+[Issues]: https://github.com/opensteno/plover/issues?q=is:issue
+[License]: https://github.com/opensteno/plover/blob/main/LICENSE.txt
+[Open Steno Project Homepage Source]: https://github.com/opensteno/opensteno.github.io
 [Open Steno Project]: http://opensteno.org
 [Mascot]: http://plover.stenoknight.com/2010/10/new-logo.html
 [StenoJig]: https://github.com/JoshuaGrams/steno-jig
@@ -138,6 +138,6 @@ Please follow through for your system:
 [Wiki]: https://plover.wiki
 [installation guide]: https://plover.wiki/index.php/Installation_Guide
 [panathea/plover\_icons]: https://github.com/panathea/plover_icons
-[Windows README]: https://github.com/openstenoproject/plover/blob/main/windows/README.md
-[Linux README]: https://github.com/openstenoproject/plover/blob/main/linux/README.md
-[macOS README]: https://github.com/openstenoproject/plover/blob/main/osx/README.md
+[Windows README]: https://github.com/opensteno/plover/blob/main/windows/README.md
+[Linux README]: https://github.com/opensteno/plover/blob/main/linux/README.md
+[macOS README]: https://github.com/opensteno/plover/blob/main/osx/README.md

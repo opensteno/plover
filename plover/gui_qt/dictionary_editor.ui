@@ -187,7 +187,7 @@
     <string>&amp;New translation</string>
    </property>
    <property name="toolTip">
-    <string>Add a new translation</string>
+    <string>Add a new translation.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>

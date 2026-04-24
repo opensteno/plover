@@ -2,7 +2,6 @@
 
 set -e
 
-. ./plover_build_utils/deps.sh
 . ./plover_build_utils/functions.sh
 
 opt_incremental=0
@@ -73,29 +72,6 @@ build_dist()
 
   # Install Plover and dependencies.
   bootstrap_dist "$wheel" --no-warn-script-location
-
-  # ------- Start: Build & bundle hidapi from source  -------
-  . ./windows/build_hidapi.sh
-
-  hidapi_src="$builddir/hidapi-src"
-  hidapi_bld="$builddir/hidapi-build"
-
-  echo "Downloading and unpacking hidapi ${hidapi_version}..."
-  fetch_hidapi "$hidapi_src" "$builddir"
-
-  echo "Building hidapi…"
-  cmake_build_windows "$hidapi_src" "$hidapi_bld" "Release"
-
-  # Find the built DLL - should be in Release/ subdirectory
-  hidapi_dll="$(/usr/bin/find "$hidapi_bld" -name 'hidapi.dll' -type f -print -quit)"
-  if [ -z "$hidapi_dll" ] || [ ! -f "$hidapi_dll" ]; then
-    echo "Error: built hidapi.dll not found." >&2
-    exit 3
-  fi
-
-  # Copy hidapi.dll to distribution directory where the exe will find it
-  run cp "$hidapi_dll" "$dist_data/"
-  # ------- End: Build & bundle hidapi from source  -------
 
   # Trim the fat...
   if [ $opt_trim -eq 1 ]

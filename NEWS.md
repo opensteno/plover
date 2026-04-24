@@ -1,3 +1,137 @@
+# v5.3.0 (2026-04-09)
+
+
+## Features
+
+### User Interface
+
+- Add missing translations. (#1825)
+- Alter form and tab order in Add Translations widget to be more logical and save strokes when navigating with keyboard. (#1833)
+
+## Bugfixes
+
+### Core
+
+- Fix translation catalog generation. (#1824)
+
+### User Interface
+
+- Fix lookup QT GUI errors. (#1830)
+- Improve plugin manager keyboard navigation. (#1834)
+- Align tooltip format. (#1834)
+- Improve menu dropdown item order. (#1834)
+- Fix trailing slash when space placement is set to `After Output` in the Add Translation dialog. (#1836)
+
+### Linux
+
+- Make wmctrl optional on Wayland to prevent crash on startup. (#1832)
+- Fix modifier alias keys in wayland. (#1838)
+
+### macOS
+
+- Fix Plover terminal commands on macOS. (#1827)
+
+## API
+
+No significant changes.
+
+# v5.2.3 (2026-03-05)
+
+
+## Features
+
+No significant changes.
+
+## Bugfixes
+
+### macOS
+
+- Fix DMG background image display issues on macOS 26.2 Tahoe. (#1821)
+- Fix missing menu bar icon on macOS 26. (#1822)
+
+## API
+
+No significant changes.
+
+# v5.2.2 (2026-02-10)
+
+
+## Features
+
+No significant changes.
+
+## Bugfixes
+
+### User Interface
+
+- Hide Wayland keymap help text when not on Linux and improve wording. (#1817)
+
+### macOS
+
+- Fix startup hang when launching Plover on Intel Macs. (#1820)
+
+## API
+
+No significant changes.
+
+# v5.2.1 (2026-02-06)
+
+
+## Features
+
+### Core
+
+- Update PySide dependency to allow Arch Linux AUR to be packaged. (#1775)
+
+## Bugfixes
+
+No significant changes.
+
+## API
+
+No significant changes.
+
+# v5.2.0 (2026-02-01)
+
+
+## Features
+
+### Linux
+
+- Support determining keyboard layout from Wayland with the `wayland-auto` layout. (#1807)
+- Avoid unnecessary rapid modifier key press/release while typing. (#1810)
+
+### macOS
+
+- Add appearance configuration option. (#1786)
+
+### Windows
+
+- Add appearance configuration option. (#1786)
+
+## Bugfixes
+
+### Core
+
+- Fix a corner case in `plover -s (script)`. (#1803)
+
+### User Interface
+
+- Fix default window sizes and extensions config table. (#1789)
+- Update Thea's name and email. (#1792)
+- Remove broken use_timeout checkbox in serial options. (#1793)
+- Make the plugin manager handle some exceptional cases. (#1802)
+
+### macOS
+
+- Hide the Start Minimized setting on macOS due to bug in macOS 26. (#1788)
+
+## API
+
+### Core
+
+- Migrate HID library to cython-hidapi. (#1812)
+
 # v5.1.0 (2025-11-04)
 
 

@@ -88,7 +88,7 @@
     <string>&amp;Edit dictionaries</string>
    </property>
    <property name="toolTip">
-    <string>Edit selected dictionaries</string>
+    <string>Edit selected dictionaries.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
@@ -118,7 +118,7 @@
     <string>&amp;Remove dictionaries</string>
    </property>
    <property name="toolTip">
-    <string>Remove selected dictionaries</string>
+    <string>Remove selected dictionaries.</string>
    </property>
    <property name="shortcut">
     <string>Del</string>
@@ -148,7 +148,7 @@
     <string>&amp;Add dictionaries</string>
    </property>
    <property name="toolTip">
-    <string>Add dictionaries</string>
+    <string>Add dictionaries.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -163,7 +163,7 @@
     <string>Add &amp;translation</string>
    </property>
    <property name="toolTip">
-    <string>Add a new translation</string>
+    <string>Add a new translation.</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+N</string>

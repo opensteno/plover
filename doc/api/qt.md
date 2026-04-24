@@ -146,6 +146,13 @@ The title that would show up in the main window's toolbar and the
 tools list in the main menu.
 ```
 
+```{attribute}  __doc__
+:type: str
+
+The text description that shows up in the tooltip on hover. If 
+not set, this would fallback to the TITLE
+```
+
 ```{attribute} ICON
 :type: str
 
@@ -163,6 +170,8 @@ A unique name to identify this tool when saving and loading state.
 :type: str
 
 A keyboard shortcut to activate this window, for example `Ctrl+F`.
+If shortcut is in use by Plover, this will override it.
+
 ```
 
 ```{method} _save_state(settings: QSettings)

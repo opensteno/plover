@@ -72,6 +72,7 @@ def babel_options(package, resource_dir=None):
         },
         "update_catalog": {
             "domain": package,
+            "input_file": template,
             "output_dir": localedir,
         },
     }
@@ -89,7 +90,7 @@ class BuildUi(Command):
     ]
 
     hooks = """
-    plover_build_utils.pyqt:no_autoconnection
+    plover_build_utils.qt_ui_hooks:remove_ui_autoconnection
     """.split()
 
     def initialize_options(self):
@@ -111,14 +112,19 @@ class BuildUi(Command):
 
         subprocess.check_call(["pyside6-uic", "--from-imports", src, "-o", dst])
 
+        if sys.platform.startswith("win32"):
+            platform_encoding = "cp1252"
+        else:
+            platform_encoding = "utf-8"
+
         for hook in self.hooks:
             mod_name, attr_name = hook.split(":")
             mod = importlib.import_module(mod_name)
             hook_fn = getattr(mod, attr_name)
-            with open(dst, "r") as fp:
+            with open(dst, "r", encoding=platform_encoding) as fp:
                 contents = fp.read()
             contents = hook_fn(contents)
-            with open(dst, "w") as fp:
+            with open(dst, "w", encoding="utf-8") as fp:
                 fp.write(contents)
 
     def _build_resources(self, src):
@@ -136,7 +142,7 @@ class BuildUi(Command):
 
     def run(self):
         self.run_command("egg_info")
-        std_hook_prefix = __package__ + ".pyqt:"
+        std_hook_prefix = __package__ + ".qt_ui_hooks:"
         hooks_info = [
             h[len(std_hook_prefix) :] if h.startswith(std_hook_prefix) else h
             for h in self.hooks

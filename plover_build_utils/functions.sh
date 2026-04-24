@@ -239,17 +239,6 @@ osx_standalone_python()
   run rm -rf "$reloc_py_dir"
 }
 
-fetch_hidapi() {
-  local src_dir="$1" download_dir="$2"
-  local file_name="hidapi-${hidapi_version}.tar.gz"
-  local url="https://github.com/libusb/hidapi/archive/refs/tags/${file_name}"
-  run "$python" -m plover_build_utils.download "$url" "$hidapi_sha1" "$file_name" "$download_dir"
-  hidapi_tar="$download_dir/$file_name"
-  rm -rf "$src_dir"
-  mkdir -p "$src_dir"
-  tar -xzf "$hidapi_tar" -C "$src_dir" --strip-components=1
-}
-
 packaging_checks()
 {
   run rm -rf dist
@@ -314,6 +303,10 @@ release_prepare()
   run "$python" setup.py patch_version "$1"
   run git add plover/__init__.py
   run git add doc/conf.py
+  run "$python" setup.py extract_messages
+  run git add plover/messages/plover.pot
+  run "$python" setup.py update_catalog
+  run git add plover/messages/*/*/*.po
   run towncrier build --version "$1" --yes
 }
 

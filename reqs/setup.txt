@@ -1,5 +1,5 @@
-Babel
-PySide6-Essentials
+babel
+PySide6
 setuptools
 wheel
 

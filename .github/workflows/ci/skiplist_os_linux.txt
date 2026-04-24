@@ -1,5 +1,5 @@
-.github/workflows/ci/skiplist_os_Windows.txt
-.github/workflows/ci/skiplist_os_macOS.txt
+.github/workflows/ci/skiplist_os_windows.txt
+.github/workflows/ci/skiplist_os_macos.txt
 osx/*
 plover/oslayer/osx/*
 plover/oslayer/windows/*

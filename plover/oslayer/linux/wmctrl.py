@@ -1,7 +1,17 @@
-from .wmctrl_x11 import WmCtrl
+from .display_server import DISPLAY_SERVER
 
 
-_wmctrl = WmCtrl()
+def GetForegroundWindow():
+    return None
 
-GetForegroundWindow = _wmctrl.get_foreground_window
-SetForegroundWindow = _wmctrl.set_foreground_window
+
+def SetForegroundWindow(w):
+    pass
+
+
+if DISPLAY_SERVER == "x11":
+    from .wmctrl_x11 import WmCtrl
+
+    _wmctrl = WmCtrl()
+    GetForegroundWindow = _wmctrl.get_foreground_window
+    SetForegroundWindow = _wmctrl.set_foreground_window

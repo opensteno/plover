@@ -1,6 +1,6 @@
 appdirs
 appnope; "darwin" in sys_platform
-hid
+hidapi
 pkginfo
 plover-stroke
 plyer; "win32" in sys_platform
@@ -13,6 +13,7 @@ python-xlib; ("linux" in sys_platform or "bsd" in sys_platform)
 evdev; "linux" in sys_platform or "bsd" in sys_platform
 packaging
 psutil; "linux" in sys_platform or "bsd" in sys_platform
+xkbcommon<1.1; "linux" in sys_platform or "bsd" in sys_platform
 readme-renderer[md]
 requests-cache
 requests-futures

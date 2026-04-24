@@ -52,6 +52,14 @@ _PIP_OPTS = _split_opts(
     """
 )
 
+# Allowed `pip wheel` only options (not passed to `pip install`).
+_PIP_WHEEL_OPTS = _split_opts(
+    """
+    --no-binary 1
+    --only-binary 1
+    """
+)
+
 # Allowed `pip install` only options.
 _PIP_INSTALL_OPTS = _split_opts(
     """
@@ -121,16 +129,26 @@ def install_wheels(
         if opt in _PIP_OPTS:
             nb_args = _PIP_OPTS[opt]
             install_only = False
+            wheel_only = False
+        elif opt in _PIP_WHEEL_OPTS:
+            nb_args = _PIP_WHEEL_OPTS[opt]
+            install_only = False
+            wheel_only = True
         elif opt in _PIP_INSTALL_OPTS:
             nb_args = _PIP_INSTALL_OPTS[opt]
             install_only = True
+            wheel_only = False
         else:
             raise ValueError("unsupported option: %s" % opt)
         a = [opt] + args[:nb_args]
         del args[:nb_args]
-        if not install_only:
+        if wheel_only:
             wheel_args.extend(a)
-        install_args.extend(a)
+        elif not install_only:
+            wheel_args.extend(a)
+            install_args.extend(a)
+        else:
+            install_args.extend(a)
     wheel_args[0:0] = ["wheel", "-f", wheels_cache, "-w", wheels_cache]
     install_args[0:0] = ["install", "--no-index", "--no-cache-dir", "-f", wheels_cache]
     pip_kwargs = dict(pip_install=pip_install, no_progress=no_progress)
