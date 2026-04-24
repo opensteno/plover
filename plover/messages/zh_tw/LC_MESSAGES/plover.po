@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plover 5.3.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-04-09 07:38+0200\n"
+"POT-Creation-Date: 2026-04-24 06:30+0200\n"
 "PO-Revision-Date: 2026-03-08 12:00+0100\n"
 "Last-Translator: Gemini CLI\n"
 "Language: zh_TW\n"
@@ -1018,27 +1018,27 @@ msgstr "要查詢的翻譯樣式。"
 msgid "Results"
 msgstr "結果"
 
-#: plover/gui_qt/machine_options.py:36
+#: plover/gui_qt/machine_options.py:38
 #, python-brace-format
 msgid "product: {value}"
 msgstr "產品：{value}"
 
-#: plover/gui_qt/machine_options.py:37
+#: plover/gui_qt/machine_options.py:39
 #, python-brace-format
 msgid "manufacturer: {value}"
 msgstr "製造商：{value}"
 
-#: plover/gui_qt/machine_options.py:38
+#: plover/gui_qt/machine_options.py:40
 #, python-brace-format
 msgid "serial number: {value}"
 msgstr "序號：{value}"
 
-#: plover/gui_qt/machine_options.py:46
+#: plover/gui_qt/machine_options.py:48
 #, python-brace-format
 msgid "description: {value}"
 msgstr "描述：{value}"
 
-#: plover/gui_qt/machine_options.py:199
+#: plover/gui_qt/machine_options.py:201
 msgid ""
 "Arpeggiate allows using non-NKRO keyboards.\n"
 "\n"
@@ -1474,7 +1474,7 @@ msgid "disconnected"
 msgstr "尚未連接"
 
 #. Machine name.
-#: plover/machine/keyboard.py:14
+#: plover/machine/keyboard.py:16
 msgid "Keyboard"
 msgstr "鍵盤"
 
