@@ -22,6 +22,8 @@ from serial.tools.list_ports import comports
 
 from plover import _
 from plover.oslayer.serial import patch_ports_info
+from plover.oslayer.config import PLATFORM
+from plover.oslayer.linux.display_server import DISPLAY_SERVER
 
 from plover.gui_qt.config_keyboard_widget_ui import Ui_KeyboardWidget
 from plover.gui_qt.config_serial_widget_ui import Ui_SerialWidget
@@ -203,11 +205,16 @@ class KeyboardOption(QGroupBox, Ui_KeyboardWidget):
             )
         )
         self._value = {}
+        if PLATFORM == "linux" and DISPLAY_SERVER == "wayland":
+            self.setup_keyboard_selection()
+        else:
+            self.combobox_keyboard_selection.setDisabled(True)
 
     def setValue(self, value):
         self._value = copy(value)
         self.arpeggiate.setChecked(value["arpeggiate"])
         self.first_up_chord_send.setChecked(value["first_up_chord_send"])
+        self.combobox_keyboard_selection.setCurrentText(value["keyboard_selection"])
 
     @Slot(bool)
     def update_arpeggiate(self, value):
@@ -218,6 +225,17 @@ class KeyboardOption(QGroupBox, Ui_KeyboardWidget):
     def update_first_up_chord_send(self, value):
         self._value["first_up_chord_send"] = value
         self.valueChanged.emit(self._value)
+
+    @Slot(str)
+    def update_keyboard_selection(self, value):
+        self._value["keyboard_selection"] = value
+        self.valueChanged.emit(self._value)
+
+    def setup_keyboard_selection(self):
+        from plover.oslayer.linux.keyboardcontrol_uinput import get_available_devices
+
+        for device in get_available_devices():
+            self.combobox_keyboard_selection.addItem(device.name)
 
 
 class PloverHidOption(QGroupBox, Ui_PloverHidWidget):

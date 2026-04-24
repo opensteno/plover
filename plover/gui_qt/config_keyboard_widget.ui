@@ -38,6 +38,23 @@ If the key is pressed and released again, another chord is sent.</string>
      </property>
     </widget>
    </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_keyboard_selection">
+     <property name="text">
+      <string>Keyboard Selection</string>
+     </property>
+     <property name="toolTip">
+      <string>Linux Wayland only: Select the keyboard which will be used by Plover</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QComboBox" name="combobox_keyboard_selection">
+     <property name="toolTip">
+      <string>Linux Wayland only: Select the keyboard which will be used by Plover</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>
@@ -47,6 +64,22 @@ If the key is pressed and released again, another chord is sent.</string>
    <signal>clicked(bool)</signal>
    <receiver>KeyboardWidget</receiver>
    <slot>update_arpeggiate(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>56</x>
+     <y>17</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>56</x>
+     <y>17</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>combobox_keyboard_selection</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>KeyboardWidget</receiver>
+   <slot>update_keyboard_selection(QString)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>56</x>
@@ -78,5 +111,6 @@ If the key is pressed and released again, another chord is sent.</string>
  <slots>
   <slot>update_arpeggiate(bool)</slot>
   <slot>update_first_up_chord_send(bool)</slot>
+  <slot>update_keyboard_selection(QString)</slot>
  </slots>
 </ui>

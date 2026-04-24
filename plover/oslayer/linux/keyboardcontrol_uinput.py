@@ -44,6 +44,26 @@ DEFAULT_MODIFIER_EV_KEYCODES: set[int] = {
 }
 
 
+def get_available_devices():
+    input_devices = [InputDevice(path) for path in list_devices()]
+    keyboard_devices = [dev for dev in input_devices if filter_devices(dev)]
+    return keyboard_devices
+
+
+def filter_devices(device):
+    """
+    Filter out devices that should not be grabbed and suppressed, to avoid output feeding into itself.
+    """
+    is_uinput = device.name == "py-evdev-uinput" or device.phys == "py-evdev-uinput"
+    # Check for some common keys to make sure it's really a keyboard
+    keys = device.capabilities().get(e.EV_KEY, [])
+    keyboard_keys_present = any(
+        key in keys for key in [e.KEY_ESC, e.KEY_SPACE, e.KEY_ENTER, e.KEY_LEFTSHIFT]
+    )
+
+    return not is_uinput and keyboard_keys_present
+
+
 class KeyboardEmulation(GenericKeyboardEmulation):
     # Map of Plover key name to EV keycode and modifiers
     _key_to_keycodeinfo: dict[str, KeyCodeInfo]
@@ -206,6 +226,7 @@ class KeyboardCapture(Capture):
 
     def __init__(self):
         super().__init__()
+        self._keyboard_selection = ""
         self._devices = self._get_devices()
 
         self._selector = selectors.DefaultSelector()
@@ -218,22 +239,12 @@ class KeyboardCapture(Capture):
         self._suppressed_keys = set()
 
     def _get_devices(self):
-        input_devices = [InputDevice(path) for path in list_devices()]
-        keyboard_devices = [dev for dev in input_devices if self._filter_devices(dev)]
-        return keyboard_devices
-
-    def _filter_devices(self, device):
-        """
-        Filter out devices that should not be grabbed and suppressed, to avoid output feeding into itself.
-        """
-        is_uinput = device.name == "py-evdev-uinput" or device.phys == "py-evdev-uinput"
-        # Check for some common keys to make sure it's really a keyboard
-        keys = device.capabilities().get(e.EV_KEY, [])
-        keyboard_keys_present = any(
-            key in keys
-            for key in [e.KEY_ESC, e.KEY_SPACE, e.KEY_ENTER, e.KEY_LEFTSHIFT]
-        )
-        return not is_uinput and keyboard_keys_present
+        available_devices = get_available_devices()
+        return [
+            device
+            for device in available_devices
+            if self._keyboard_selection == "" or device.name == self._keyboard_selection
+        ]
 
     def _grab_devices(self):
         """Grab all devices, waiting for each device to stop having keys pressed.
@@ -307,6 +318,10 @@ class KeyboardCapture(Capture):
         It does add a little bit of delay, but that is not noticeable.
         """
         self._suppressed_keys = set(suppressed_keys)
+
+    def set_keyboard_selection(self, keyboard_selection: str):
+        self._keyboard_selection = keyboard_selection
+        self._devices = self._get_devices()
 
     def _run(self):
         keys_pressed_with_modifier: set[int] = set()

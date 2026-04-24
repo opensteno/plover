@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: plover 5.3.0\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-04-09 07:38+0200\n"
+"POT-Creation-Date: 2026-04-24 06:48+0200\n"
 "PO-Revision-Date: 2026-03-08 12:00+0100\n"
 "Last-Translator: Gemini CLI\n"
 "Language: fr\n"
@@ -198,7 +198,7 @@ msgstr "Parcourir"
 
 #. Widget: “KeyboardWidget”, tool tip.
 #. Widget: “PloverHidWidget”, tool tip.
-#: plover/gui_qt/config_keyboard_widget_ui.py:56
+#: plover/gui_qt/config_keyboard_widget_ui.py:67
 #: plover/gui_qt/config_plover_hid_widget_ui.py:89
 msgid ""
 "When the first key in a chord is released, the chord is sent.\n"
@@ -209,14 +209,27 @@ msgstr ""
 "envoyé."
 
 #. Widget: “KeyboardWidget”, text.
-#: plover/gui_qt/config_keyboard_widget_ui.py:60
+#: plover/gui_qt/config_keyboard_widget_ui.py:71
 msgid "First-up chord send"
 msgstr "Envoyer l'accord au relâchement de la touche"
 
 #. Widget: “KeyboardWidget”, text.
-#: plover/gui_qt/config_keyboard_widget_ui.py:62
+#: plover/gui_qt/config_keyboard_widget_ui.py:73
 msgid "Arpeggiate"
 msgstr "Arpéger"
+
+#. Widget: “KeyboardWidget”, text.
+#: plover/gui_qt/config_keyboard_widget_ui.py:75
+msgid "Keyboard Selection"
+msgstr "Sélection du clavier"
+
+#. Widget: “KeyboardWidget”, tool tip.
+#: plover/gui_qt/config_keyboard_widget_ui.py:78
+#: plover/gui_qt/config_keyboard_widget_ui.py:82
+msgid "Linux Wayland only: Select the keyboard which will be used by Plover"
+msgstr ""
+"Linux Wayland uniquement: Sélectionnez le clavier qui sera utilisé par "
+"Plover"
 
 #. Widget: “PloverHidWidget”, text.
 #: plover/gui_qt/config_plover_hid_widget_ui.py:93
@@ -1041,27 +1054,27 @@ msgstr "Motif de traduction à rechercher."
 msgid "Results"
 msgstr "Résultats"
 
-#: plover/gui_qt/machine_options.py:36
+#: plover/gui_qt/machine_options.py:38
 #, python-brace-format
 msgid "product: {value}"
 msgstr "produit : {value}"
 
-#: plover/gui_qt/machine_options.py:37
+#: plover/gui_qt/machine_options.py:39
 #, python-brace-format
 msgid "manufacturer: {value}"
 msgstr "fabricant : {value}"
 
-#: plover/gui_qt/machine_options.py:38
+#: plover/gui_qt/machine_options.py:40
 #, python-brace-format
 msgid "serial number: {value}"
 msgstr "numéro de série : {value}"
 
-#: plover/gui_qt/machine_options.py:46
+#: plover/gui_qt/machine_options.py:48
 #, python-brace-format
 msgid "description: {value}"
 msgstr "description : {value}"
 
-#: plover/gui_qt/machine_options.py:199
+#: plover/gui_qt/machine_options.py:201
 msgid ""
 "Arpeggiate allows using non-NKRO keyboards.\n"
 "\n"
@@ -1503,7 +1516,7 @@ msgid "disconnected"
 msgstr "déconnectée"
 
 #. Machine name.
-#: plover/machine/keyboard.py:14
+#: plover/machine/keyboard.py:16
 msgid "Keyboard"
 msgstr "Clavier"
 

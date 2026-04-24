@@ -4,6 +4,8 @@ from plover import system
 from plover.machine.keyboard import Keyboard
 from plover.machine.keymap import Keymap
 from plover.oslayer.keyboardcontrol import KeyboardCapture
+from plover.oslayer.config import PLATFORM
+from plover.oslayer.linux.display_server import DISPLAY_SERVER
 
 from unittest import mock
 
@@ -26,7 +28,11 @@ def capture():
         yield capture
 
 
-@pytest.fixture(params=[{"arpeggiate": False, "first_up_chord_send": False}])
+@pytest.fixture(
+    params=[
+        {"arpeggiate": False, "first_up_chord_send": False, "keyboard_selection": ""}
+    ]
+)
 def machine(request, capture):
     machine = Keyboard(request.param)
     keymap = Keymap(Keyboard.KEYS_LAYOUT.split(), system.KEYS + Keyboard.ACTIONS)
@@ -36,10 +42,14 @@ def machine(request, capture):
 
 
 arpeggiate = pytest.mark.parametrize(
-    "machine", [{"arpeggiate": True, "first_up_chord_send": False}], indirect=True
+    "machine",
+    [{"arpeggiate": True, "first_up_chord_send": False, "keyboard_selection": ""}],
+    indirect=True,
 )
 first_up_chord_send = pytest.mark.parametrize(
-    "machine", [{"arpeggiate": False, "first_up_chord_send": True}], indirect=True
+    "machine",
+    [{"arpeggiate": False, "first_up_chord_send": True, "keyboard_selection": ""}],
+    indirect=True,
 )
 """
 These are decorators to be applied on test functions to modify the machine configuration.
@@ -57,10 +67,17 @@ def strokes(machine):
 def test_lifecycle(capture, machine, strokes):
     # Start machine.
     machine.start_capture()
-    assert capture.mock_calls == [
-        mock.call.start(),
-        mock.call.suppress(()),
-    ]
+    if PLATFORM == "linux" and DISPLAY_SERVER == "wayland":
+        assert capture.mock_calls == [
+            mock.call.set_keyboard_selection(""),
+            mock.call.start(),
+            mock.call.suppress(()),
+        ]
+    else:
+        assert capture.mock_calls == [
+            mock.call.start(),
+            mock.call.suppress(()),
+        ]
     capture.reset_mock()
     machine.set_suppression(True)
     suppressed_keys = dict(machine.keymap.get_bindings())
