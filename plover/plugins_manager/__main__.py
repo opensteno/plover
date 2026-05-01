@@ -38,6 +38,8 @@ def pip(args, stdin=None, stdout=None, stderr=None, **kwargs):
         )
         if not running_under_virtualenv():
             cmd.append("--user")
+            if os.environ.get("PLOVER_BREAK_SYSTEM_PACKAGES"):
+                cmd.append("--break-system-packages")
     elif command == "uninstall":
         cmd.append("uninstall")
     elif command == "list":

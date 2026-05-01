@@ -7,10 +7,7 @@ from plover.oslayer.config import CONFIG_DIR, PLATFORM, PLUGINS_PLATFORM
 
 def main():
     args = sys.argv[:]
-    args[0:1] = [sys.executable, "-m", "plover.scripts.main", "--gui", "qt"]
-    if "--no-user-plugins" in args[3:]:
-        args.remove("--no-user-plugins")
-        args.insert(1, "-s")
+    args[0:1] = [sys.executable, "-m", "plover.plugins_manager"]
     os.environ["PYTHONUSERBASE"] = os.path.join(CONFIG_DIR, "plugins", PLUGINS_PLATFORM)
     os.environ["PLOVER_BREAK_SYSTEM_PACKAGES"] = "1"
     if PLATFORM == "win":
