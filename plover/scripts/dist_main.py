@@ -6,18 +6,13 @@ from plover.oslayer.config import CONFIG_DIR, PLATFORM, PLUGINS_PLATFORM
 
 
 def main():
-    args = sys.argv[:]
-    args[0:1] = [sys.executable, "-m", "plover.scripts.main", "--gui", "qt"]
-    if "--no-user-plugins" in args[3:]:
-        args.remove("--no-user-plugins")
-        args.insert(1, "-s")
+    if "--no-user-plugins" in sys.argv[3:]:
+        sys.argv.remove("--no-user-plugins")
+        sys.argv.insert(1, "-s")
     os.environ["PYTHONUSERBASE"] = os.path.join(CONFIG_DIR, "plugins", PLUGINS_PLATFORM)
     os.environ["PLOVER_BREAK_SYSTEM_PACKAGES"] = "1"
-    if PLATFORM == "win":
-        # Workaround https://bugs.python.org/issue19066
-        subprocess.Popen(args, cwd=os.getcwd())
-        sys.exit(0)
-    os.execv(args[0], args)
+    from plover.scripts.main import main as _main
+    _main()
 
 
 if __name__ == "__main__":
