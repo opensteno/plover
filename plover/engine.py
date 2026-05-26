@@ -586,6 +586,19 @@ class StenoEngine:
         """Reloads all dictionaries from disk without resetting the machine."""
         self._same_thread_hook(self._load_dictionaries)
 
+    def reload_config(self) -> None:
+        """Reloads the configuration from disk and re-applies all settings."""
+        self._same_thread_hook(self._reload_config)
+
+    def _reload_config(self):
+        log.debug("reloading config")
+        try:
+            self._config.load()
+        except Exception:
+            log.error("reloading configuration failed", exc_info=True)
+            return
+        self._update(full=True)
+
     def load_config(self) -> bool:
         """Loads the Plover configuration file and returns ``True`` if it was
         loaded successfully, ``False`` if not.

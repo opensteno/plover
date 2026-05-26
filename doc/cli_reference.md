@@ -145,6 +145,13 @@ Reload all dictionaries from disk without resetting the machine connection.
 Useful for picking up changes made to dictionary files outside of Plover.
 ```
 
+```{describe} reload_config
+Reload the configuration file from disk and re-apply all settings, including
+dictionaries, machine type, keymap, system, and enabled extensions. Useful
+when the configuration file has been changed externally (for example, when
+syncing settings across machines).
+```
+
 ````{describe} set_config:<key>:<value>[,<key>:<value>,...]
 Set one or more configuration options. Keys and string values should be
 quoted with single quotes. For example:
