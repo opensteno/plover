@@ -355,9 +355,12 @@ class StenoEngine:
         if config_update:
             self._trigger_hook("config_changed", config_update)
         # Update dictionaries.
+        self._load_dictionaries()
+
+    def _load_dictionaries(self):
+        config = self._config.as_dict()
         config_dictionaries = OrderedDict((d.path, d) for d in config["dictionaries"])
         copy_default_dictionaries(config_dictionaries.keys())
-        # Start by unloading outdated dictionaries.
         self._dictionaries_manager.unload_outdated()
         self._set_dictionaries(
             [
@@ -367,7 +370,6 @@ class StenoEngine:
                 and d.path in self._dictionaries_manager
             ]
         )
-        # And then (re)load all dictionaries.
         dictionaries = []
         for d in self._dictionaries_manager.load(config_dictionaries.keys()):
             if isinstance(d, ErroredDictionary):
@@ -579,6 +581,10 @@ class StenoEngine:
         necessary, and loads all the configuration and dictionaries.
         """
         self._same_thread_hook(self._update, reset_machine=True)
+
+    def reload_dictionaries(self) -> None:
+        """Reloads all dictionaries from disk without resetting the machine."""
+        self._same_thread_hook(self._load_dictionaries)
 
     def load_config(self) -> bool:
         """Loads the Plover configuration file and returns ``True`` if it was

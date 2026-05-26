@@ -96,3 +96,58 @@ be in a dictionary definition. For example, to send the command
 `{plover:toggle}`, you can invoke this script as follows:
 
     plover -s plover_send_command toggle
+
+The following built-in commands are available:
+
+```{describe} resume
+Enable steno output.
+```
+
+```{describe} suspend
+Disable steno output.
+```
+
+```{describe} toggle
+Toggle steno output on or off.
+```
+
+```{describe} quit
+Quit Plover.
+```
+
+```{describe} focus
+Bring the Plover window to the foreground.
+```
+
+```{describe} configure
+Open the configuration dialog.
+```
+
+```{describe} add_translation
+Open the Add Translation dialog.
+```
+
+```{describe} lookup
+Open the Lookup dialog.
+```
+
+```{describe} suggestions
+Open the Suggestions dialog.
+```
+
+```{describe} reconnect_machine
+Disconnect and reconnect the current machine. Equivalent to pressing the
+*Reconnect* button in the main window.
+```
+
+```{describe} reload_dictionaries
+Reload all dictionaries from disk without resetting the machine connection.
+Useful for picking up changes made to dictionary files outside of Plover.
+```
+
+````{describe} set_config:<key>:<value>[,<key>:<value>,...]
+Set one or more configuration options. Keys and string values should be
+quoted with single quotes. For example:
+
+    plover -s plover_send_command "set_config:'translation_frame_opacity':90"
+````
