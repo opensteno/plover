@@ -384,6 +384,17 @@ class StenoEngine:
             dictionaries.append(d)
         self._set_dictionaries(dictionaries)
 
+    def _reload_config(self):
+        """Reload config at runtime, keeping the current config if the reload
+        fails."""
+        log.debug("reloading config")
+        try:
+            self._config.load()
+        except Exception:
+            log.error("reloading configuration failed", exc_info=True)
+            return
+        self._update(full=True)
+
     def _start_extensions(self, extension_list):
         for extension_name in extension_list:
             log.info("starting `%s` extension", extension_name)
@@ -590,18 +601,10 @@ class StenoEngine:
         """Reloads the configuration from disk and re-applies all settings."""
         self._same_thread_hook(self._reload_config)
 
-    def _reload_config(self):
-        log.debug("reloading config")
-        try:
-            self._config.load()
-        except Exception:
-            log.error("reloading configuration failed", exc_info=True)
-            return
-        self._update(full=True)
-
     def load_config(self) -> bool:
         """Loads the Plover configuration file and returns ``True`` if it was
-        loaded successfully, ``False`` if not.
+        loaded successfully, ``False`` if not. On failure the config is reset
+        to defaults.
         """
         try:
             self._config.load()
