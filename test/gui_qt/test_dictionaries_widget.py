@@ -35,12 +35,9 @@ ENABLED_TO_CHAR = {
 }
 ENABLED_FROM_CHAR = {c: e for e, c in ENABLED_TO_CHAR.items()}
 
-# TODO what does it mean that the MODEL_ROLES are now empty?
-MODEL_ROLES = []
-# before PySide6 refactoring:
-# MODEL_ROLES = sorted([Qt.ItemDataRole.AccessibleTextRole, Qt.ItemDataRole.CheckStateRole,
-#                      Qt.ItemDataRole.DecorationRole, Qt.ItemDataRole.DisplayRole,
-#                      Qt.ItemDataRole.ToolTipRole])
+MODEL_ROLES = sorted([Qt.ItemDataRole.AccessibleTextRole, Qt.ItemDataRole.CheckStateRole,
+                     Qt.ItemDataRole.DecorationRole, Qt.ItemDataRole.DisplayRole,
+                     Qt.ItemDataRole.ToolTipRole])
 
 
 def parse_state(state_str):
