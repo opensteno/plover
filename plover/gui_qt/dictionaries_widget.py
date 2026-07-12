@@ -101,13 +101,13 @@ class DictionariesModel(QAbstractListModel):
         def is_loaded(self):
             return self.state not in {"loading", "error"}
 
-    SUPPORTED_ROLES = {
+    SUPPORTED_ROLES = [
         Qt.ItemDataRole.AccessibleTextRole,
         Qt.ItemDataRole.CheckStateRole,
         Qt.ItemDataRole.DecorationRole,
         Qt.ItemDataRole.DisplayRole,
         Qt.ItemDataRole.ToolTipRole,
-    }
+    ]
 
     FLAGS = (
         Qt.ItemFlag.ItemIsEnabled
