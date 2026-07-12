@@ -35,9 +35,15 @@ ENABLED_TO_CHAR = {
 }
 ENABLED_FROM_CHAR = {c: e for e, c in ENABLED_TO_CHAR.items()}
 
-MODEL_ROLES = sorted([Qt.ItemDataRole.AccessibleTextRole, Qt.ItemDataRole.CheckStateRole,
-                     Qt.ItemDataRole.DecorationRole, Qt.ItemDataRole.DisplayRole,
-                     Qt.ItemDataRole.ToolTipRole])
+MODEL_ROLES = sorted(
+    [
+        Qt.ItemDataRole.AccessibleTextRole,
+        Qt.ItemDataRole.CheckStateRole,
+        Qt.ItemDataRole.DecorationRole,
+        Qt.ItemDataRole.DisplayRole,
+        Qt.ItemDataRole.ToolTipRole,
+    ]
+)
 
 
 def parse_state(state_str):
