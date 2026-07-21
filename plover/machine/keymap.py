@@ -93,7 +93,7 @@ class Keymap:
         action_list = []
         for key in key_list:
             assert key in self._keys, "'%s' not in %s" % (key, self._keys)
-            action = self._bindings[key]
+            action = self._bindings.get(key, "no-op")
             if "no-op" != action:
                 action_list.append(action)
         return action_list

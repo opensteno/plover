@@ -58,6 +58,18 @@ def test_keymap_set_mappings():
     assert k.get_mappings() == MAPPINGS_FULL
 
 
+def test_keymap_keys_to_actions_for_unbound_key():
+    # An unbound key is treated as no-op.
+    k = new_keymap()
+    k.set_bindings(BINDINGS_DICT)
+    assert "k2" not in k.get_bindings()
+    assert k.keys_to_actions(["k0", "k2", "k4"]) == ["a0", "a1"]
+    # If the machine emits a key out of range, it's an error:
+    with pytest.raises(AssertionError):
+        # AssertionError: 'k9' not in OrderedDict({...})
+        k.keys_to_actions(["k9"])
+
+
 def test_keymap_setitem():
     bindings = dict(BINDINGS_DICT)
     mappings = dict(MAPPINGS_FULL)
