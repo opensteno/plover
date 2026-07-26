@@ -38,6 +38,8 @@ def finalize_translation(text):
 def parse_rtfcre(text, normalize=lambda s: s, skip_errors=True):
     not_text = r"\{}"
     style_rx = re.compile("s[0-9]+")
+    unicode_rx = re.compile("u-?[0-9]+")
+    uc_rx = re.compile("uc[0-9]+")
     tokenizer = RtfTokenizer(text)
     next_token = tokenizer.next_token
     rewind_token = tokenizer.rewind_token
@@ -241,6 +243,24 @@ def parse_rtfcre(text, normalize=lambda s: s, skip_errors=True):
             }.get(ctrl)
             if text is not None:
                 g_text += text
+            # Unicode escape.
+            elif unicode_rx.fullmatch(ctrl):
+                code_unit = int(ctrl[1:]) & 0xFFFF
+                if (
+                    0xDC00 <= code_unit < 0xE000
+                    and g_text
+                    and 0xD800 <= ord(g_text[-1]) < 0xDC00
+                ):
+                    # Low surrogate: combine with the preceding high one.
+                    high = ord(g_text[-1]) - 0xD800
+                    g_text = g_text[:-1] + chr(
+                        0x10000 + (high << 10) + (code_unit - 0xDC00)
+                    )
+                else:
+                    g_text += chr(code_unit)
+            # Number of fallback characters following a unicode escape.
+            elif uc_rx.fullmatch(ctrl):
+                pass
             # Delete Spaces.
             elif ctrl == "cxds":
                 token = next_token()

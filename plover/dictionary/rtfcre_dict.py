@@ -30,6 +30,31 @@ HEADER = (
 )
 
 
+def escape_unicode(text):
+    """Escape characters that code page 1252 cannot represent.
+
+    RTF encodes such characters with the `\\uN` control word, using UTF-16
+    code units, so characters outside the BMP are written as a surrogate
+    pair. The escapes are wrapped in a group setting `\\uc0` so readers do
+    not expect an ANSI fallback character.
+    """
+    parts = []
+    for char in text:
+        try:
+            char.encode("cp1252")
+        except UnicodeEncodeError:
+            codepoint = ord(char)
+            if codepoint > 0xFFFF:
+                codepoint -= 0x10000
+                units = (0xD800 + (codepoint >> 10), 0xDC00 + (codepoint & 0x3FF))
+            else:
+                units = (codepoint,)
+            escapes = "".join(rf"\u{unit} " for unit in units)
+            char = rf"{{\uc0{escapes}}}"
+        parts.append(char)
+    return "".join(parts)
+
+
 class RegexFormatter:
     def __init__(self, spec_list, escape_fn):
         self._escape_fn = escape_fn
@@ -115,7 +140,7 @@ class TranslationFormatter:
     def escape(self, text):
         for rx, replacement in self._to_escape:
             text = rx.sub(replacement, text)
-        return text
+        return escape_unicode(text)
 
     def format(self, translation):
         s = self._translation_formatter.format(translation)

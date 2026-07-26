@@ -77,6 +77,10 @@ from plover_build_utils.testing import dictionary_test, parametrize
             r"=macro{\*\cxplovermeta <-ceci n'est pas une macro}",
         ),
         lambda: ("{*}something", r"{\*\cxplovermeta *}something"),
+        # Characters outside code page 1252 are escaped as UTF-16 code units.
+        lambda: ("ph\u1edf", r"ph{\uc0\u7903 }"),
+        lambda: ("\uc18d", r"{\uc0\u49549 }"),
+        lambda: ("\U0001f60a", r"{\uc0\u55357 \u56842 }"),
     )
 )
 def test_format_translation(before, expected):
@@ -456,6 +460,29 @@ RTF_LOAD_TESTS = (
         '2': '2',
         """
     ),
+    # Unicode escapes, including surrogate pairs.
+    lambda: rtf_load_test(
+        r"""
+        {\*\cxs TPA*}ph{\uc0\u7903 }
+
+        'TPA*': 'ph\u1edf',
+        """
+    ),
+    lambda: rtf_load_test(
+        r"""
+        {\*\cxs SPHAOEUL}{\uc0\u55357 \u56842 }
+
+        'SPHAOEUL': '\U0001f60a',
+        """
+    ),
+    # Negative values, as allowed by the RTF spec.
+    lambda: rtf_load_test(
+        r"""
+        {\*\cxs KPWHA}{\uc0\u-15987 }
+
+        'KPWHA': '\uc18d',
+        """
+    ),
 )
 
 
@@ -512,6 +539,17 @@ RTF_SAVE_TESTS = (
         "PHROLG": "{PLOVER:TOGGLE}",
         """,
         (rb"{\*\cxs PHROLG}{\*\cxplovermeta PLOVER:TOGGLE}",),
+    ),
+    # Characters outside code page 1252 must not break saving.
+    lambda: rtf_save_test(
+        """
+        "TPA*": "ph\u1edf",
+        "SPHAOEUL": "\U0001f60a",
+        """,
+        (
+            rb"{\*\cxs TPA*}ph{\uc0\u7903 }",
+            rb"{\*\cxs SPHAOEUL}{\uc0\u55357 \u56842 }",
+        ),
     ),
 )
 
