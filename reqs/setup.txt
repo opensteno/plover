@@ -1,4 +1,5 @@
 babel
+packaging
 PySide6
 setuptools
 wheel
