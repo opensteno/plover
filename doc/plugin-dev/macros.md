@@ -25,8 +25,9 @@ If an argument is not passed in the dictionary entry, it will be `''`.
 ```python
 # plover_my_plugin/macro.py
 
+
 def example(translator, stroke, argument):
-  pass
+    pass
 ```
 
 Various methods of the translator can be used to either access or undo

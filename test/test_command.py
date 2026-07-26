@@ -4,14 +4,12 @@ import ast
 
 import pytest
 
-from plover.formatting import SPACE_PLACEMENT_AFTER
-
 from plover.command.set_config import set_config
 from plover.config import Config, DictionaryConfig
-
+from plover.formatting import SPACE_PLACEMENT_AFTER
 from plover_build_utils.testing import parametrize
 
-from .test_config import DEFAULTS, DEFAULT_KEYMAP
+from .test_config import DEFAULT_KEYMAP, DEFAULTS
 
 
 class FakeEngine:
@@ -32,9 +30,7 @@ class FakeEngine:
 
 SET_CONFIG_TESTS = (
     lambda: (
-        '"space_placement":"{SPACE_PLACEMENT_AFTER}"'.format(
-            SPACE_PLACEMENT_AFTER=SPACE_PLACEMENT_AFTER
-        ),
+        f'"space_placement":"{SPACE_PLACEMENT_AFTER}"',
         SPACE_PLACEMENT_AFTER,
     ),
     lambda: ('"start_attached":True', True),

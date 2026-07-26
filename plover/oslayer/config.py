@@ -8,7 +8,6 @@ import sys
 
 import appdirs
 
-
 if sys.platform.startswith("darwin"):
     PLATFORM = "mac"
 elif sys.platform.startswith("linux"):

@@ -1,4 +1,4 @@
-from plover.formatting import Case, SPACE
+from plover.formatting import SPACE, Case
 
 
 def meta_mode(ctx, cmdline):
@@ -23,7 +23,7 @@ def meta_mode(ctx, cmdline):
         return action
     # No argument allowed for other mode directives.
     if args:
-        raise ValueError("%r is not a valid mode" % cmdline)
+        raise ValueError(f"{cmdline!r} is not a valid mode")
     if mode == "caps":
         action.case = Case.UPPER
     elif mode == "title":
@@ -44,5 +44,5 @@ def meta_mode(ctx, cmdline):
     elif mode == "reset_case":
         action.case = None
     else:
-        raise ValueError("%r is not a valid mode" % cmdline)
+        raise ValueError(f"{cmdline!r} is not a valid mode")
     return action

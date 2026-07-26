@@ -2,7 +2,6 @@ import collections
 
 from plover.steno import sort_steno_strokes
 
-
 Suggestion = collections.namedtuple("Suggestion", "text steno_list")
 
 

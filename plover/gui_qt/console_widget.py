@@ -12,8 +12,8 @@ from PySide6.QtWidgets import QWidget
 
 from plover.gui_qt.console_widget_ui import Ui_ConsoleWidget
 
-
-NULL = open(os.devnull, "r+b")
+# Deliberately kept open for the widget's whole lifetime.
+NULL = open(os.devnull, "r+b")  # noqa: SIM115
 
 
 class ConsoleWidget(QWidget, Ui_ConsoleWidget):
@@ -67,8 +67,7 @@ class ConsoleWidget(QWidget, Ui_ConsoleWidget):
             if not line:
                 break
             line = line.decode()
-            if line.endswith(os.linesep):
-                line = line[: -len(os.linesep)]
+            line = line.removesuffix(os.linesep)
             print(line)
             self.textOutput.emit(line)
         self.processFinished.emit(self._proc.wait())

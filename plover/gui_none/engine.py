@@ -1,7 +1,6 @@
 from threading import Thread, current_thread
 
 from plover.engine import StenoEngine
-
 from plover.gui_none.add_translation import AddTranslation
 
 

@@ -12,13 +12,12 @@ from PySide6.QtWidgets import (
 )
 
 from plover import _
-from plover.suggestions import Suggestion
 from plover.formatting import RetroFormatter
-
 from plover.gui_qt import utils
 from plover.gui_qt.suggestions_dialog_ui import Ui_SuggestionsDialog
-from plover.gui_qt.utils import ToolBar
 from plover.gui_qt.tool import Tool
+from plover.gui_qt.utils import ToolBar
+from plover.suggestions import Suggestion
 
 
 class SuggestionsDialog(Tool, Ui_SuggestionsDialog):

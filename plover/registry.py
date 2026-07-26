@@ -1,9 +1,8 @@
 from collections import namedtuple
+from importlib.metadata import PackageNotFoundError, entry_points
 
-from importlib.metadata import entry_points, PackageNotFoundError
-
-from plover.oslayer.config import PLUGINS_PLATFORM
 from plover import log
+from plover.oslayer.config import PLUGINS_PLATFORM
 
 
 class Plugin:

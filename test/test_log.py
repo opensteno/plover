@@ -2,17 +2,18 @@
 # See LICENSE.txt for details.
 
 import os
-from logging import Handler
 from collections import defaultdict
+from logging import Handler
+from typing import ClassVar
 
 import pytest
 
-from plover.steno import Stroke
 from plover import log
+from plover.steno import Stroke
 
 
 class FakeHandler(Handler):
-    outputs = defaultdict(list)
+    outputs: ClassVar[defaultdict] = defaultdict(list)
 
     def __init__(self, filename, format=log.STROKE_LOG_FORMAT):
         super().__init__()

@@ -3,14 +3,14 @@
 
 """Tests for loading_manager.py."""
 
-from collections import defaultdict
 import os
 import tempfile
+from collections import defaultdict
 
 import pytest
 
+from plover.dictionary import loading_manager
 from plover.engine import ErroredDictionary
-import plover.dictionary.loading_manager as loading_manager
 
 
 class FakeDictionaryContents:
@@ -28,10 +28,11 @@ class FakeDictionaryInfo:
     def __init__(self, name, contents):
         self.name = name
         self.contents = contents
-        self.tf = tempfile.NamedTemporaryFile()
+        # Kept open for the lifetime of the fake dictionary.
+        self.tf = tempfile.NamedTemporaryFile()  # noqa: SIM115
 
     def __repr__(self):
-        return "FakeDictionaryInfo(%r, %r)" % (self.name, self.contents)
+        return f"FakeDictionaryInfo({self.name!r}, {self.contents!r})"
 
 
 class MockLoader:

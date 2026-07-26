@@ -4,8 +4,8 @@
 
 import struct
 
-from plover import log
 import plover.machine.base
+from plover import log
 
 # TODO: Come up with a mechanism to communicate back to the engine when there
 # is a connection error.
@@ -167,25 +167,17 @@ def _allocate_buffer():
 class _ProtocolViolationException(Exception):
     """Something has happened that is doesn't follow the protocol."""
 
-    pass
-
 
 class _StopException(Exception):
     """The thread was asked to stop."""
-
-    pass
 
 
 class _TimeoutException(Exception):
     """An operation has timed out."""
 
-    pass
-
 
 class _ConnectionLostException(Exception):
     """Cannot communicate with the machine."""
-
-    pass
 
 
 # fmt: off
@@ -314,11 +306,11 @@ def _parse_strokes(data):
     strokes = []
     if (len(data) % 4) != 0:
         raise _ProtocolViolationException(
-            "Data size is not divisible by 4: %d" % (len(data))
+            f"Data size is not divisible by 4: {len(data)}"
         )
     for b in data:
         if (b & 0b11000000) != 0b11000000:
-            raise _ProtocolViolationException("Data is not stroke: 0x%X" % (b))
+            raise _ProtocolViolationException(f"Data is not stroke: 0x{b:X}")
     for a, b, c, d in zip(*([iter(data)] * 4)):
         strokes.append(_parse_stroke(a, b, c, d))
     return strokes

@@ -6,9 +6,9 @@
 import threading
 import time
 
+from plover import log
 from plover.dictionary.base import load_dictionary
 from plover.resource import resource_timestamp
-from plover import log
 
 
 class DictionaryLoadingManager:

@@ -1,6 +1,7 @@
-from functools import partial
 import os
 import tempfile
+from functools import partial
+from unittest import mock
 
 import pytest
 
@@ -19,10 +20,7 @@ from plover.oslayer.controller import Controller
 from plover.output import Output
 from plover.registry import Registry
 from plover.steno_dictionary import StenoDictionaryCollection
-
 from plover_build_utils.testing import make_dict
-
-from unittest import mock
 
 
 class FakeMachine(StenotypeBase):
@@ -96,7 +94,8 @@ def engine(monkeypatch):
     monkeypatch.setattr("plover.engine.registry", registry)
     ctrl = mock.MagicMock(spec=Controller)
     kbd = FakeKeyboardEmulation()
-    cfg_file = tempfile.NamedTemporaryFile(
+    # Closed right away: only used to get a unique config file path.
+    cfg_file = tempfile.NamedTemporaryFile(  # noqa: SIM115
         prefix="plover", suffix="config", delete=False
     )
     try:
@@ -183,7 +182,7 @@ def test_loading_dictionaries(tmp_path, engine):
         assert len(filtered_events) == len(expected_events)
         for n, event in enumerate(filtered_events):
             event_type, event_args, event_kwargs = event
-            msg = "event %u: %r" % (n, event)
+            msg = f"event {n}: {event!r}"
             assert event_type == "dictionaries_loaded", msg
             assert event_kwargs == {}, msg
             assert len(event_args) == 1, msg

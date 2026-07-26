@@ -7,9 +7,9 @@
 
 """Common elements to all dictionary formats."""
 
-from os.path import splitext
 import functools
 import threading
+from os.path import splitext
 
 from plover.registry import registry
 
@@ -20,8 +20,7 @@ def _get_dictionary_class(filename):
         dict_module = registry.get_plugin("dictionary", extension).obj
     except KeyError:
         raise ValueError(
-            "Unsupported extension: %s. Supported extensions: %s"
-            % (
+            "Unsupported extension: {}. Supported extensions: {}".format(
                 extension,
                 ", ".join(
                     plugin.name for plugin in registry.list_plugins("dictionary")

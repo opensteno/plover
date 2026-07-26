@@ -1,7 +1,5 @@
-# -*- coding: utf-8 -*-
-
-import plistlib
 import os.path
+import plistlib
 
 # `defines` is injected by dmgbuild; default to empty for linters.
 defines = globals().get("defines", {})

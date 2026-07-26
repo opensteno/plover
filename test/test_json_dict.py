@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2013 Hesky Fisher
 # See LICENSE.txt for details.
 
 """Unit tests for json.py."""
 
 from plover.dictionary.json_dict import JsonDictionary
-
 from plover_build_utils.testing import dictionary_test
 
 

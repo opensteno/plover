@@ -5,11 +5,11 @@ from PySide6.QtGui import (
     QKeySequence,
 )
 from PySide6.QtWidgets import (
+    QApplication,
     QMainWindow,
     QToolBar,
     QToolButton,
     QWidget,
-    QApplication,
 )
 
 from plover import _
@@ -65,7 +65,6 @@ class WindowStateMixin:
         """
         To be overwritten by subclasses to save additional state.
         """
-        pass
 
     def save_state(self):
         assert self.ROLE
@@ -85,7 +84,6 @@ class WindowStateMixin:
         """
         To be overwritten by subclasses to restore additional state.
         """
-        pass
 
     def restore_state(self):
         assert self.ROLE

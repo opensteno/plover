@@ -4,6 +4,7 @@
 "Thread-based monitoring of a stenotype machine using the passport protocol."
 
 from itertools import zip_longest
+from typing import ClassVar
 
 from plover.machine.base import SerialStenotypeBase
 
@@ -22,7 +23,7 @@ class Passport(SerialStenotypeBase):
         ! ^ +
     """
 
-    SERIAL_PARAMS = dict(SerialStenotypeBase.SERIAL_PARAMS)
+    SERIAL_PARAMS: ClassVar[dict] = dict(SerialStenotypeBase.SERIAL_PARAMS)
     SERIAL_PARAMS.update(baudrate=38400)
 
     def __init__(self, params):
@@ -61,4 +62,4 @@ def grouper(iterable, n, fillvalue=None):
     "Collect data into fixed-length chunks or blocks"
     # grouper('ABCDEFG', 3, 'x') --> ABC DEF Gxx
     args = [iter(iterable)] * n
-    return zip_longest(fillvalue=fillvalue, *args)
+    return zip_longest(*args, fillvalue=fillvalue)

@@ -16,14 +16,13 @@ emits one or more Translation objects based on a greedy conversion algorithm.
 
 """
 
-from collections import namedtuple
 import re
+from collections import namedtuple
 
+from plover import system
+from plover.registry import registry
 from plover.steno import Stroke
 from plover.steno_dictionary import StenoDictionaryCollection
-from plover.registry import registry
-from plover import system
-
 
 _ESCAPE_RX = re.compile("(\\\\[nrt]|[\n\r\t])")
 _ESCAPE_REPLACEMENTS = {
@@ -137,8 +136,8 @@ class Translation:
             translation = "None"
         else:
             translation = escape_translation(self.english)
-            translation = '"%s"' % translation.replace('"', r"\"")
-        return "Translation(%s : %s)" % (self.rtfcre, translation)
+            translation = '"{}"'.format(translation.replace('"', r"\""))
+        return f"Translation({self.rtfcre} : {translation})"
 
     def __repr__(self):
         return str(self)

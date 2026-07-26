@@ -1,12 +1,11 @@
 from threading import Event
 
-from plover.oslayer.keyboardcontrol import KeyboardEmulation
-
 from plover.gui_none.engine import Engine
+from plover.oslayer.keyboardcontrol import KeyboardEmulation
 
 
 def show_error(title, message):
-    print("%s: %s" % (title, message))
+    print(f"{title}: {message}")
 
 
 def main(config, controller):

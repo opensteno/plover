@@ -5,7 +5,6 @@ import binascii
 from plover import log
 from plover.machine.base import SerialStenotypeBase
 
-
 # ProCAT machines send 4 bytes per stroke, with the last byte only consisting of
 # FF. So we need only look at the first 3 bytes to see our steno. The leading
 # bit is 0.
@@ -44,7 +43,7 @@ class ProCat(SerialStenotypeBase):
         # Raw packet has 4 bytes, we only care about the first 3
         steno_keys = []
         for i, b in enumerate(raw[:3]):
-            for j in range(0, 8):
+            for j in range(8):
                 if b & 0x80 >> j:
                     key = STENO_KEY_CHART[i * 8 + j]
                     steno_keys.append(key)

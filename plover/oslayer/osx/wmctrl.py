@@ -1,7 +1,7 @@
 from Cocoa import (
-    NSWorkspace,
-    NSRunningApplication,
     NSApplicationActivateIgnoringOtherApps,
+    NSRunningApplication,
+    NSWorkspace,
 )
 
 

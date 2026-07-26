@@ -3,22 +3,25 @@
 
 """Unit tests for translation.py."""
 
-from collections import namedtuple
 import ast
 import copy
 import operator
-
-from plover.oslayer.config import PLATFORM
-from plover.steno import Stroke, normalize_steno
+from collections import namedtuple
 
 import pytest
 
+from plover.oslayer.config import PLATFORM
+from plover.steno import Stroke, normalize_steno
 from plover.steno_dictionary import StenoDictionary, StenoDictionaryCollection
-from plover.translation import Translation, Translator, _State
-from plover.translation import escape_translation, unescape_translation
-
-from plover_build_utils.testing import parametrize, steno_to_stroke as stroke
-
+from plover.translation import (
+    Translation,
+    Translator,
+    _State,
+    escape_translation,
+    unescape_translation,
+)
+from plover_build_utils.testing import parametrize
+from plover_build_utils.testing import steno_to_stroke as stroke
 
 if PLATFORM == "mac":
     BACK_STRING = "{#Alt_L(BackSpace)}{^}"
@@ -460,11 +463,11 @@ class TestTranslateStroke:
     def _check_translations(self, expected):
         # Hide from traceback on assertions (reduce output size for failed tests).
         __tracebackhide__ = operator.methodcaller("errisinstance", AssertionError)
-        msg = """
+        msg = f"""
         translations:
-            results: %s
-            expected: %s
-        """ % (self.s.translations, expected)
+            results: {self.s.translations}
+            expected: {expected}
+        """
         assert self.s.translations == expected, msg
 
     def _check_output(self, undo, do, prev):
@@ -850,11 +853,11 @@ class TestNoUnnecessaryLookups(TestTranslateStroke):
         __tracebackhide__ = operator.methodcaller("errisinstance", AssertionError)
         result = ["/".join(key) for key in self.dc.lookup_history]
         expected = expected.split()
-        msg = """
+        msg = f"""
         lookup history:
-            results: %s
-            expected: %s
-        """ % (result, expected)
+            results: {result}
+            expected: {expected}
+        """
         assert result == expected, msg
 
     def test_zero_lookups(self):

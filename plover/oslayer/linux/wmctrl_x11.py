@@ -9,12 +9,12 @@ class WmCtrl:
         self._root = self._display.screen().root
         self._atoms = {
             name: self._display.intern_atom(name)
-            for name in """
-            _NET_ACTIVE_WINDOW
-            _NET_CURRENT_DESKTOP
-            _NET_WM_DESKTOP
-            _WIN_WORKSPACE
-            """.split()
+            for name in [
+                "_NET_ACTIVE_WINDOW",
+                "_NET_CURRENT_DESKTOP",
+                "_NET_WM_DESKTOP",
+                "_WIN_WORKSPACE",
+            ]
         }
 
     def _get_wm_property(self, window, atom_name):

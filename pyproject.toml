@@ -7,6 +7,13 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
+[tool.ruff.lint]
+ignore = [
+	# Broad `except Exception` is Plover's deliberate crash-resilience idiom:
+	# engine hooks, plugin and dictionary loading must never take down the engine.
+	"BLE001",
+]
+
 [tool.towncrier]
 name = ""
 version = ""

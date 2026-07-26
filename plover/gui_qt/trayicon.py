@@ -2,13 +2,13 @@ from PySide6.QtCore import QObject, Signal
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QMessageBox, QSystemTrayIcon
 
-from plover import _, __name__ as __software_name__
-from plover import log
-from plover.oslayer.config import PLATFORM
+from plover import _, log
+from plover import __name__ as __software_name__
 from plover.machine.base import (
     STATE_INITIALIZING,
     STATE_RUNNING,
 )
+from plover.oslayer.config import PLATFORM
 
 
 class TrayIcon(QObject):
@@ -24,7 +24,7 @@ class TrayIcon(QObject):
             "disabled",
             "enabled",
         ):
-            icon = QIcon(":resources/state-%s.svg" % state)
+            icon = QIcon(f":resources/state-{state}.svg")
             if hasattr(icon, "setIsMask"):
                 icon.setIsMask(True)
             self._state_icons[state] = icon
@@ -128,7 +128,7 @@ class TrayIcon(QObject):
         self._trayicon.setIcon(icon)
         self._trayicon.setToolTip(
             # i18n: Tray icon tooltip.
-            "Plover:\n- %s\n- %s." % (output_state, machine_state)
+            f"Plover:\n- {output_state}\n- {machine_state}."
         )
 
     def _on_activated(self, reason):

@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
+from typing import ClassVar
 
 import pytest
 
 from plover import system
 from plover.registry import Registry
 from plover.system import english_stenotype
-
 from plover_build_utils.testing import blackbox_test
 
 
@@ -26,7 +25,7 @@ def with_melani_system(monkeypatch, request):
         IMPLICIT_HYPHEN_KEYS = KEYS
         SUFFIX_KEYS = ()
         NUMBER_KEY = "#"
-        NUMBERS = {
+        NUMBERS: ClassVar[dict] = {
             "S-": "1-",
             "P-": "2-",
             "T-": "3-",
@@ -39,10 +38,10 @@ def with_melani_system(monkeypatch, request):
             "-i": "-9",
         }
         UNDO_STROKE_STENO = "*"
-        ORTHOGRAPHY_RULES = []
-        ORTHOGRAPHY_RULES_ALIASES = {}
+        ORTHOGRAPHY_RULES: ClassVar[list] = []
+        ORTHOGRAPHY_RULES_ALIASES: ClassVar[dict] = {}
         ORTHOGRAPHY_WORDLIST = None
-        KEYMAPS = {}
+        KEYMAPS: ClassVar[dict] = {}
         DICTIONARIES_ROOT = None
         DEFAULT_DICTIONARIES = ()
 
@@ -81,12 +80,12 @@ def with_korean_system(monkeypatch, request):
         )
         SUFFIX_KEYS = ()
         NUMBER_KEY = None
-        NUMBERS = {}
+        NUMBERS: ClassVar[dict] = {}
         UNDO_STROKE_STENO = "-ㅂㄴ"
-        ORTHOGRAPHY_RULES = []
-        ORTHOGRAPHY_RULES_ALIASES = {}
+        ORTHOGRAPHY_RULES: ClassVar[list] = []
+        ORTHOGRAPHY_RULES_ALIASES: ClassVar[dict] = {}
         ORTHOGRAPHY_WORDLIST = None
-        KEYMAPS = {}
+        KEYMAPS: ClassVar[dict] = {}
         DICTIONARIES_ROOT = None
         DEFAULT_DICTIONARIES = ()
 

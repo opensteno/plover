@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
-
 import re
-
 
 # Mapping of "standard" keynames (derived from X11 keysym names) to Unicode.
 # fmt: off
@@ -104,14 +101,14 @@ KEYNAME_TO_CHAR = {
     "quoteleft"         :     "`", # `
     "quoteright"        :     "'", # '
     "registered"        :  "\xae", # ®
-    "return"            :    "\r", # 
+    "return"            :    "\r",
     "section"           :  "\xa7", # §
     "semicolon"         :     ";", # ;
     "slash"             :     "/", # /
-    "space"             :     " ", #  
+    "space"             :     " ",
     "ssharp"            :  "\xdf", # ß
     "sterling"          :  "\xa3", # £
-    "tab"               :    "\t", # 	
+    "tab"               :    "\t",
     "thorn"             :  "\xfe", # þ
     "threequarters"     :  "\xbe", # ¾
     "threesuperior"     :  "\xb3", # ³
@@ -146,7 +143,7 @@ def parse_key_combo(combo_string, key_name_to_key_code=None):
     count = 0
 
     def _raise_error(exception, details):
-        msg = '%s in "%s"' % (
+        msg = '{} in "{}"'.format(
             details,
             combo_string[:count]
             + "["
@@ -175,7 +172,7 @@ def parse_key_combo(combo_string, key_name_to_key_code=None):
             if key_code is None:
                 _raise_error(ValueError, "unknown key")
             elif key_code in down_keys:
-                _raise_error(ValueError, 'key "%s" already pressed' % key_name)
+                _raise_error(ValueError, f'key "{key_name}" already pressed')
 
             key_events.append((key_code, True))
 
@@ -191,7 +188,7 @@ def parse_key_combo(combo_string, key_name_to_key_code=None):
             key_events.append((key_code, False))
 
         else:
-            _raise_error(SyntaxError, 'invalid character "%s"' % token)
+            _raise_error(SyntaxError, f'invalid character "{token}"')
 
         count += len(token)
 

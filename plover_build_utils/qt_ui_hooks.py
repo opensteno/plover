@@ -1,5 +1,5 @@
 import re
-from typing import Match
+from re import Match
 
 
 def convert_ui_translations(contents: str) -> str:
@@ -26,7 +26,7 @@ def convert_ui_translations(contents: str) -> str:
             field = " ".join(
                 word.lower() for word in re.split(r"([A-Z][a-z_0-9]+)", field) if word
             )
-            comment += ", {field}".format(field=field)
+            comment += f", {field}"
         comment += "."
         gd["pre2"] = gd["pre2"] or ""
         return "{comment}\n{ws}{pre1}{pre2}_({msg}".format(comment=comment, **gd)

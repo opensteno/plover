@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 
-from pathlib import Path
 import functools
 import operator
 import os.path
 import stat
 import sys
-
+from pathlib import Path
 
 BLOCK_SIZES = (
     (1024 * 1024 * 1024 * 1024, "T"),
@@ -19,7 +18,7 @@ BLOCK_SIZES = (
 def format_size(size):
     for bs, unit in BLOCK_SIZES:
         if size >= bs:
-            return "%.1f%s" % (size / bs, unit)
+            return f"{size / bs:.1f}{unit}"
     return str(size)
 
 
@@ -48,7 +47,7 @@ def tree(path, dirs_only=False, max_depth=0, _depth=0):
             p += os.path.sep
         if is_symlink:
             p += " -> " + os.readlink(str(path))
-        print("%10s  %s" % (format_size(size), p))
+        print(f"{format_size(size):>10}  {p}")
     return size
 
 

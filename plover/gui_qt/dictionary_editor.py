@@ -1,6 +1,7 @@
-from operator import attrgetter, itemgetter
 from collections import namedtuple
 from itertools import chain
+from operator import attrgetter, itemgetter
+
 from PySide6.QtCore import QAbstractTableModel, QModelIndex, Qt, Slot
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (
@@ -10,14 +11,12 @@ from PySide6.QtWidgets import (
 )
 
 from plover import _
-from plover.translation import escape_translation, unescape_translation
-from plover.misc import expand_path, shorten_path
-from plover.steno import normalize_steno, steno_to_sort_key
-
 from plover.gui_qt.dictionary_editor_ui import Ui_DictionaryEditor
 from plover.gui_qt.steno_validator import StenoValidator
 from plover.gui_qt.utils import ToolBar, WindowStateMixin
-
+from plover.misc import expand_path, shorten_path
+from plover.steno import normalize_steno, steno_to_sort_key
+from plover.translation import escape_translation, unescape_translation
 
 _COL_STENO, _COL_TRANS, _COL_DICT, _COL_COUNT = range(3 + 1)
 
@@ -256,11 +255,15 @@ class DictionaryItemModel(QAbstractTableModel):
             del old_item.dictionary[old_item.strokes]
         except KeyError:
             pass
-        if not old_item.strokes and not old_item.translation:
-            # Merge operations when editing a newly added row.
-            if self._operations and self._operations[-1] == [(None, old_item)]:
-                self._operations.pop()
-                old_item = None
+        # Merge operations when editing a newly added row.
+        if (
+            not old_item.strokes
+            and not old_item.translation
+            and self._operations
+            and self._operations[-1] == [(None, old_item)]
+        ):
+            self._operations.pop()
+            old_item = None
         new_item = DictionaryItem(steno, translation, dictionary)
         self._entries[row] = new_item
         dictionary[strokes] = translation
@@ -326,12 +329,11 @@ class DictionaryEditor(QDialog, Ui_DictionaryEditor, WindowStateMixin):
         background = self.table.palette().highlightedText().color().name()
         text_color = self.table.palette().highlight().color().name()
         self.table.setStyleSheet(
-            """
-                                 QTableView::item:focus {
-                                     background-color: %s;
-                                     color: %s;
-                                }"""
-            % (background, text_color)
+            f"""
+                                 QTableView::item:focus {{
+                                     background-color: {background};
+                                     color: {text_color};
+                                }}"""
         )
         self.table.setFocus()
         for action in (
@@ -353,8 +355,8 @@ class DictionaryEditor(QDialog, Ui_DictionaryEditor, WindowStateMixin):
 
     @property
     def _selection(self):
-        return list(
-            sorted(index.row() for index in self.table.selectionModel().selectedRows(0))
+        return sorted(
+            index.row() for index in self.table.selectionModel().selectedRows(0)
         )
 
     def _select(self, row, edit=False):

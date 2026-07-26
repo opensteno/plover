@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 
-from urllib.request import urlopen
-from urllib.parse import urlsplit
 import hashlib
 import os
 import sys
-
+from urllib.parse import urlsplit
+from urllib.request import urlopen
 
 DOWNLOADS_DIR = os.path.join(".cache", "downloads")
 
@@ -39,11 +38,11 @@ def download(url, sha1=None, filename=None, downloads_dir=DOWNLOADS_DIR):
         if h.hexdigest() == sha1:
             break
         print(
-            "sha1 does not match: %s instead of %s" % (h.hexdigest(), sha1),
+            f"sha1 does not match: {h.hexdigest()} instead of {sha1}",
             file=sys.stderr,
         )
         os.unlink(dst)
-    assert os.path.exists(dst), "could not successfully retrieve %s" % url
+    assert os.path.exists(dst), f"could not successfully retrieve {url}"
     return dst
 
 

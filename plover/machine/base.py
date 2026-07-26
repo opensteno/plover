@@ -8,13 +8,13 @@
 
 import binascii
 import threading
+from typing import ClassVar
 
 import serial
 
 from plover import _, log
 from plover.machine.keymap import Keymap
 from plover.misc import boolean
-
 
 # i18n: Machine state.
 STATE_STOPPED = _("stopped")
@@ -52,11 +52,9 @@ class StenotypeBase:
 
     def start_capture(self):
         """Begin listening for output from the stenotype machine."""
-        pass
 
     def stop_capture(self):
         """Stop listening for output from the stenotype machine."""
-        pass
 
     def add_stroke_callback(self, callback):
         """Subscribe to output from the stenotype machine.
@@ -101,7 +99,6 @@ class StenotypeBase:
         This is only of use for the keyboard machine,
         to suppress the keyboard when then engine is running.
         """
-        pass
 
     def suppress_last_stroke(self, send_backspaces):
         """Suppress the last stroke key events after the fact.
@@ -113,7 +110,6 @@ class StenotypeBase:
 
         send_backspaces -- The function to use to send backspaces.
         """
-        pass
 
     def _set_state(self, state):
         self.state = state
@@ -171,7 +167,6 @@ class ThreadedStenotypeBase(StenotypeBase, threading.Thread):
 
     def run(self):
         """This method should be overridden by a subclass."""
-        pass
 
     def start_capture(self):
         """Begin listening for output from the stenotype machine."""
@@ -199,7 +194,7 @@ class SerialStenotypeBase(ThreadedStenotypeBase):
     """
 
     # Default serial parameters.
-    SERIAL_PARAMS = {
+    SERIAL_PARAMS: ClassVar[dict] = {
         "port": None,
         "baudrate": 9600,
         "bytesize": 8,

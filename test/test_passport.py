@@ -4,9 +4,9 @@
 """Unit tests for passport.py."""
 
 import threading
+from typing import ClassVar
 
 from plover.machine.passport import Passport
-
 from plover_build_utils.testing import parametrize
 
 
@@ -68,7 +68,7 @@ def test_passport(monkeypatch, inputs, expected):
 
     class mock(MockSerial):
         event = threading.Event()
-        data = [b"<123/" + s + b"/something>" for s in inputs]
+        data: ClassVar[list] = [b"<123/" + s + b"/something>" for s in inputs]
 
     monkeypatch.setattr("plover.machine.base.serial.Serial", mock)
     actual = []

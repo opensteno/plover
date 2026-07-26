@@ -195,15 +195,16 @@ and providing a callback function:
 
 ```python
 class MyExtension:
-  def __init__(self, engine: plover.engine.StenoEngine):
-    self.engine = engine
+    def __init__(self, engine: plover.engine.StenoEngine):
+        self.engine = engine
 
-  def start(self):
-    # Connect to the "stroked" hook
-    self.engine.hook_connect("stroked", self._on_stroked)
+    def start(self):
+        # Connect to the "stroked" hook
+        self.engine.hook_connect("stroked", self._on_stroked)
 
-  def _on_stroked(self, stroke: plover.steno.Stroke):
-    ...  # Gets called after each stroke
+    def _on_stroked(
+        self, stroke: plover.steno.Stroke
+    ): ...  # Gets called after each stroke
 ```
 
 Events that occur within the Plover engine, such as machine disconnections,

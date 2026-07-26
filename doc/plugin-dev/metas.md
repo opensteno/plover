@@ -31,8 +31,9 @@ as the basis for the output value. Previously translated text can also be access
 ```python
 # plover_my_plugin/meta.py
 
+
 def example(ctx, argument):
-  pass
+    pass
 ```
 
 % TODO:

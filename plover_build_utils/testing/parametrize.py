@@ -21,18 +21,18 @@ def parametrize(tests, arity=None):
     argvalues = []
     for n, t in enumerate(tests):
         line = inspect.getsourcelines(t)[1]
-        ids.append("%u:%u" % (n + 1, line))
+        ids.append(f"{n + 1}:{line}")
         argvalues.append(t())
     if arity is None:
         arity = len(argvalues[0])
     assert arity > 0
 
     def decorator(fn):
-        argnames = list(
+        argnames = [
             parameter.name
             for parameter in inspect.signature(fn).parameters.values()
             if parameter.default is inspect.Parameter.empty
-        )[-arity:]
+        ][-arity:]
         if arity == 1:
             argnames = argnames[0]
         return pytest.mark.parametrize(argnames, argvalues, ids=ids)(fn)

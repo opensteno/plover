@@ -1,5 +1,5 @@
-from pathlib import Path
 import inspect
+from pathlib import Path
 
 import pytest
 
@@ -69,18 +69,19 @@ def test_resource_update(tmp_path):
     # Can't update assets.
     resource = "asset:plover:assets/pouet.json"
     resource_path = Path(resource_filename(resource))
-    with pytest.raises(ValueError):
-        with resource_update(resource):
-            resource_path.write_bytes(b"contents")
+    with pytest.raises(ValueError), resource_update(resource):
+        resource_path.write_bytes(b"contents")
     assert not resource_path.exists()
     # Don't update resource on exception (but still cleanup).
     resource = (tmp_path / "resource").resolve()
     exception_str = "Houston, we have a problem"
-    with pytest.raises(Exception, match=exception_str):
-        with resource_update(str(resource)) as tmpf:
-            tmpf = Path(tmpf)
-            tmpf.write_bytes(b"contents")
-            raise Exception(exception_str)
+    with (
+        pytest.raises(Exception, match=exception_str),
+        resource_update(str(resource)) as tmpf,
+    ):
+        tmpf = Path(tmpf)
+        tmpf.write_bytes(b"contents")
+        raise RuntimeError(exception_str)
     assert not resource.exists()
     assert not tmpf.exists()
     # Normal use.

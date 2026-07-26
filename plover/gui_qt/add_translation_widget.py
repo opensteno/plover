@@ -7,16 +7,14 @@ from PySide6.QtGui import QFontDatabase
 from PySide6.QtWidgets import QApplication, QWidget
 
 from plover import _
-from plover.misc import shorten_path
-from plover.steno import normalize_steno, sort_steno_strokes
 from plover.engine import StartingStrokeState
-from plover.translation import escape_translation, unescape_translation
-from plover.formatting import RetroFormatter
-from plover.resource import resource_filename
-
-from plover.formatting import SPACE_PLACEMENT_BEFORE
+from plover.formatting import SPACE_PLACEMENT_BEFORE, RetroFormatter
 from plover.gui_qt.add_translation_widget_ui import Ui_AddTranslationWidget
 from plover.gui_qt.steno_validator import StenoValidator
+from plover.misc import shorten_path
+from plover.resource import resource_filename
+from plover.steno import normalize_steno, sort_steno_strokes
+from plover.translation import escape_translation, unescape_translation
 
 
 class AddTranslationWidget(QWidget, Ui_AddTranslationWidget):
@@ -109,9 +107,11 @@ class AddTranslationWidget(QWidget, Ui_AddTranslationWidget):
                 self._focus_strokes()
             elif watched == self.translation:
                 self._focus_translation()
-        elif event.type() == QEvent.Type.FocusOut:
-            if watched in (self.strokes, self.translation):
-                self._unfocus()
+        elif event.type() == QEvent.Type.FocusOut and watched in (
+            self.strokes,
+            self.translation,
+        ):
+            self._unfocus()
         return False
 
     def _set_engine_state(self, state):

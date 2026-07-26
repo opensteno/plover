@@ -7,27 +7,26 @@ This module defines and implements plover's custom dictionary language.
 
 """
 
-from enum import Enum
-from os.path import commonprefix
-from collections import namedtuple
 import re
 import string
+from collections import namedtuple
+from enum import Enum
+from os.path import commonprefix
 
 from plover.registry import registry
-
 
 Case = Enum(
     "case",
     (
         (c, c.lower())
-        for c in """
-                     CAP_FIRST_WORD
-                     LOWER
-                     LOWER_FIRST_CHAR
-                     TITLE
-                     UPPER
-                     UPPER_FIRST_WORD
-                     """.split()
+        for c in [
+            "CAP_FIRST_WORD",
+            "LOWER",
+            "LOWER_FIRST_CHAR",
+            "TITLE",
+            "UPPER",
+            "UPPER_FIRST_WORD",
+        ]
     ),
 )
 
@@ -134,31 +133,15 @@ _parse_meta = _build_metas_parser(
 
 
 ATOM_RE = re.compile(
-    r"""(?:%s%s|%s%s|[^%s%s])+ # One or more of anything
-                                                # other than unescaped { or }
+    rf"""(?:{RE_META_ESCAPE}{META_START}|{RE_META_ESCAPE}{META_END}|[^{META_START}{META_END}])+ # One or more of anything
+                                                # other than unescaped {{ or }}
                                                 #
                                               | # or
                                                 #
-                     %s(?:%s%s|%s%s|[^%s%s])*%s # Anything of the form {X}
+                     {META_START}(?:{RE_META_ESCAPE}{META_START}|{RE_META_ESCAPE}{META_END}|[^{META_START}{META_END}])*{META_END} # Anything of the form {{X}}
                                                 # where X doesn't contain
-                                                # unescaped { or }
-                      """
-    % (
-        RE_META_ESCAPE,
-        META_START,
-        RE_META_ESCAPE,
-        META_END,
-        META_START,
-        META_END,
-        META_START,
-        RE_META_ESCAPE,
-        META_START,
-        RE_META_ESCAPE,
-        META_END,
-        META_START,
-        META_END,
-        META_END,
-    ),
+                                                # unescaped {{ or }}
+                      """,
     re.VERBOSE,
 )
 
@@ -751,11 +734,11 @@ class _Action:
 
     def __str__(self):
         kwargs = [
-            "%s=%r" % (k, v)
+            f"{k}={v!r}"
             for k, v in self.__dict__.items()
             if v != self.DEFAULT.__dict__[k]
         ]
-        return "Action(%s)" % ", ".join(sorted(kwargs))
+        return "Action({})".format(", ".join(sorted(kwargs)))
 
     def __repr__(self):
         return str(self)
@@ -783,7 +766,7 @@ class _LookAheadAction(_Action):
         return getattr(self.action, name)
 
     def __str__(self):
-        return "LookAheadAction(%s)" % str(self.__dict__)
+        return f"LookAheadAction({self.__dict__!s})"
 
 
 def _translation_to_actions(translation, ctx):
@@ -922,7 +905,7 @@ def apply_case(text, case):
         return lower_first_character(text)
     if case == Case.UPPER_FIRST_WORD:
         return upper_first_word(text)
-    raise ValueError("%r is not a valid case" % case)
+    raise ValueError(f"{case!r} is not a valid case")
 
 
 def apply_mode(text, case, space_char, begin, last_action):
@@ -952,7 +935,7 @@ def apply_mode_case(text, case, appended):
         if appended:
             return text
         return capitalize_all_words(text)
-    raise ValueError("%r is not a valid case" % case)
+    raise ValueError(f"{case!r} is not a valid case")
 
 
 def apply_mode_space_char(text, space_char):

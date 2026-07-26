@@ -1,5 +1,5 @@
-import os
 import gettext
+import os
 
 from plover.oslayer.config import CONFIG_DIR
 from plover.oslayer.i18n import get_system_language

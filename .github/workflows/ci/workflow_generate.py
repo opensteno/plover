@@ -11,7 +11,7 @@ class GithubActionsYamlLoader(yaml.SafeLoader):
     @staticmethod
     def _unsupported(kind, token):
         return SyntaxError(
-            "Github Actions does not support %s:\n%s" % (kind, token.start_mark)
+            f"Github Actions does not support {kind}:\n{token.start_mark}"
         )
 
     def fetch_alias(self):
@@ -41,13 +41,13 @@ with open(".github/workflows/ci/workflow_template.yml") as fp:
 
 for j in context["jobs"]:
     base_type = j["type"].split("_")[0]
-    j["id"] = "%s_%s" % (
+    j["id"] = "{}_{}".format(
         base_type,
         j["variant"].lower().replace(" ", "_").replace(".", ""),
     )
-    j["name"] = "%s (%s)" % (base_type.capitalize(), j["variant"])
+    j["name"] = "{} ({})".format(base_type.capitalize(), j["variant"])
     j["needs"] = j.get("needs", [])
-    j["reqs"] = ["reqs/%s.txt" % r for r in j["reqs"]]
+    j["reqs"] = [f"reqs/{r}.txt" for r in j["reqs"]]
     j["cache_extra_deps"] = j.get("cache_extra_deps", [])
     if "python" not in j:
         j["python"] = context["default_python"]
@@ -65,7 +65,7 @@ for j in context["jobs"]:
             v = "(" + " ".join(map(shlex.quote, v)) + ")"
         else:
             v = shlex.quote(v)
-        shell_definition.append("job_%s=%s" % (k, v))
+        shell_definition.append(f"job_{k}={v}")
     j["shell_definition"] = "; ".join(shell_definition)
 
 # Render template.

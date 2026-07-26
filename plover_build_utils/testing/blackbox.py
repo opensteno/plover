@@ -8,9 +8,9 @@ import textwrap
 
 from plover import system
 from plover.formatting import (
-    Formatter,
-    SPACE_PLACEMENT_BEFORE,
     SPACE_PLACEMENT_AFTER,
+    SPACE_PLACEMENT_BEFORE,
+    Formatter,
 )
 from plover.steno import normalize_steno
 from plover.steno_dictionary import StenoDictionary
@@ -18,7 +18,6 @@ from plover.translation import Translator
 
 from .output import CaptureOutput
 from .steno import steno_to_stroke
-
 
 BLACKBOX_OUTPUT_RX = re.compile("r?['\"]")
 
@@ -86,7 +85,7 @@ def blackbox_replay(blackbox, name, test):
             assert_msg += "   " + exception_class + "\n!= " + expected_exception
             assert exception_class == expected_exception, assert_msg
         else:
-            raise ValueError("invalid output:\n%s" % output)
+            raise ValueError(f"invalid output:\n{output}")
 
 
 def _blackbox_replay_action(blackbox, action_spec):
@@ -104,7 +103,7 @@ def _blackbox_replay_action(blackbox, action_spec):
         assert len(args) == 1
         system.setup(args[0])
     else:
-        raise ValueError("invalid action:\n%r" % action_spec)
+        raise ValueError(f"invalid action:\n{action_spec!r}")
 
 
 def blackbox_test(cls_or_fn):

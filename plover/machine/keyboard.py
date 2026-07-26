@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2010 Joshua Harlan Lifton.
 # See LICENSE.txt for details.
 
@@ -7,10 +6,9 @@
 from plover import _
 from plover.machine.base import StenotypeBase
 from plover.misc import boolean
-from plover.oslayer.keyboardcontrol import KeyboardCapture
 from plover.oslayer.config import PLATFORM
+from plover.oslayer.keyboardcontrol import KeyboardCapture
 from plover.oslayer.linux.display_server import DISPLAY_SERVER
-
 
 # i18n: Machine name.
 _._("Keyboard")

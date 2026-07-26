@@ -1,6 +1,5 @@
-from plover.translation import Translation
 from plover.oslayer.config import PLATFORM
-
+from plover.translation import Translation
 
 if PLATFORM == "mac":
     BACK_STRING = "{#Alt_L(BackSpace)}{^}"

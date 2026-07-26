@@ -8,7 +8,6 @@ import pytest
 
 from plover_build_utils.testing import steno_to_stroke
 
-
 DICT_NAMES = ["main.json", "commands.json", "user.json"]
 DICT_PATH = "plover/assets/"
 
@@ -25,9 +24,9 @@ def test_no_duplicates_categorized_files():
     for key, value_list in d.items():
         if len(value_list) > 1:
             has_duplicate = True
-            msg_list.append("key: %s\n" % key)
+            msg_list.append(f"key: {key}\n")
             for value in value_list:
-                msg_list.append("%r in %s\n" % value)
+                msg_list.append("{!r} in {}\n".format(*value))
     msg = "\n" + "".join(msg_list)
     assert not has_duplicate, msg
 

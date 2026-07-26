@@ -1,5 +1,5 @@
-from requests_futures import sessions
 import requests_cache
+from requests_futures import sessions
 
 
 class CachedSession(requests_cache.CachedSession):

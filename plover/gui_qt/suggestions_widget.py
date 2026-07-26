@@ -22,7 +22,6 @@ from plover.translation import escape_translation
 
 from .utils import ActionCopyViewSelectionToClipboard
 
-
 # i18n: Widget: “SuggestionsWidget”.
 NO_SUGGESTIONS_STRING = _("no suggestions")
 MAX_SUGGESTIONS_COUNT = 10

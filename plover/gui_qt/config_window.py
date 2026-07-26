@@ -7,8 +7,6 @@ from PySide6.QtCore import (
     Signal,
     Slot,
 )
-from typing import Set
-
 from PySide6.QtWidgets import (
     QAbstractScrollArea,
     QCheckBox,
@@ -18,8 +16,8 @@ from PySide6.QtWidgets import (
     QFileDialog,
     QFormLayout,
     QFrame,
-    QHeaderView,
     QGroupBox,
+    QHeaderView,
     QLabel,
     QScrollArea,
     QSizePolicy,
@@ -30,16 +28,15 @@ from PySide6.QtWidgets import (
 )
 
 from plover import _
-from plover.formatting import SPACE_PLACEMENT_BEFORE, SPACE_PLACEMENT_AFTER
-from plover.config import MINIMUM_UNDO_LEVELS, MINIMUM_TIME_BETWEEN_KEY_PRESSES
+from plover.config import MINIMUM_TIME_BETWEEN_KEY_PRESSES, MINIMUM_UNDO_LEVELS
+from plover.formatting import SPACE_PLACEMENT_AFTER, SPACE_PLACEMENT_BEFORE
 from plover.gui_qt import appearance
-from plover.misc import expand_path, shorten_path
-from plover.registry import registry
-from plover.oslayer.config import PLATFORM
-
-from plover.gui_qt.config_window_ui import Ui_ConfigWindow
 from plover.gui_qt.config_file_widget_ui import Ui_FileWidget
+from plover.gui_qt.config_window_ui import Ui_ConfigWindow
 from plover.gui_qt.utils import WindowStateMixin
+from plover.misc import expand_path, shorten_path
+from plover.oslayer.config import PLATFORM
+from plover.registry import registry
 
 
 class NopeOption(QLabel):
@@ -229,7 +226,7 @@ class MultipleChoicesOption(TableOption):
         super().__init__()
         if labels is None:
             labels = self.LABELS
-        self._value: Set[str] = set()
+        self._value: set[str] = set()
         self._updating = False
         self._choices = {} if choices is None else choices
         self._reversed_choices = {
@@ -323,7 +320,7 @@ class ConfigOption:
         widget_class,
         help_text="",
         dependents=(),
-        additional_widget_classes=[],
+        additional_widget_classes=(),
     ):
         self.display_name = display_name
         self.option_name = option_name
@@ -711,7 +708,7 @@ class ConfigWindow(QDialog, Ui_ConfigWindow, WindowStateMixin):
         for klass in machine_class.mro():
             # Look for `module_name:class_name` before `class_name`.
             for name in (
-                "%s:%s" % (klass.__module__, klass.__name__),
+                f"{klass.__module__}:{klass.__name__}",
                 klass.__name__,
             ):
                 opt_class = machine_options.get(name)

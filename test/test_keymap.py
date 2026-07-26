@@ -4,7 +4,7 @@ from plover.machine.keymap import Keymap
 
 
 def new_keymap():
-    return Keymap(("k%u" % n for n in range(8)), ("a%u" % n for n in range(4)))
+    return Keymap((f"k{n}" for n in range(8)), (f"a{n}" for n in range(4)))
 
 
 BINDINGS_LIST = (

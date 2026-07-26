@@ -1,9 +1,9 @@
+import difflib
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
-import difflib
-import shutil
 from pathlib import Path
 
 import pytest

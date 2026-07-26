@@ -13,7 +13,6 @@ emulate keyboard input.
 
 """
 
-from ctypes import windll, wintypes
 import atexit
 import ctypes
 import multiprocessing
@@ -21,6 +20,7 @@ import os
 import signal
 import threading
 import winreg
+from ctypes import windll, wintypes
 
 from plover import log
 from plover.key_combo import parse_key_combo

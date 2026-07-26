@@ -1,18 +1,17 @@
-# coding: utf-8
-
 import threading
-from time import sleep
 from queue import Queue
+from time import sleep
+from typing import ClassVar
 
 from Quartz import (
     CFMachPortCreateRunLoopSource,
     CFMachPortInvalidate,
+    CFRelease,
     CFRunLoopAddSource,
-    CFRunLoopSourceInvalidate,
     CFRunLoopGetCurrent,
     CFRunLoopRun,
+    CFRunLoopSourceInvalidate,
     CFRunLoopStop,
-    CFRelease,
     CGEventCreateKeyboardEvent,
     CGEventGetFlags,
     CGEventGetIntegerValueField,
@@ -23,6 +22,8 @@ from Quartz import (
     CGEventSourceCreate,
     CGEventTapCreate,
     CGEventTapEnable,
+    NSEvent,
+    NSSystemDefined,
     kCFRunLoopCommonModes,
     kCGEventFlagMaskAlternate,
     kCGEventFlagMaskCommand,
@@ -33,23 +34,20 @@ from Quartz import (
     kCGEventFlagMaskShift,
     kCGEventKeyDown,
     kCGEventKeyUp,
+    kCGEventSourceStateHIDSystemState,
     kCGEventTapDisabledByTimeout,
     kCGEventTapOptionDefault,
     kCGHeadInsertEventTap,
     kCGKeyboardEventKeycode,
     kCGSessionEventTap,
-    kCGEventSourceStateHIDSystemState,
-    NSEvent,
-    NSSystemDefined,
 )
 
 from plover import log
-from plover.key_combo import add_modifiers_aliases, parse_key_combo, KEYNAME_TO_CHAR
+from plover.key_combo import KEYNAME_TO_CHAR, add_modifiers_aliases, parse_key_combo
 from plover.machine.keyboard_capture import Capture
 from plover.output.keyboard import GenericKeyboardEmulation
 
 from .keyboardlayout import KeyboardLayout
-
 
 BACK_SPACE = 51
 
@@ -292,7 +290,7 @@ class KeyboardCaptureLoop:
         if self._tap is None:
             # TODO: See if there is a nice way to show
             # the user what's needed (or do it for them).
-            raise Exception("Enable access for assistive devices.")
+            raise RuntimeError("Enable access for assistive devices.")
         self._source = CFMachPortCreateRunLoopSource(None, self._tap, 0)
         loop_is_set = threading.Event()
         self._thread = threading.Thread(
@@ -318,7 +316,7 @@ class KeyboardCaptureLoop:
 
 
 class KeyboardCapture(Capture):
-    _KEYBOARD_EVENTS = {kCGEventKeyDown, kCGEventKeyUp}
+    _KEYBOARD_EVENTS: ClassVar[set] = {kCGEventKeyDown, kCGEventKeyUp}
 
     # Don't ignore Fn and Numeric flags so we can handle
     # the arrow and extended (home, end, etc...) keys.
@@ -480,13 +478,13 @@ class KeyboardEmulation(GenericKeyboardEmulation):
                 pass
             # Dead keys
             elif name.startswith("dead_"):
-                code, mod = self._layout.deadkey_symbol_to_key_sequence(
+                code, _mod = self._layout.deadkey_symbol_to_key_sequence(
                     DEADKEY_SYMBOLS.get(name)
                 )[0]
             # Normal keys
             else:
                 char = KEYNAME_TO_CHAR.get(name, name)
-                code, mods = self._layout.char_to_key_sequence(char)[0]
+                code, _mods = self._layout.char_to_key_sequence(char)[0]
             return code
 
         # Parse and validate combo.

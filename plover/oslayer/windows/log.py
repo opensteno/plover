@@ -1,8 +1,10 @@
-from plyer import notification
 import logging
 import os
 
-from plover import log, __name__ as __software_name__
+from plyer import notification
+
+from plover import __name__ as __software_name__
+from plover import log
 from plover.oslayer.config import ASSETS_DIR
 
 APPNAME = __software_name__.capitalize()

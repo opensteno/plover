@@ -4,7 +4,6 @@ import os
 import subprocess
 import sys
 
-
 # Default directory for caching wheels.
 WHEELS_CACHE = os.path.join(".cache", "wheels")
 
@@ -139,7 +138,7 @@ def install_wheels(
             install_only = True
             wheel_only = False
         else:
-            raise ValueError("unsupported option: %s" % opt)
+            raise ValueError(f"unsupported option: {opt}")
         a = [opt] + args[:nb_args]
         del args[:nb_args]
         if wheel_only:
@@ -151,12 +150,12 @@ def install_wheels(
             install_args.extend(a)
     wheel_args[0:0] = ["wheel", "-f", wheels_cache, "-w", wheels_cache]
     install_args[0:0] = ["install", "--no-index", "--no-cache-dir", "-f", wheels_cache]
-    pip_kwargs = dict(pip_install=pip_install, no_progress=no_progress)
+    pip_kwargs = {"pip_install": pip_install, "no_progress": no_progress}
     code = _pip(wheel_args, **pip_kwargs)
     if code == 0 and not no_install:
         code = _pip(install_args, **pip_kwargs)
     if code != 0:
-        raise Exception("wheels installation failed: pip execution returned %u" % code)
+        raise RuntimeError(f"wheels installation failed: pip execution returned {code}")
 
 
 if __name__ == "__main__":

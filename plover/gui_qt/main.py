@@ -1,23 +1,22 @@
-from pathlib import Path
 import signal
 import sys
+from pathlib import Path
 
 from PySide6.QtCore import (
     QCoreApplication,
     QLibraryInfo,
     QTimer,
-    QTranslator,
     QtMsgType,
+    QTranslator,
     qInstallMessageHandler,
 )
 from PySide6.QtWidgets import QApplication, QMessageBox
 
-from plover import _, __name__ as __software_name__, __version__, log
+from plover import _, __version__, log
+from plover import __name__ as __software_name__
+from plover.gui_qt.engine import Engine
 from plover.oslayer.config import CONFIG_DIR
 from plover.oslayer.keyboardcontrol import KeyboardEmulation
-
-from plover.gui_qt.engine import Engine
-
 
 # Disable input hook to avoid getting spammed when using the debugger.
 # import pdb
@@ -86,7 +85,7 @@ class Application:
 
 
 def show_error(title, message):
-    print("%s: %s" % (title, message))
+    print(f"{title}: {message}")
     app = QApplication([])
     QMessageBox.critical(None, title, message)
     del app
@@ -104,11 +103,11 @@ def default_message_handler(msg_type, msg_log_context, msg_string):
     }.get(msg_type, log.error)
     details = []
     if msg_log_context.file is not None:
-        details.append("%s:%u" % (msg_log_context.file, msg_log_context.line))
+        details.append(f"{msg_log_context.file}:{msg_log_context.line}")
     if msg_log_context.function is not None:
         details.append(msg_log_context.function)
     if details:
-        details = " [%s]" % ", ".join(details)
+        details = " [{}]".format(", ".join(details))
     else:
         details = ""
     log_fn("Qt: %s%s", msg_string, details)

@@ -8,7 +8,6 @@ import binascii
 from plover import log
 from plover.machine.base import SerialStenotypeBase
 
-
 # In the Gemini PR protocol, each packet consists of exactly six bytes
 # and the most significant bit (MSB) of every byte is used exclusively
 # to indicate whether that byte is the first byte of the packet

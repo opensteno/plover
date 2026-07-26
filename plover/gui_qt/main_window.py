@@ -1,7 +1,7 @@
-from functools import partial
 import json
 import os
 import subprocess
+from functools import partial
 
 from PySide6.QtCore import QCoreApplication, Qt, Slot
 from PySide6.QtGui import QCursor, QIcon, QKeySequence
@@ -11,18 +11,16 @@ from PySide6.QtWidgets import (
 )
 
 from plover import _, log
+from plover.gui_qt import appearance, utils
+from plover.gui_qt.about_dialog import AboutDialog
+from plover.gui_qt.config_window import ConfigWindow
+from plover.gui_qt.log_qt import NotificationHandler
+from plover.gui_qt.main_window_ui import Ui_MainWindow
+from plover.gui_qt.trayicon import TrayIcon
+from plover.gui_qt.utils import WindowStateMixin
 from plover.oslayer import wmctrl
 from plover.oslayer.config import CONFIG_DIR, PLATFORM
 from plover.registry import registry
-
-from plover.gui_qt import utils
-from plover.gui_qt.log_qt import NotificationHandler
-from plover.gui_qt.main_window_ui import Ui_MainWindow
-from plover.gui_qt.config_window import ConfigWindow
-from plover.gui_qt.about_dialog import AboutDialog
-from plover.gui_qt.trayicon import TrayIcon
-from plover.gui_qt.utils import WindowStateMixin
-from plover.gui_qt import appearance
 
 
 class MainWindow(QMainWindow, Ui_MainWindow, WindowStateMixin):
@@ -227,7 +225,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, WindowStateMixin):
             if not action.isChecked()
         }
         settings.setValue(
-            "hidden_toolbar_tools", json.dumps(list(sorted(hidden_toolbar_tools)))
+            "hidden_toolbar_tools", json.dumps(sorted(hidden_toolbar_tools))
         )
 
     def _update_machine(self, machine_type):

@@ -1,16 +1,13 @@
-# -*- coding: utf-8 -*-
-
-from collections import defaultdict, namedtuple
-from ctypes import windll, wintypes
 import codecs
 import ctypes
 import sys
+from collections import defaultdict, namedtuple
+from ctypes import windll, wintypes
 
 from plover.key_combo import CHAR_TO_KEYNAME, add_modifiers_aliases
 from plover.misc import popcount_8
 
 from .wmctrl import GetForegroundWindow
-
 
 GetKeyboardLayout = windll.user32.GetKeyboardLayout
 GetKeyboardLayout.argtypes = [
@@ -60,7 +57,16 @@ SHIFT_STATE = enum(
     (
         (mod, n)
         for n, mod in enumerate(
-            "BASE SHIFT CTRL SHIFT_CTRL MENU SHIFT_MENU MENU_CTRL SHIFT_MENU_CTRL".split()
+            [
+                "BASE",
+                "SHIFT",
+                "CTRL",
+                "SHIFT_CTRL",
+                "MENU",
+                "SHIFT_MENU",
+                "MENU_CTRL",
+                "SHIFT_MENU_CTRL",
+            ]
         )
     ),
 )
@@ -247,7 +253,7 @@ vk_dict["HANGEUL"] = vk_dict["KANA"]
 vk_dict["HANGUL"] = vk_dict["KANA"]
 vk_dict["KANJI"] = vk_dict["HANJA"]
 for digit in range(10):
-    vk_dict["DIGIT%u" % digit] = 0x30 + digit
+    vk_dict[f"DIGIT{digit}"] = 0x30 + digit
 for anum in range(26):
     vk_dict[chr(ord("A") + anum)] = 0x41 + anum
 VK = enum("VK", vk_dict.items())
@@ -356,7 +362,7 @@ VK_TO_KEYNAME = {
 
 def vk_to_str(vk):
     s = VK_TO_NAME.get(vk)
-    return "%x" % vk if s is None else s
+    return f"{vk:x}" if s is None else s
 
 
 # }}}
@@ -434,8 +440,7 @@ class KeyboardLayout:  # {{{
                 char, dead_key = to_unichr(vk, sc, ss)
                 if debug and char:
                     print(
-                        "%s%s -> %s [%r] %s"
-                        % (
+                        "{}{} -> {} [{!r}] {}".format(
                             shift_state_str(ss),
                             vk_to_str(vk),
                             char,
@@ -501,12 +506,11 @@ class KeyboardLayout:  # {{{
 if __name__ == "__main__":
     sys.stdout = codecs.getwriter("utf8")(sys.stdout)
     layout = KeyboardLayout(debug=True)
-    print("character to virtual key + shift state [%u]" % len(layout.char_to_vk_ss))
+    print(f"character to virtual key + shift state [{len(layout.char_to_vk_ss)}]")
     for char, combo in sorted(layout.char_to_vk_ss.items()):
         vk, ss = combo
         print(
-            "%s [%r:%s] -> %s%s"
-            % (
+            "{} [{!r}:{}] -> {}{}".format(
                 char,
                 char,
                 CHAR_TO_KEYNAME.get(char, "?"),
@@ -515,15 +519,16 @@ if __name__ == "__main__":
             )
         )
     print()
-    print("keyname to virtual key [%u]" % len(layout.keyname_to_vk))
+    print(f"keyname to virtual key [{len(layout.keyname_to_vk)}]")
     for kn, vk in sorted(layout.keyname_to_vk.items()):
-        print("%s -> %s" % (kn, vk_to_str(vk)))
+        print(f"{kn} -> {vk_to_str(vk)}")
     print()
-    print("modifiers combo [%u]" % len(layout.ss_to_vks))
+    print(f"modifiers combo [{len(layout.ss_to_vks)}]")
     for ss, vk_list in sorted(layout.ss_to_vks.items()):
         print(
-            "%s -> %s"
-            % (shift_state_str(ss), "+".join(vk_to_str(vk) for vk in vk_list))
+            "{} -> {}".format(
+                shift_state_str(ss), "+".join(vk_to_str(vk) for vk in vk_list)
+            )
         )
 
 # vim: foldmethod=marker

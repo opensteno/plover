@@ -152,7 +152,7 @@ class WaylandConnection:
                 if key.fileobj == self._shutdown_pipe_read:
                     raise InterruptedError()
                 # Based on Python3 socket.recvmsg docs (https://docs.python.org/3/library/socket.html#socket.socket.recvmsg)
-                n, ancdata, flags, addr = self._wayland_socket.recvmsg_into(
+                n, ancdata, _flags, _addr = self._wayland_socket.recvmsg_into(
                     [buffer_view], socket.CMSG_LEN(fd_count * fds.itemsize)
                 )
                 for cmsg_level, cmsg_type, cmsg_data in ancdata:
@@ -245,7 +245,7 @@ def wayland_keymap_event_loop(connection: WaylandConnection) -> tuple[int, int]:
             break
         elif object_id == DISPLAY_ID and opcode == OPCODE_WL_DISPLAY_ERROR:
             # wl_display::error
-            raise RuntimeError(f"Wayland error: {repr(event_data_bytes)}")
+            raise RuntimeError(f"Wayland error: {event_data_bytes!r}")
         elif object_id == DISPLAY_ID and opcode == OPCODE_WL_DISPLAY_DELETE_ID:
             # wl_display::delete_id
             if length != WAYLAND_MESSAGE_HEADER_SIZE_BYTES + 4:
@@ -288,6 +288,6 @@ def wayland_keymap_event_loop(connection: WaylandConnection) -> tuple[int, int]:
             return fd, keymap_size
         elif object_id == DISPLAY_ID and opcode == OPCODE_WL_DISPLAY_ERROR:
             # wl_display::error
-            raise RuntimeError(f"Wayland error: {repr(event_data_bytes)}")
+            raise RuntimeError(f"Wayland error: {event_data_bytes!r}")
         else:
             log.debug("Ignoring event for object %d, opcode %d", object_id, opcode)

@@ -107,7 +107,7 @@ class Keymap:
             if not key_list:
                 # Not an issue if 'no-op' is not mapped...
                 if action != "no-op":
-                    errors.append("action %s is not bound" % action)
+                    errors.append(f"action {action} is not bound")
                 # Add dummy mapping for each missing action
                 # so it's shown in the configurator.
                 self._mappings[action] = ()
@@ -117,7 +117,7 @@ class Keymap:
             valid_key_list = []
             for key in key_list:
                 if key not in self._keys:
-                    errors.append("invalid key %s bound to action %s" % (key, action))
+                    errors.append(f"invalid key {key} bound to action {action}")
                     continue
                 valid_key_list.append(key)
                 bound_keys[key].append(action)
@@ -128,13 +128,13 @@ class Keymap:
             if isinstance(key_list, str):
                 key_list = (key_list,)
             errors.append(
-                "invalid action %s mapped to key(s) %s" % (action, " ".join(key_list))
+                "invalid action {} mapped to key(s) {}".format(
+                    action, " ".join(key_list)
+                )
             )
         for key, action_list in bound_keys.items():
             if len(action_list) > 1:
-                errors.append(
-                    "key %s is bound multiple times: %s" % (key, str(action_list))
-                )
+                errors.append(f"key {key} is bound multiple times: {action_list!s}")
         if len(errors) > 0:
             log.warning(
                 "Keymap is invalid, behavior undefined:\n\n- " + "\n- ".join(errors)
@@ -160,7 +160,7 @@ class Keymap:
         """
         action_list = []
         for key in key_list:
-            assert key in self._keys, "'%s' not in %s" % (key, self._keys)
+            assert key in self._keys, f"'{key}' not in {self._keys}"
             action = self._bindings.get(key, "no-op")
             if "no-op" != action:
                 action_list.append(action)
@@ -199,12 +199,10 @@ class Keymap:
         valid_key_list = []
         for key in key_list:
             if key not in self._keys:
-                errors.append("invalid key %s bound to action %s" % (key, action))
+                errors.append(f"invalid key {key} bound to action {action}")
                 continue
             if key in self._bindings:
-                errors.append(
-                    "key %s is already bound to: %s" % (key, self._bindings[key])
-                )
+                errors.append(f"key {key} is already bound to: {self._bindings[key]}")
                 continue
             valid_key_list.append(key)
             self._bindings[key] = action

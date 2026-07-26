@@ -4,20 +4,19 @@
 """This modules handles reading and writing Plover's configuration files, as well
 as updating the configuration on-the-fly while Plover is running."""
 
-from collections import ChainMap, namedtuple, OrderedDict
 import configparser
 import json
 import re
-from typing import Any, Dict
+from collections import ChainMap, OrderedDict, namedtuple
+from typing import Any, ClassVar
 
+from plover import log
 from plover.exception import InvalidConfigurationError
-from plover.formatting import SPACE_PLACEMENT_BEFORE, SPACE_PLACEMENT_AFTER
+from plover.formatting import SPACE_PLACEMENT_AFTER, SPACE_PLACEMENT_BEFORE
 from plover.machine.keymap import Keymap
+from plover.misc import boolean, expand_path, shorten_path
 from plover.registry import registry
 from plover.resource import resource_update
-from plover.misc import boolean, expand_path, shorten_path
-from plover import log
-
 
 # General configuration sections, options and defaults.
 APPEARANCE_CONFIG_SECTION = "Appearance"
@@ -55,7 +54,7 @@ class DictionaryConfig(namedtuple("DictionaryConfig", "path enabled")):
         """The shortened path to the dictionary file. This is automatically calculated from :attr:`path`."""
         return shorten_path(self.path)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Returns the ``dict`` representation of the dictionary configuration."""
         # Note: do not use _asdict because of
         # https://bugs.python.org/issue24931
@@ -69,12 +68,12 @@ class DictionaryConfig(namedtuple("DictionaryConfig", "path enabled")):
         return self._replace(**kwargs)
 
     @staticmethod
-    def from_dict(d: Dict[str, Any]) -> "DictionaryConfig":
+    def from_dict(d: dict[str, Any]) -> "DictionaryConfig":
         """Returns a :class:`DictionaryConfig` constructed from its ``dict`` representation."""
         return DictionaryConfig(**d)
 
     def __repr__(self):
-        return "DictionaryConfig(%r, %r)" % (self.short_path, self.enabled)
+        return f"DictionaryConfig({self.short_path!r}, {self.enabled!r})"
 
 
 ConfigOption = namedtuple(
@@ -128,7 +127,7 @@ def json_option(name, default, section, option, validate):
     def setter(config, key, value):
         if isinstance(value, set):
             # JSON does not support sets.
-            value = list(sorted(value))
+            value = sorted(value)
         config._set(
             section, option, json.dumps(value, sort_keys=True, ensure_ascii=False)
         )
@@ -153,7 +152,9 @@ def int_option(name, default, minimum, maximum, section, option=None):
         if (minimum is not None and value < minimum) or (
             maximum is not None and value > maximum
         ):
-            message = "%s not in [%s, %s]" % (value, minimum or "-∞", maximum or "∞")
+            message = "{} not in [{}, {}]".format(
+                value, minimum or "-∞", maximum or "∞"
+            )
             raise InvalidConfigOption(value, default, message)
         return value
 
@@ -352,7 +353,7 @@ def dictionaries_option():
         options = config._config[LEGACY_DICTIONARY_CONFIG_SECTION].items()
         return [
             {"path": value}
-            for name, value in reversed(sorted(options))
+            for name, value in sorted(options, reverse=True)
             if re.match(r"dictionary_file\d*$", name) is not None
         ]
 
@@ -418,9 +419,11 @@ class Config:
 
     def save(self) -> None:
         """Writes the current state of the configuration to the configuration file."""
-        with resource_update(self.path) as temp_path:
-            with open(temp_path, mode="w", encoding="utf-8") as fp:
-                self._config.write(fp)
+        with (
+            resource_update(self.path) as temp_path,
+            open(temp_path, mode="w", encoding="utf-8") as fp,
+        ):
+            self._config.write(fp)
 
     def _set(self, section, option, value):
         if not self._config.has_section(section):
@@ -430,7 +433,7 @@ class Config:
     # Note: order matters, e.g. machine_type comes before
     # machine_specific_options and system_keymap because
     # the latter depend on the former.
-    _OPTIONS = OrderedDict(
+    _OPTIONS: ClassVar[OrderedDict] = OrderedDict(
         (opt.name, opt)
         for opt in [
             # Output.
@@ -532,7 +535,7 @@ class Config:
         opt.setter(self, key, value)
         self._cache[key] = value
 
-    def as_dict(self) -> Dict[str, Any]:
+    def as_dict(self) -> dict[str, Any]:
         """Returns the ``dict`` representation of the current state of the
         configuration.
         """

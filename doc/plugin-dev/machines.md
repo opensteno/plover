@@ -22,27 +22,28 @@ classes depending on your needs.
 
 from plover.machine.base import ThreadedStenotypeBase
 
+
 class ExampleMachine(ThreadedStenotypeBase):
-  KEYS_LAYOUT: str = '0 1 2 3 4 5 6 7 8 9 10'
+    KEYS_LAYOUT: str = "0 1 2 3 4 5 6 7 8 9 10"
 
-  def __init__(self, params):
-    super().__init__()
-    self._params = params
+    def __init__(self, params):
+        super().__init__()
+        self._params = params
 
-  def run(self):
-    self._ready()
-    while not self.finished.wait(1):
-      self._notify(self.keymap.keys_to_actions(['1']))
+    def run(self):
+        self._ready()
+        while not self.finished.wait(1):
+            self._notify(self.keymap.keys_to_actions(["1"]))
 
-  def start_capture(self):
-    super().start_capture()
+    def start_capture(self):
+        super().start_capture()
 
-  def stop_capture(self):
-    super().stop_capture()
+    def stop_capture(self):
+        super().stop_capture()
 
-  @classmethod
-  def get_option_info(cls):
-    pass
+    @classmethod
+    def get_option_info(cls):
+        pass
 ```
 
 The `_notify` method should be called whenever a stroke is received. It takes
@@ -80,9 +81,10 @@ Machine options plugins are implemented as Qt widget **classes**:
 
 from PyQt5.QtWidgets import QWidget
 
+
 class ExampleMachineOption(QWidget):
-  def setValue(self, value):
-    pass
+    def setValue(self, value):
+        pass
 ```
 
 The process for developing these is similar to that for [GUI tools](gui_tools).

@@ -8,18 +8,19 @@ Plover HID is a simple HID-based protocol that sends the current state
 of the steno machine every time that state changes.
 """
 
-from plover.machine.base import ThreadedStenotypeBase
-from plover.misc import boolean
-from plover import log
-
-import hid
-import time
+import ctypes
 import platform
 import threading
-import ctypes
-from queue import Queue, Empty
-from typing import Any, Dict
+import time
 from dataclasses import dataclass
+from queue import Empty, Queue
+from typing import Any
+
+import hid
+
+from plover import log
+from plover.machine.base import ThreadedStenotypeBase
+from plover.misc import boolean
 
 
 def _darwin_disable_exclusive_open() -> None:
@@ -101,10 +102,10 @@ class PloverHid(ThreadedStenotypeBase):
     '''
     # fmt: on
 
-    def __init__(self, params: Dict[str, Any]) -> None:
+    def __init__(self, params: dict[str, Any]) -> None:
         super().__init__()
         self._params = params
-        self._devices: Dict[bytes, HidDeviceRecord] = {}
+        self._devices: dict[bytes, HidDeviceRecord] = {}
         self._report_queue: Queue[bytes] = Queue()
         self._lock: threading.Lock = threading.Lock()
         self._device_watcher: threading.Thread | None = None
@@ -141,14 +142,12 @@ class PloverHid(ThreadedStenotypeBase):
             device.close()
         except Exception:
             log.debug("failed to close HID device")
-            pass
         # Join the reader if we're not currently in that same thread.
         try:
             if thread is not None and thread is not threading.current_thread():
                 thread.join(timeout=0.2)
         except Exception:
             log.debug("failed kill device read thread")
-            pass
         # If nothing left and we're not shutting down, show Disconnected in the UI
         if not self._devices and not self.finished.is_set():
             self._error()
@@ -201,7 +200,6 @@ class PloverHid(ThreadedStenotypeBase):
                     self._report_queue.put_nowait(report_bytes)
                 except Exception:
                     log.debug("failed to put report in queue")
-                    pass
         self._remove_device(path)
 
     def _parse(self, report: bytes) -> int:
@@ -306,20 +304,20 @@ class PloverHid(ThreadedStenotypeBase):
         if t_watch is not None:
             try:
                 t_watch.join(timeout=0.3)
-            except Exception:
+            except Exception:  # noqa: S110
                 pass
             self._device_watcher = None
         # Remove all devices via common teardown
         for path in list(self._devices.keys()):
             try:
                 self._remove_device(path)
-            except Exception:
+            except Exception:  # noqa: S110
                 pass
         # Drain the report queue best-effort
         try:
             while True:
                 self._report_queue.get_nowait()
-        except Exception:
+        except Exception:  # noqa: S110
             pass
 
     @classmethod

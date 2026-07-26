@@ -26,8 +26,9 @@ argument. If an argument is not passed in the dictionary entry, it will be
 ```python
 # plover_my_plugin/command.py
 
+
 def example(engine, argument):
-  pass
+    pass
 ```
 
 Commands can access any of the properties and methods in the engine object
@@ -35,7 +36,7 @@ passed to it, such as in [`plover_system_switcher`](https://github.com/nsmarkop/
 
 ```python
 def switch_system(engine, system):
-  engine.config = {"system_name": system}
+    engine.config = {"system_name": system}
 ```
 
 They can also interact with the rest of the Python environment, and even other
@@ -43,5 +44,5 @@ programs, such as [`plover_vlc_commands`](https://github.com/benoit-pierre/plove
 
 ```python
 def stop(_, _):
-  _vlc_request("?command=pl_stop")
+    _vlc_request("?command=pl_stop")
 ```

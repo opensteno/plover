@@ -13,17 +13,14 @@ from PySide6.QtWidgets import (
     QFontDialog,
     QMessageBox,
 )
-
 from wcwidth import wcwidth
 
 from plover import _, system
-from plover.steno import Stroke
-
 from plover.gui_qt import utils
 from plover.gui_qt.paper_tape_ui import Ui_PaperTape
-from plover.gui_qt.utils import ActionCopyViewSelectionToClipboard, ToolBar
 from plover.gui_qt.tool import Tool
-
+from plover.gui_qt.utils import ActionCopyViewSelectionToClipboard, ToolBar
+from plover.steno import Stroke
 
 STYLE_PAPER, STYLE_RAW = (
     # i18n: Paper tape style.
@@ -249,7 +246,9 @@ class PaperTape(Tool, Ui_PaperTape):
 
     @Slot()
     def save(self):
-        filename_suggestion = "steno-notes-%s.txt" % time.strftime("%Y-%m-%d-%H-%M")
+        filename_suggestion = "steno-notes-{}.txt".format(
+            time.strftime("%Y-%m-%d-%H-%M")
+        )
         filename = QFileDialog.getSaveFileName(
             self,
             _("Save Paper Tape"),

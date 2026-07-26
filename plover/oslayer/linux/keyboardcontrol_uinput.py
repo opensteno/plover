@@ -1,18 +1,23 @@
-import threading
 import os
 import selectors
+import threading
 
 from evdev import (
-    UInput,
-    ecodes as e,
-    util,
     InputDevice,
-    list_devices,
     InputEvent,
     KeyEvent,
+    UInput,
+    list_devices,
+    util,
+)
+from evdev import (
+    ecodes as e,
 )
 from psutil import process_iter
 
+from plover import log
+from plover.key_combo import parse_key_combo
+from plover.machine.keyboard_capture import Capture
 from plover.oslayer.linux.keyboardlayout_wayland import (
     DEFAULT_LAYOUT,
     GET_WAYLAND_KEYMAP_TIMEOUT_SECONDS,
@@ -20,15 +25,12 @@ from plover.oslayer.linux.keyboardlayout_wayland import (
     LAYOUTS,
     WAYLAND_AUTO_LAYOUT_NAME,
     KeyCodeInfo,
+    ev_keycode_to_xkb_keycode,
     generate_plover_keymap_from_xkb_keymap_and_modifiers,
     get_modifier_keycodes,
-    ev_keycode_to_xkb_keycode,
     get_wayland_keymap,
 )
 from plover.output.keyboard import GenericKeyboardEmulation
-from plover.machine.keyboard_capture import Capture
-from plover.key_combo import parse_key_combo
-from plover import log
 
 # EV keycodes of keys considered modifiers when not able to automatically be
 # determined from the keymap (this feature isn't implemented yet).
@@ -97,11 +99,11 @@ class KeyboardEmulation(GenericKeyboardEmulation):
                 log.debug("Retrieved Wayland keymap: %s", self._key_to_keycodeinfo)
 
                 # Verify that no modifier requires modifiers to be pressed in the generated keymap
-                modifier_xkb_keycodes = set(
+                modifier_xkb_keycodes = {
                     keycode
                     for keycodes in modifier_index_to_xkb_keycode
                     for keycode in keycodes
-                )
+                }
                 log.debug(
                     "Modifier index to keycode: %s", modifier_index_to_xkb_keycode
                 )
@@ -190,9 +192,7 @@ class KeyboardEmulation(GenericKeyboardEmulation):
             return False
         if not self._get_key("shift")[0]:
             return False
-        if not self._get_key("u")[0]:
-            return False
-        return True
+        return self._get_key("u")[0]
 
     def send_string(self, string):
         for key in self.with_delay(list(string)):

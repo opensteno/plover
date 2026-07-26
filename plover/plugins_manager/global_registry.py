@@ -12,5 +12,5 @@ def list_plugins():
         release_info = release["info"]
         plugin_metadata = PluginMetadata.from_dict(release_info)
         plugins[canonicalize_name(plugin_metadata.name)].append(plugin_metadata)
-    plugins = {name: list(sorted(versions)) for name, versions in plugins.items()}
+    plugins = {name: sorted(versions) for name, versions in plugins.items()}
     return plugins

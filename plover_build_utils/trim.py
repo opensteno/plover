@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
 import glob
+import os
 import shutil
 import sys
-import os
 
 
 def trim(directory, patterns_file, verbose=True, dry_run=False):

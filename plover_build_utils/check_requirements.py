@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
-from importlib.metadata import distributions, requires, PackageNotFoundError
+from importlib.metadata import PackageNotFoundError, distributions, requires
+
 from packaging.requirements import Requirement
 
 

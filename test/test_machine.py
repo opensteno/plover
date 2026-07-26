@@ -1,6 +1,8 @@
 from unittest.mock import Mock
-from plover.machine.base import ThreadedStenotypeBase
+
 import pytest
+
+from plover.machine.base import ThreadedStenotypeBase
 
 
 class MyMachine(ThreadedStenotypeBase):

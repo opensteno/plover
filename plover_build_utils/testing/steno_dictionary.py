@@ -1,9 +1,9 @@
-from collections import defaultdict
-from contextlib import contextmanager
 import ast
 import functools
 import inspect
 import os
+from collections import defaultdict
+from contextlib import contextmanager
 
 import pytest
 
@@ -187,9 +187,8 @@ class _ReadOnlyDictionaryTests:
         """
         Don't allow creating a read-only dictionary.
         """
-        with self.sample_dict(tmp_path) as dict_path:
-            with pytest.raises(ValueError):
-                self.DICT_CLASS.create(str(dict_path))
+        with self.sample_dict(tmp_path) as dict_path, pytest.raises(ValueError):
+            self.DICT_CLASS.create(str(dict_path))
 
 
 _TEST_DICTIONARY_UPDATE_DICT = {

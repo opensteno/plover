@@ -2,7 +2,6 @@ import re
 
 from plover.formatting import _LookAheadAction
 
-
 IF_NEXT_META_RX = re.compile(r"((?:[^\\/]|\\\\|\\/)*)/?")
 IF_NEXT_ESCAPE_RX = re.compile(r"\\([\\/])")
 

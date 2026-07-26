@@ -3,21 +3,22 @@ machine and the translation and formatting subsystems, and manages configuration
 and dictionaries.
 """
 
-from collections import namedtuple, OrderedDict
-from functools import wraps
-from queue import Queue
 import functools
 import os
 import shutil
 import threading
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from collections import OrderedDict, namedtuple
+from collections.abc import Callable
+from functools import wraps
+from queue import Queue
+from typing import Any, ClassVar
 
 from plover import log, system
 from plover.dictionary.loading_manager import DictionaryLoadingManager
 from plover.formatting import (
-    Formatter,
-    SPACE_PLACEMENT_BEFORE,
     SPACE_PLACEMENT_AFTER,
+    SPACE_PLACEMENT_BEFORE,
+    Formatter,
 )
 from plover.misc import shorten_path
 from plover.registry import registry
@@ -27,14 +28,13 @@ from plover.steno_dictionary import StenoDictionary, StenoDictionaryCollection
 from plover.suggestions import Suggestions
 from plover.translation import Translator
 
-
 StartingStrokeState = namedtuple(
     "StartingStrokeState",
     "attach capitalize space_char space_placement",
     defaults=(False, False, " ", None),
 )
 
-StartingStrokeState.__doc__ = """An object representing the starting state of the formatter before any
+StartingStrokeState.__doc__ = f"""An object representing the starting state of the formatter before any
 strokes are input.
 
 Attributes:
@@ -46,10 +46,7 @@ Attributes:
     space_placement (Optional[str]): The space placement to use for this state.
         One of ``{SPACE_PLACEMENT_BEFORE}`` or ``{SPACE_PLACEMENT_AFTER}``. If ``None``, the current
         engine configuration is used.
-""".format(
-    SPACE_PLACEMENT_BEFORE=SPACE_PLACEMENT_BEFORE,
-    SPACE_PLACEMENT_AFTER=SPACE_PLACEMENT_AFTER,
-)
+"""
 
 MachineParams = namedtuple("MachineParams", "type options keymap")
 
@@ -152,24 +149,24 @@ class StenoEngine:
 
     """
 
-    HOOKS: List[str] = """
-    stroked
-    translated
-    machine_state_changed
-    output_changed
-    config_changed
-    dictionaries_loaded
-    dictionary_state_changed
-    send_string
-    send_backspaces
-    send_key_combination
-    add_translation
-    focus
-    configure
-    lookup
-    suggestions
-    quit
-    """.split()
+    HOOKS: ClassVar[list[str]] = [
+        "stroked",
+        "translated",
+        "machine_state_changed",
+        "output_changed",
+        "config_changed",
+        "dictionaries_loaded",
+        "dictionary_state_changed",
+        "send_string",
+        "send_backspaces",
+        "send_key_combination",
+        "add_translation",
+        "focus",
+        "configure",
+        "lookup",
+        "suggestions",
+        "quit",
+    ]
 
     def __init__(self, config: Any, controller: Any, keyboard_emulation: Any):
         self._config = config
@@ -372,14 +369,13 @@ class StenoEngine:
         )
         dictionaries = []
         for d in self._dictionaries_manager.load(config_dictionaries.keys()):
-            if isinstance(d, ErroredDictionary):
-                # Only show an error if it's new.
-                if d != self._dictionaries.get(d.path):
-                    log.error(
-                        "loading dictionary `%s` failed: %s",
-                        shorten_path(d.path),
-                        str(d.exception),
-                    )
+            # Only show an error if it's new.
+            if isinstance(d, ErroredDictionary) and d != self._dictionaries.get(d.path):
+                log.error(
+                    "loading dictionary `%s` failed: %s",
+                    shorten_path(d.path),
+                    str(d.exception),
+                )
             d.enabled = config_dictionaries[d.path].enabled
             dictionaries.append(d)
         self._set_dictionaries(dictionaries)
@@ -551,7 +547,7 @@ class StenoEngine:
 
     @property
     @with_lock
-    def machine_state(self) -> Optional[str]:
+    def machine_state(self) -> str | None:
         """The connection state of the current machine.
 
         One of ``stopped``, ``initializing``, ``connected`` or ``disconnected``.
@@ -570,7 +566,7 @@ class StenoEngine:
 
     @property
     @with_lock
-    def config(self) -> Dict[str, Any]:
+    def config(self) -> dict[str, Any]:
         """A dictionary containing configuration options."""
         return self._config.as_dict()
 
@@ -640,26 +636,26 @@ class StenoEngine:
         return self.code
 
     @with_lock
-    def lookup(self, translation: Tuple[str, ...]) -> str:
+    def lookup(self, translation: tuple[str, ...]) -> str:
         """Returns the first translation for the steno outline ``translation`` using
         all the filters.
         """
         return self._dictionaries.lookup(translation)
 
     @with_lock
-    def raw_lookup(self, translation: Tuple[str, ...]) -> str:
+    def raw_lookup(self, translation: tuple[str, ...]) -> str:
         """Like :meth:`lookup`, but without any of the filters."""
         return self._dictionaries.raw_lookup(translation)
 
     @with_lock
-    def lookup_from_all(self, translation: Tuple[str, ...]):
+    def lookup_from_all(self, translation: tuple[str, ...]):
         """Returns all translations for the steno outline ``translation`` using
         all the filters.
         """
         return self._dictionaries.lookup_from_all(translation)
 
     @with_lock
-    def raw_lookup_from_all(self, translation: Tuple[str, ...]):
+    def raw_lookup_from_all(self, translation: tuple[str, ...]):
         """Like :meth:`lookup_from_all`, but without any of the filters."""
         return self._dictionaries.raw_lookup_from_all(translation)
 
@@ -675,7 +671,7 @@ class StenoEngine:
 
     @with_lock
     def add_dictionary_filter(
-        self, dictionary_filter: Callable[[Tuple[str, ...], str], bool]
+        self, dictionary_filter: Callable[[tuple[str, ...], str], bool]
     ) -> None:
         """Adds ``dictionary_filter`` to the list of dictionary filters.
 
@@ -686,7 +682,7 @@ class StenoEngine:
 
     @with_lock
     def remove_dictionary_filter(
-        self, dictionary_filter: Callable[[Tuple[str, ...], str], bool]
+        self, dictionary_filter: Callable[[tuple[str, ...], str], bool]
     ) -> None:
         """Removes ``dictionary_filter`` from the list of dictionary filters."""
         self._dictionaries.remove_filter(dictionary_filter)
@@ -752,9 +748,9 @@ class StenoEngine:
     @with_lock
     def add_translation(
         self,
-        strokes: Tuple[str, ...],
+        strokes: tuple[str, ...],
         translation: str,
-        dictionary_path: Optional[str] = None,
+        dictionary_path: str | None = None,
     ) -> None:
         """Adds a steno entry mapping the steno outline ``strokes`` to
         ``translation`` in the dictionary at ``dictionary_path``, if specified,

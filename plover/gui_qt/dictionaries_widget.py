@@ -1,5 +1,6 @@
-from contextlib import contextmanager
 import os
+from contextlib import contextmanager
+from typing import ClassVar
 
 from PySide6.QtCore import (
     QAbstractListModel,
@@ -22,13 +23,12 @@ from plover import _
 from plover.config import DictionaryConfig
 from plover.dictionary.base import create_dictionary
 from plover.engine import ErroredDictionary
-from plover.misc import normalize_path
-from plover.oslayer.config import CONFIG_DIR
-from plover.registry import registry
-
 from plover.gui_qt.dictionaries_widget_ui import Ui_DictionariesWidget
 from plover.gui_qt.dictionary_editor import DictionaryEditor
 from plover.gui_qt.utils import ToolBar
+from plover.misc import normalize_path
+from plover.oslayer.config import CONFIG_DIR
+from plover.registry import registry
 
 
 def _dictionary_formats(include_readonly=True):
@@ -62,12 +62,12 @@ def _new_dictionary(filename):
         yield d
         d.save()
     except Exception as e:
-        raise Exception("creating dictionary %s failed. %s" % (filename, e)) from e
+        raise RuntimeError(f"creating dictionary {filename} failed. {e}") from e
 
 
 class DictionariesModel(QAbstractListModel):
     class DictionaryItem:
-        __slots__ = "row path enabled short_path _loaded state".split()
+        __slots__ = ["_loaded", "enabled", "path", "row", "short_path", "state"]
 
         def __init__(self, row, config, loaded=None):
             self.row = row
@@ -101,7 +101,7 @@ class DictionariesModel(QAbstractListModel):
         def is_loaded(self):
             return self.state not in {"loading", "error"}
 
-    SUPPORTED_ROLES = [
+    SUPPORTED_ROLES: ClassVar[list] = [
         Qt.ItemDataRole.AccessibleTextRole,
         Qt.ItemDataRole.CheckStateRole,
         Qt.ItemDataRole.DecorationRole,
@@ -370,7 +370,9 @@ class DictionariesModel(QAbstractListModel):
 
     # Model API.
 
-    def rowCount(self, parent=QModelIndex()):
+    def rowCount(self, parent=None):
+        if parent is None:
+            parent = QModelIndex()
         return 0 if parent.isValid() else len(self._from_row)
 
     def flags(self, index):
@@ -523,8 +525,8 @@ class DictionariesWidget(QGroupBox, Ui_DictionariesWidget):
         self._model = DictionariesModel(
             engine,
             {
-                name: QIcon(":resources/dictionary_%s.svg" % name)
-                for name in "favorite loading error readonly normal".split()
+                name: QIcon(f":resources/dictionary_{name}.svg")
+                for name in ["favorite", "loading", "error", "readonly", "normal"]
             },
         )
         self._model.has_undo_changed.connect(self.toggle_undo_action)

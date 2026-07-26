@@ -1,6 +1,5 @@
-from PySide6.QtGui import QValidator
-
 import pytest
+from PySide6.QtGui import QValidator
 
 from plover.gui_qt.steno_validator import StenoValidator
 

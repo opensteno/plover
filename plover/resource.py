@@ -1,9 +1,8 @@
+import os
+import shutil
 from contextlib import contextmanager
 from importlib.util import find_spec
 from tempfile import NamedTemporaryFile
-import os
-import shutil
-
 
 ASSET_SCHEME = "asset:"
 
@@ -47,7 +46,10 @@ def resource_update(resource_name):
     filename = resource_filename(resource_name)
     directory = os.path.dirname(filename)
     extension = os.path.splitext(filename)[1]
-    tempfile = NamedTemporaryFile(delete=False, dir=directory, suffix=extension or None)
+    # Only used to generate a unique filename: closed right away, removed on error.
+    tempfile = NamedTemporaryFile(  # noqa: SIM115
+        delete=False, dir=directory, suffix=extension or None
+    )
     try:
         tempfile.close()
         yield tempfile.name

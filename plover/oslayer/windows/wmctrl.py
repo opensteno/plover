@@ -1,6 +1,5 @@
 from ctypes import windll, wintypes
 
-
 GetForegroundWindow = windll.user32.GetForegroundWindow
 GetForegroundWindow.argtypes = []
 GetForegroundWindow.restype = wintypes.HWND

@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QDialogButtonBox, QDialog
+from PySide6.QtWidgets import QDialog, QDialogButtonBox
 
 from plover.gui_qt.console_widget import ConsoleWidget
 from plover.gui_qt.run_dialog_ui import Ui_RunDialog
@@ -33,6 +33,7 @@ class RunDialog(QDialog, Ui_RunDialog):
 
 if __name__ == "__main__":
     import sys
+
     from PySide6.QtWidgets import QApplication
 
     app = QApplication([])

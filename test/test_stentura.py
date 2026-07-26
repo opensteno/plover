@@ -25,7 +25,7 @@ def make_response(seq, action, error=0, p1=0, p2=0, data=None, length=None):
     return response
 
 
-def make_read_response(seq, data=[]):
+def make_read_response(seq, data=b""):
     return make_response(seq, stentura._READC, p1=len(data), data=data)
 
 
@@ -91,7 +91,7 @@ class MockPacketPort:
     def write(self, data):
         self.writes += 1
         if self._requests and self._requests[self.writes - 1] != bytes(data):
-            raise Exception("Wrong packet.")
+            raise RuntimeError("Wrong packet.")
         self._current_response_offset = 0
         return len(data)
 
@@ -268,7 +268,7 @@ def test_read_data_simple():
     class MockPort:
         def read(self, count):
             if count != 5:
-                raise Exception("Incorrect number read.")
+                raise RuntimeError("Incorrect number read.")
             return b"12345"
 
     port = MockPort()
@@ -358,7 +358,7 @@ def test_read_packet_fail():
                 if self._set2:
                     self.event.set()
             else:
-                raise Exception("Already read data.")
+                raise RuntimeError("Already read data.")
             if self._give_timeout and len(self._data) == count:
                 # If read() returns less bytes what was requested,
                 # it indicates a timeout.
@@ -511,10 +511,10 @@ def test_loop():
             self.stop = stop
 
         def __repr__(self):
-            return "<{}, {}, {}>".format(self.count, self.data, self.stop)
+            return f"<{self.count}, {self.data}, {self.stop}>"
 
     class MockPort:
-        def __init__(self, events=[]):
+        def __init__(self, events=()):
             self._file = b""
             self._out = b""
             self._is_open = False
@@ -530,7 +530,7 @@ def test_loop():
                 self._is_open = True
             elif p["action"] == stentura._READC:
                 if not self._is_open:
-                    raise Exception("no open")
+                    raise RuntimeError("no open")
                 length, block, byte = p["p3"], p["p4"], p["p5"]
                 seq = p["seq"]
                 action = stentura._READC
@@ -579,7 +579,7 @@ def test_loop():
     for test in tests:
         read_data = []
 
-        def callback(data):
+        def callback(data, read_data=read_data):
             read_data.append(data)
 
         port = test[0]
@@ -587,7 +587,7 @@ def test_loop():
 
         ready_called = [False]
 
-        def ready():
+        def ready(ready_called=ready_called):
             ready_called[0] = True
 
         try:

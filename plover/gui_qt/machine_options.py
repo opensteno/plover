@@ -5,10 +5,10 @@ from PySide6.QtCore import Qt, Signal, Slot
 from PySide6.QtGui import (
     QIntValidator,
     QTextCharFormat,
-    QTextFrameFormat,
-    QTextListFormat,
     QTextCursor,
     QTextDocument,
+    QTextFrameFormat,
+    QTextListFormat,
 )
 from PySide6.QtWidgets import (
     QGroupBox,
@@ -16,18 +16,16 @@ from PySide6.QtWidgets import (
     QStyledItemDelegate,
     QToolTip,
 )
-
 from serial import Serial
 from serial.tools.list_ports import comports
 
 from plover import _
-from plover.oslayer.serial import patch_ports_info
+from plover.gui_qt.config_keyboard_widget_ui import Ui_KeyboardWidget
+from plover.gui_qt.config_plover_hid_widget_ui import Ui_PloverHidWidget
+from plover.gui_qt.config_serial_widget_ui import Ui_SerialWidget
 from plover.oslayer.config import PLATFORM
 from plover.oslayer.linux.display_server import DISPLAY_SERVER
-
-from plover.gui_qt.config_keyboard_widget_ui import Ui_KeyboardWidget
-from plover.gui_qt.config_serial_widget_ui import Ui_SerialWidget
-from plover.gui_qt.config_plover_hid_widget_ui import Ui_PloverHidWidget
+from plover.oslayer.serial import patch_ports_info
 
 
 def serial_port_details(port_info):
@@ -43,7 +41,7 @@ def serial_port_details(port_info):
         if value not in global_ignore:
             parts.append(fmt.format(value=value))
             local_ignore.add(value)
-    description = getattr(port_info, "description")
+    description = port_info.description
     if description not in local_ignore:
         parts.insert(0, _("description: {value}").format(value=description))
     if not parts:

@@ -9,8 +9,8 @@ except ImportError:
     import json
 
 from plover.dictionary.helpers import StenoNormalizer
-from plover.steno_dictionary import StenoDictionary
 from plover.steno import steno_to_sort_key
+from plover.steno_dictionary import StenoDictionary
 
 
 class JsonDictionary(StenoDictionary):
@@ -25,7 +25,7 @@ class JsonDictionary(StenoDictionary):
             else:
                 break
         else:
-            raise ValueError("'%s' encoding could not be determined" % (filename,))
+            raise ValueError(f"'{filename}' encoding could not be determined")
         d = dict(json.loads(contents))
         with StenoNormalizer(filename) as normalize_steno:
             self.update((normalize_steno(x[0]), x[1]) for x in d.items())

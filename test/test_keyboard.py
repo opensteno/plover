@@ -1,13 +1,13 @@
+from unittest import mock
+
 import pytest
+from plover.oslayer.keyboardcontrol import KeyboardCapture
 
 from plover import system
 from plover.machine.keyboard import Keyboard
 from plover.machine.keymap import Keymap
-from plover.oslayer.keyboardcontrol import KeyboardCapture
 from plover.oslayer.config import PLATFORM
 from plover.oslayer.linux.display_server import DISPLAY_SERVER
-
-from unittest import mock
 
 
 def send_input(capture, key_events):

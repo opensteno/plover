@@ -23,12 +23,11 @@ from plover.steno_dictionary import StenoDictionary
 
 from .rtfcre_parse import parse_rtfcre
 
-
 HEADER = (
     r"{\rtf1\ansi{\*\cxrev100}"
-    r"\cxdict{\*\cxsystem Plover %s}"
+    rf"\cxdict{{\*\cxsystem Plover {plover_version}}}"
     r"{\stylesheet{\s0 Normal;}}"
-) % plover_version
+)
 
 
 class RegexFormatter:
@@ -148,6 +147,6 @@ class RtfDictionary(StenoDictionary):
             for s, t in self.items():
                 s = "/".join(s)
                 t = translation_formatter.format(t)
-                entry = r"{\*\cxs %s}%s" % (s, t)
+                entry = rf"{{\*\cxs {s}}}{t}"
                 print(entry, file=fp)
             print("}", file=fp)

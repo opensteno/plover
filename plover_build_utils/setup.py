@@ -3,11 +3,12 @@ import importlib
 import os
 import subprocess
 import sys
+from importlib.metadata import PackageNotFoundError, distribution
+from typing import ClassVar
 
+import setuptools
 from setuptools.command.build_py import build_py
 from setuptools.command.develop import develop
-import setuptools
-from importlib.metadata import distribution, PackageNotFoundError
 
 
 class Command(setuptools.Command):
@@ -43,7 +44,7 @@ class Command(setuptools.Command):
         for cmd, py_version, dist_path in whl_cmd.distribution.dist_files:
             if cmd == "bdist_wheel":
                 return dist_path
-        raise Exception("could not find wheel path")
+        raise RuntimeError("could not find wheel path")
 
 
 # i18n support. {{{
@@ -51,10 +52,10 @@ class Command(setuptools.Command):
 
 def babel_options(package, resource_dir=None):
     if resource_dir is None:
-        localedir = "%s/messages" % package
+        localedir = f"{package}/messages"
     else:
-        localedir = "%s/%s" % (package, resource_dir)
-    template = "%s/%s.pot" % (localedir, package)
+        localedir = f"{package}/{resource_dir}"
+    template = f"{localedir}/{package}.pot"
     return {
         "compile_catalog": {
             "domain": package,
@@ -85,13 +86,11 @@ def babel_options(package, resource_dir=None):
 
 class BuildUi(Command):
     description = "build UI files"
-    user_options = [
+    user_options: ClassVar[list] = [
         ("force", "f", "force re-generation of all UI files"),
     ]
 
-    hooks = """
-    plover_build_utils.qt_ui_hooks:remove_ui_autoconnection
-    """.split()
+    hooks: ClassVar[list] = ["plover_build_utils.qt_ui_hooks:remove_ui_autoconnection"]
 
     def initialize_options(self):
         self.force = False
@@ -143,10 +142,7 @@ class BuildUi(Command):
     def run(self):
         self.run_command("egg_info")
         std_hook_prefix = __package__ + ".qt_ui_hooks:"
-        hooks_info = [
-            h[len(std_hook_prefix) :] if h.startswith(std_hook_prefix) else h
-            for h in self.hooks
-        ]
+        hooks_info = [h.removeprefix(std_hook_prefix) for h in self.hooks]
         if self.verbose:
             print("generating UI using hooks:", ", ".join(hooks_info))
         ei_cmd = self.get_finalized_command("egg_info")
@@ -165,7 +161,7 @@ class BuildUi(Command):
 
 
 class BuildPy(build_py):
-    build_dependencies = []
+    build_dependencies: ClassVar[list] = []
 
     def run(self):
         for command in self.build_dependencies:
@@ -179,7 +175,7 @@ class BuildPy(build_py):
 
 
 class Develop(develop):
-    build_dependencies = []
+    build_dependencies: ClassVar[list] = []
 
     def run(self):
         for command in self.build_dependencies:

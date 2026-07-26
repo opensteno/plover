@@ -8,7 +8,6 @@ import pytest
 from plover import __version__ as plover_version
 from plover.dictionary.rtfcre_dict import RtfDictionary, TranslationFormatter
 from plover.dictionary.rtfcre_parse import BadRtfError
-
 from plover_build_utils.testing import dictionary_test, parametrize
 
 
@@ -89,15 +88,15 @@ def rtf_load_test(*spec, xfail=False):
     assert 1 <= len(spec) <= 2
     if len(spec) == 2:
         # Conversion test.
-        rtf_entries = r"{\*\cxs S}%s" % spec[0]
-        dict_entries = '"S": %r' % spec[1]
+        rtf_entries = rf"{{\*\cxs S}}{spec[0]}"
+        dict_entries = f'"S": {spec[1]!r}'
     else:
         spec = textwrap.dedent(spec[0]).lstrip()
         if not spec:
             rtf_entries, dict_entries = "", ""
         else:
             rtf_entries, dict_entries = tuple(spec.rsplit("\n\n", 1))
-    kwargs = dict(marks=pytest.mark.xfail) if xfail else {}
+    kwargs = {"marks": pytest.mark.xfail} if xfail else {}
     return pytest.param(rtf_entries, dict_entries, **kwargs)
 
 
@@ -544,7 +543,7 @@ class TestRtfDictionary:
         rtf = "\r\n".join(
             [r"{\rtf1\ansi\cxdict{\*\cxrev100}{\*\cxsystem Fake Software}"]
             + [r"{\stylesheet"]
-            + [r"{\s%d %s;}" % (k, v) for k, v in rtf_styles.items()]
+            + [rf"{{\s{k} {v};}}" for k, v in rtf_styles.items()]
             + ["}", contents, "}", ""]
         )
         return rtf.encode("cp1252")

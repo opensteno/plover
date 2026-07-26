@@ -1,11 +1,11 @@
-from PySide6.QtGui import QImage, QTextDocument
 import re
-from PySide6.QtWidgets import QTextBrowser
-from PySide6.QtCore import QUrl, Signal
 
-from plover.plugins_manager.requests import CachedSession, CachedFuturesSession
+from PySide6.QtCore import QUrl, Signal
+from PySide6.QtGui import QImage, QTextDocument
+from PySide6.QtWidgets import QTextBrowser
 
 from plover import log
+from plover.plugins_manager.requests import CachedFuturesSession, CachedSession
 
 
 class InfoBrowser(QTextBrowser):

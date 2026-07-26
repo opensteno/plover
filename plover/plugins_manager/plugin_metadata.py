@@ -24,7 +24,7 @@ class PluginMetadata(
 ):
     @property
     def requirement(self):
-        return "%s==%s" % (self.name, self.version)
+        return f"{self.name}=={self.version}"
 
     @property
     def parsed_version(self):

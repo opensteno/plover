@@ -1,6 +1,6 @@
-from collections import deque
-import sys
 import re
+import sys
+from collections import deque
 
 from rtf_tokenize import RtfTokenizer
 
@@ -9,7 +9,7 @@ from plover import log
 
 class RtfParseError(Exception):
     def __init__(self, lnum, cnum, fmt, *fmt_args):
-        msg = "line %u, column %u: %s" % (lnum + 1, cnum + 1, fmt % fmt_args)
+        msg = f"line {lnum + 1}, column {cnum + 1}: {fmt % fmt_args}"
         super().__init__(msg)
 
 
@@ -311,7 +311,7 @@ def main(todo, filename):
             token = tokenizer.next_token()
             if token is None:
                 break
-            print("%3u:%-3u %r" % (tokenizer.lnum + 1, tokenizer.cnum + 1, token))
+            print(f"{tokenizer.lnum + 1:3}:{tokenizer.cnum + 1:<3} {token!r}")
     elif todo == "dump_parse":
         for mapping in parse_rtfcre(text):
             print(mapping)

@@ -140,7 +140,7 @@ def test_key_combo(key_name_to_key_code, instructions):
 
     def repr_key_events(events):
         assert isinstance(events, list)
-        return ["%s%s" % ("+" if pressed else "-", key) for key, pressed in events]
+        return ["{}{}".format("+" if pressed else "-", key) for key, pressed in events]
 
     for action, *args in instructions:
         if action == "parse":

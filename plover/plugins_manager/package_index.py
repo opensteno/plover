@@ -1,9 +1,8 @@
-from concurrent.futures import as_completed
 import json
 import os
+from concurrent.futures import as_completed
 
 from plover.plugins_manager.requests import CachedFuturesSession
-
 
 PYPI_URL = "https://pypi.org/pypi"
 REGISTRY_URL = "https://raw.githubusercontent.com/openstenoproject/plover_plugins_registry/master/registry.json"
@@ -26,9 +25,9 @@ def find_plover_plugins_releases(pypi_url=None, registry_url=None, capture=None)
             return
         all_releases[(name, version)] = None
         if version is None:
-            url = "%s/%s/json" % (pypi_url, name)
+            url = f"{pypi_url}/{name}/json"
         else:
-            url = "%s/%s/%s/json" % (pypi_url, name, version)
+            url = f"{pypi_url}/{name}/{version}/json"
         in_progress.add(session.get(url))
 
     with session:

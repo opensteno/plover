@@ -3,16 +3,14 @@
 
 """A module to handle logging."""
 
+import logging
 import os
 import sys
-import logging
 import traceback
-
-from logging.handlers import RotatingFileHandler
 from logging import INFO, WARNING
+from logging.handlers import RotatingFileHandler
 
 from plover.oslayer.config import CONFIG_DIR
-
 
 LOG_FORMAT = "%(asctime)s [%(threadName)s] %(levelname)s: %(message)s"
 LOG_FILENAME = os.path.realpath(os.path.join(CONFIG_DIR, "plover.log"))
@@ -36,7 +34,7 @@ class NoExceptionTracebackFormatter(logging.Formatter):
             record.exc_text = orig_exc_text
 
     def formatException(self, exc_info):
-        etype, evalue, tb = exc_info
+        etype, evalue, _tb = exc_info
         lines = traceback.format_exception_only(etype, evalue)
         return "".join(lines)
 

@@ -6,7 +6,6 @@
 import pytest
 
 from plover.steno_dictionary import StenoDictionary, StenoDictionaryCollection
-
 from plover_build_utils.testing import dictionary_test
 
 

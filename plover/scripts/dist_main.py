@@ -1,6 +1,6 @@
 import os
-import sys
 import subprocess
+import sys
 
 from plover.oslayer.config import CONFIG_DIR, PLATFORM, PLUGINS_PLATFORM
 

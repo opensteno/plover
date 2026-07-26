@@ -1,10 +1,10 @@
-from collections.abc import Sequence
 import os
 import re
+from collections.abc import Sequence
 
 from plover.oslayer.config import CONFIG_DIR
-from plover.resource import resource_filename
 from plover.registry import registry
+from plover.resource import resource_filename
 from plover.steno import Stroke
 
 

@@ -6,10 +6,10 @@ from .steno import steno_to_stroke
 from .steno_dictionary import dictionary_test
 
 __all__ = [
-    "blackbox_test",
-    "make_dict",
     "CaptureOutput",
+    "blackbox_test",
+    "dictionary_test",
+    "make_dict",
     "parametrize",
     "steno_to_stroke",
-    "dictionary_test",
 ]

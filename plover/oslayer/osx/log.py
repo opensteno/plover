@@ -1,5 +1,7 @@
-import objc
 import logging
+
+import objc
+
 from plover import log
 
 NSUserNotification = objc.lookUpClass("NSUserNotification")

@@ -8,8 +8,8 @@ import re
 import subprocess
 import sys
 
-from setuptools import setup
 from packaging.version import Version
+from setuptools import setup
 
 sys.path.insert(0, os.path.dirname(__file__))
 
@@ -23,10 +23,11 @@ __download_url__ = ""
 __license__ = ""
 
 with open(os.path.join(__software_name__, "__init__.py")) as fp:
-    exec(fp.read())
+    exec(fp.read())  # noqa: S102
+
+from typing import ClassVar
 
 from plover_build_utils.setup import BuildPy, BuildUi, Command, Develop, babel_options
-
 
 Develop.build_dependencies.append("build_py")
 BuildPy.build_dependencies.append("build_ui")
@@ -37,10 +38,7 @@ cmdclass = {
 }
 options = {}
 
-PACKAGE = "%s-%s" % (
-    __software_name__,
-    __version__,
-)
+PACKAGE = f"{__software_name__}-{__version__}"
 
 # Helpers. {{{
 
@@ -53,7 +51,7 @@ def get_version():
 
     # extend version with git revision if no tag is available - used for builds during development
     git_version = (
-        subprocess.check_output("git describe --tags --match=v[0-9]*".split())
+        subprocess.check_output(["git", "describe", "--tags", "--match=v[0-9]*"])
         .strip()
         .decode()
     )
@@ -72,7 +70,7 @@ def get_version():
 
 class BinaryDistWin(Command):
     description = "create distribution(s) for MS Windows"
-    user_options = [
+    user_options: ClassVar[list] = [
         ("trim", "t", "trim the resulting distribution to reduce size"),
         ("zipdir", "z", "create a zip of the resulting directory"),
         (
@@ -82,8 +80,8 @@ class BinaryDistWin(Command):
         ),
         ("bash=", None, "bash executable to use for running the build script"),
     ]
-    boolean_options = ["installer", "trim", "zipdir"]
-    extra_args = []
+    boolean_options: ClassVar[list] = ["installer", "trim", "zipdir"]
+    extra_args: ClassVar[list] = []
 
     def initialize_options(self):
         self.bash = None
@@ -117,9 +115,9 @@ if sys.platform.startswith("win32"):
 
 
 class Launch(Command):
-    description = "run %s from source" % __software_name__.capitalize()
+    description = f"run {__software_name__.capitalize()} from source"
     command_consumes_arguments = True
-    user_options = []
+    user_options: ClassVar[list] = []
 
     def initialize_options(self):
         self.args = None
@@ -150,7 +148,7 @@ cmdclass["launch"] = Launch
 class PatchVersion(Command):
     description = "patch package version from VCS"
     command_consumes_arguments = True
-    user_options = []
+    user_options: ClassVar[list] = []
 
     def initialize_options(self):
         self.args = []
@@ -214,8 +212,8 @@ cmdclass["patch_version"] = PatchVersion
 
 class BinaryDistApp(Command):
     description = "create an application bundle for Mac"
-    user_options = []
-    extra_args = []
+    user_options: ClassVar[list] = []
+    extra_args: ClassVar[list] = []
 
     def initialize_options(self):
         pass
@@ -231,14 +229,14 @@ class BinaryDistApp(Command):
 
 
 class BinaryDistDmg(Command):
-    user_options = [
+    user_options: ClassVar[list] = [
         (
             "skip-app-build",
             None,
             "skip building the app; assume dist/Plover.app already exists",
         ),
     ]
-    boolean_options = ["skip-app-build"]
+    boolean_options: ClassVar[list] = ["skip-app-build"]
 
     def initialize_options(self):
         self.skip_app_build = False
@@ -269,8 +267,8 @@ class BinaryDistDmg(Command):
 
 
 class NotarizeApp(Command):
-    user_options = []
-    extra_args = []
+    user_options: ClassVar[list] = []
+    extra_args: ClassVar[list] = []
 
     def initialize_options(self):
         pass
@@ -286,8 +284,8 @@ class NotarizeApp(Command):
 
 
 class NotarizeDmg(Command):
-    user_options = []
-    extra_args = []
+    user_options: ClassVar[list] = []
+    extra_args: ClassVar[list] = []
 
     def initialize_options(self):
         pass
@@ -330,7 +328,7 @@ if sys.platform.startswith("darwin"):
 
 class BinaryDistAppImage(Command):
     description = "create AppImage distribution for Linux"
-    user_options = [
+    user_options: ClassVar[list] = [
         ("docker", None, "use docker to run the build script"),
         (
             "no-update-tools",
@@ -338,7 +336,7 @@ class BinaryDistAppImage(Command):
             "don't try to update AppImage tools, only fetch missing ones",
         ),
     ]
-    boolean_options = ["docker", "no-update-tools"]
+    boolean_options: ClassVar[list] = ["docker", "no-update-tools"]
 
     def initialize_options(self):
         self.docker = False

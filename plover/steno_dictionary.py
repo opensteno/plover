@@ -46,7 +46,7 @@ class StenoDictionary:
         self.path = None
 
     def __str__(self):
-        return "%s(%r)" % (self.__class__.__name__, self.path)
+        return f"{self.__class__.__name__}({self.path!r})"
 
     def __repr__(self):
         return str(self)
@@ -55,7 +55,7 @@ class StenoDictionary:
     def create(cls, resource):
         assert not resource.startswith(ASSET_SCHEME)
         if cls.readonly:
-            raise ValueError("%s does not support creation" % cls.__name__)
+            raise ValueError(f"{cls.__name__} does not support creation")
         d = cls()
         d.path = resource
         return d
@@ -129,8 +129,7 @@ class StenoDictionary:
                 reverse[value].append(key)
                 casereverse[value.lower()].append(value)
                 key_len = len(key)
-                if key_len > longest_key:
-                    longest_key = key_len
+                longest_key = max(longest_key, key_len)
             self._longest_key = longest_key
         else:
             for iterable in iterable_list:
@@ -171,7 +170,7 @@ class StenoDictionary:
 
 
 class StenoDictionaryCollection:
-    def __init__(self, dicts=[]):
+    def __init__(self, dicts=()):
         self.dicts = []
         self.filters = []
         self.set_dicts(dicts)
@@ -181,7 +180,7 @@ class StenoDictionaryCollection:
         return max((d.longest_key for d in self.dicts if d.enabled), default=0)
 
     def set_dicts(self, dicts):
-        self.dicts = dicts[:]
+        self.dicts = list(dicts)
 
     def _lookup_keep_deleted(self, key, dicts=None, filters=()):
         """
@@ -201,9 +200,8 @@ class StenoDictionaryCollection:
             if key_len > d.longest_key:
                 continue
             value = d.get(key)
-            if value is not None:
-                if not any(f(key, value) for f in filters):
-                    return value
+            if value is not None and not any(f(key, value) for f in filters):
+                return value
 
     def _lookup(self, key, dicts=None, filters=()):
         """
@@ -234,9 +232,8 @@ class StenoDictionaryCollection:
             if key_len > d.longest_key:
                 continue
             value = d.get(key)
-            if value:
-                if not any(f(key, value) for f in filters):
-                    values.append((value, d))
+            if value and not any(f(key, value) for f in filters):
+                values.append((value, d))
         return values
 
     def __str__(self):

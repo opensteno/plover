@@ -1,10 +1,9 @@
 import sys
 
-from pygments.formatters import HtmlFormatter
 import readme_renderer.markdown
 import readme_renderer.rst
 import readme_renderer.txt
-
+from pygments.formatters import HtmlFormatter
 
 _RENDERERS = {
     None: readme_renderer.rst,
@@ -36,7 +35,5 @@ def running_under_virtualenv():
     if sys.prefix != getattr(sys, "base_prefix", sys.prefix):
         # venv
         return True
-    if hasattr(sys, "real_prefix"):
-        # virtualenv
-        return True
-    return False
+    # virtualenv
+    return hasattr(sys, "real_prefix")

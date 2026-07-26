@@ -19,17 +19,17 @@ write your desired dictionary format.
 
 from plover.steno_dictionary import StenoDictionary
 
+
 class ExampleDictionary(StenoDictionary):
+    readonly = False
 
-  readonly = False
+    def _load(self, filename):
+        # If you are not maintaining your own state format, self.update is usually
+        # called here to add strokes / definitions to the dictionary state.
+        pass
 
-  def _load(self, filename):
-    # If you are not maintaining your own state format, self.update is usually
-    # called here to add strokes / definitions to the dictionary state.
-    pass
-
-  def _save(self, filename):
-    pass
+    def _save(self, filename):
+        pass
 ```
 
 Note that setting `readonly` to `True` on your dictionary class will make
@@ -39,18 +39,17 @@ For example, a simplified version of the JSON dictionary implementation:
 
 ```python
 class JsonDictionary(StenoDictionary):
+    def _load(self, filename):
+        with open(filename) as fp:
+            d = dict(json.load(fp))
 
-  def _load(self, filename):
-    with open(filename) as fp:
-      d = dict(json.load(fp))
+            # Inserts the entries into the dictionary
+            self.update((normalize_steno(k), v) for k, v in d.items())
 
-      # Inserts the entries into the dictionary
-      self.update((normalize_steno(k), v) for k, v in d.items())
-
-  def _save(self, filename):
-    with open(filename, "w") as fp:
-      entries = [("/".join(k), v) for k, v in self.items()]
-      json.dump(entries, fp)
+    def _save(self, filename):
+        with open(filename, "w") as fp:
+            entries = [("/".join(k), v) for k, v in self.items()]
+            json.dump(entries, fp)
 ```
 
 Some dictionary formats, such as Python dictionaries, may require implementing

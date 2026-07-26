@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2013 Hesky Fisher
 # See LICENSE.txt for details.
 
@@ -7,19 +6,17 @@
 import argparse
 import atexit
 import os
-import sys
 import subprocess
+import sys
 import traceback
-
 from importlib.metadata import entry_points
 
-from plover.config import Config
-from plover.oslayer.controller import Controller
-from plover.oslayer.config import CONFIG_DIR, CONFIG_FILE, PLATFORM
-from plover.registry import registry
-from plover import log
 from plover import __name__ as __software_name__
-from plover import __version__
+from plover import __version__, log
+from plover.config import Config
+from plover.oslayer.config import CONFIG_DIR, CONFIG_FILE, PLATFORM
+from plover.oslayer.controller import Controller
+from plover.registry import registry
 
 
 def init_config_dir():
@@ -43,7 +40,7 @@ def main():
     parser.add_argument(
         "--version",
         action="version",
-        version="%s %s" % (__software_name__.capitalize(), __version__),
+        version=f"{__software_name__.capitalize()} {__version__}",
     )
     parser.add_argument(
         "-s",

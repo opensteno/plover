@@ -34,8 +34,8 @@ class Capture:
     # Callbacks for keyboard press/release events.
     def key_down(self, key: str) -> None:
         """Notifies Plover that a key was pressed down."""
-        return None
+        return
 
     def key_up(self, key: str) -> None:
         """Notifies Plover that a key was released."""
-        return None
+        return

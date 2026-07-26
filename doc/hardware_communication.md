@@ -32,18 +32,18 @@ should translate platform-specific events into calls to
 
 ```python
 class MyKeyboardCapture(Capture):
-  def start(self):
-    self._thread = threading.Thread(target=self._run)
-    self._thread.start()
+    def start(self):
+        self._thread = threading.Thread(target=self._run)
+        self._thread.start()
 
-  def _run(self):
-    while True:
-      key, pressed = ... # wait for key event
+    def _run(self):
+        while True:
+            key, pressed = ...  # wait for key event
 
-      if pressed:
-        self.key_down(key)
-      else:
-        self.key_up(key)
+            if pressed:
+                self.key_down(key)
+            else:
+                self.key_up(key)
 ```
 
 Plover's engine handles translating these calls into steno strokes, as well as
@@ -57,14 +57,11 @@ specified, by translating them to platform-specific input calls.
 
 ```python
 class MyKeyboardEmulation(Output):
-  def send_backspaces(self, num):
-    ...
+    def send_backspaces(self, num): ...
 
-  def send_string(self, s):
-    ...
+    def send_string(self, s): ...
 
-  def send_key_combination(self, combo):
-    ...
+    def send_key_combination(self, combo): ...
 ```
 
 ## Serial Protocols
@@ -81,12 +78,11 @@ and implement a way to parse each packet.
 
 ```python
 class MySerialMachine(SerialStenotypeBase):
-  KEYS_LAYOUT = """
+    KEYS_LAYOUT = """
     ...
   """
 
-  def run(self):
-    ...
+    def run(self): ...
 ```
 
 ## USB-based Protocols

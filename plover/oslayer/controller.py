@@ -1,8 +1,8 @@
-from multiprocessing import connection
-from threading import Thread
 import errno
 import os
 import tempfile
+from multiprocessing import connection
+from threading import Thread
 
 from plover import log
 from plover.oslayer.config import PLATFORM

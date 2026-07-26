@@ -1,25 +1,25 @@
-from threading import Thread
 import atexit
 import html
 import os
 import sys
+from threading import Thread
 
 from PySide6.QtCore import Qt, Signal, Slot
 from PySide6.QtWidgets import (
     QDialog,
+    QInputDialog,
     QMessageBox,
     QTableWidgetItem,
-    QInputDialog,
 )
 
 from plover import _, log
-from plover.gui_qt.tool import Tool
 from plover.gui_qt.info_browser import InfoBrowser
 from plover.gui_qt.plugins_manager_ui import Ui_PluginsManager
 from plover.gui_qt.run_dialog import RunDialog
+from plover.gui_qt.tool import Tool
+from plover.plugins_manager.__main__ import pip
 from plover.plugins_manager.registry import Registry
 from plover.plugins_manager.utils import description_to_html
-from plover.plugins_manager.__main__ import pip
 
 
 class PluginsManager(Tool, Ui_PluginsManager):
@@ -66,7 +66,7 @@ class PluginsManager(Tool, Ui_PluginsManager):
         self.table.setSortingEnabled(False)
         self.table.setRowCount(len(self._packages))
         for row, state in enumerate(self._packages):
-            for column, attr in enumerate("status name version summary".split()):
+            for column, attr in enumerate(["status", "name", "version", "summary"]):
                 value = getattr(state, attr, "N/A")
                 if attr == "status":
                     if value:
@@ -118,9 +118,8 @@ class PluginsManager(Tool, Ui_PluginsManager):
         metadata = self._get_state(current_item.row()).metadata
         if metadata is None or metadata.name is None:
             return
-        prologue = "<h1>%s (%s)</h1>" % (
-            html.escape(metadata.name),
-            html.escape(metadata.version),
+        prologue = (
+            f"<h1>{html.escape(metadata.name)} ({html.escape(metadata.version)})</h1>"
         )
         if metadata.author and metadata.author_email:
             # i18n: Metadata field.

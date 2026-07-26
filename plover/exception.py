@@ -11,5 +11,3 @@ loop and displayed to the user as an alert dialog.
 
 class InvalidConfigurationError(Exception):
     "Raised when there is something wrong in the configuration."
-
-    pass

@@ -1,22 +1,19 @@
+import operator
 from collections import namedtuple
 from pathlib import Path
 from textwrap import dedent
 from types import SimpleNamespace
-import operator
-
-from PySide6.QtCore import QModelIndex, QPersistentModelIndex, Qt
+from unittest import mock
 
 import pytest
+from PySide6.QtCore import QModelIndex, QPersistentModelIndex, Qt
 
 from plover.config import DictionaryConfig
 from plover.engine import ErroredDictionary
 from plover.gui_qt.dictionaries_widget import DictionariesModel, DictionariesWidget
-from plover.steno_dictionary import StenoDictionary, StenoDictionaryCollection
 from plover.misc import expand_path
-
+from plover.steno_dictionary import StenoDictionary, StenoDictionaryCollection
 from plover_build_utils.testing import parametrize
-
-from unittest import mock
 
 INVALID_EXCEPTION = Exception("loading error")
 
@@ -139,8 +136,7 @@ class ModelTest(
             icon = index.data(Qt.ItemDataRole.DecorationRole)
             path = index.data(Qt.ItemDataRole.DisplayRole)
             actual_state.append(
-                "%s %s %s"
-                % (
+                "{} {} {}".format(
                     ENABLED_TO_CHAR.get(is_checked, "?"),
                     ICON_TO_CHAR.get(icon, "?"),
                     path,
@@ -188,7 +184,7 @@ class ModelTest(
 def model_test(monkeypatch, request):
     state = request.function.__doc__
     # Patch configuration directory.
-    current_dir = Path(".").resolve()
+    current_dir = Path.cwd()
     monkeypatch.setattr("plover.misc.CONFIG_DIR", str(current_dir))
     monkeypatch.setattr(
         "plover.gui_qt.dictionaries_widget.CONFIG_DIR", str(current_dir)
@@ -201,12 +197,7 @@ def model_test(monkeypatch, request):
     # Dictionaries.
     dictionaries = StenoDictionaryCollection()
     # Fake engine.
-    engine = mock.MagicMock(
-        spec="""
-                            __enter__ __exit__
-                            config signal_connect
-                            """.split()
-    )
+    engine = mock.MagicMock(spec=["__enter__", "__exit__", "config", "signal_connect"])
     engine.__enter__.return_value = engine
     type(engine).config = config
     signals = mock.MagicMock()
@@ -216,12 +207,12 @@ def model_test(monkeypatch, request):
     }
     # Setup model.
     model = DictionariesModel(engine, {name: name for name in ICON_TO_CHAR}, max_undo=5)
-    for slot in """
-    dataChanged
-    layoutAboutToBeChanged
-    layoutChanged
-    has_undo_changed
-    """.split():
+    for slot in [
+        "dataChanged",
+        "layoutAboutToBeChanged",
+        "layoutChanged",
+        "has_undo_changed",
+    ]:
         getattr(model, slot).connect(getattr(signals, slot))
     connections = dict(call.args for call in engine.signal_connect.mock_calls)
     assert connections.keys() == {
@@ -287,7 +278,7 @@ def test_model_accessible_text_3(model_test):
     """
     ☑ ! invalid.bad
     """
-    expected = "invalid.bad, errored: %s." % INVALID_EXCEPTION
+    expected = f"invalid.bad, errored: {INVALID_EXCEPTION}."
     assert (
         model_test.model.index(0).data(Qt.ItemDataRole.AccessibleTextRole) == expected
     )
@@ -297,7 +288,7 @@ def test_model_accessible_text_4(model_test):
     """
     ☐ ! invalid.bad
     """
-    expected = "invalid.bad, disabled, errored: %s." % INVALID_EXCEPTION
+    expected = f"invalid.bad, disabled, errored: {INVALID_EXCEPTION}."
     assert (
         model_test.model.index(0).data(Qt.ItemDataRole.AccessibleTextRole) == expected
     )
@@ -912,12 +903,7 @@ def widget_test(model_test, monkeypatch, qtbot):
     registry.list_plugins.side_effect = list_plugins
     monkeypatch.setattr("plover.gui_qt.dictionaries_widget.registry", registry)
     # Fake file dialog.
-    file_dialog = mock.MagicMock(
-        spec="""
-                                 getOpenFileNames
-                                 getSaveFileName
-                                 """.split()
-    )
+    file_dialog = mock.MagicMock(spec=["getOpenFileNames", "getSaveFileName"])
     monkeypatch.setattr("plover.gui_qt.dictionaries_widget.QFileDialog", file_dialog)
 
     # Fake `create_dictionary`.
@@ -1000,19 +986,19 @@ def test_widget_selection(widget_test, selection, enabled_actions):
     ☑ ! invalid.bad
     """
     widget_test.select(selection)
-    for action_name in """
-    AddDictionaries
-    AddTranslation
-    EditDictionaries
-    MoveDictionariesDown
-    MoveDictionariesUp
-    RemoveDictionaries
-    SaveDictionaries
-    Undo
-    """.split():
+    for action_name in [
+        "AddDictionaries",
+        "AddTranslation",
+        "EditDictionaries",
+        "MoveDictionariesDown",
+        "MoveDictionariesUp",
+        "RemoveDictionaries",
+        "SaveDictionaries",
+        "Undo",
+    ]:
         action = getattr(widget_test.widget, "action_" + action_name)
         enabled = action.isEnabled()
-        msg = "%s is %s" % (action_name, "enabled" if enabled else "disabled")
+        msg = "{} is {}".format(action_name, "enabled" if enabled else "disabled")
         assert enabled == (action_name in enabled_actions), msg
 
 
@@ -1048,8 +1034,8 @@ def test_widget_save_copy_1(widget_test):
     assert widget_test.file_dialog.mock_calls == [
         mock.call.getSaveFileName(
             parent=widget_test.widget,
-            caption="Save a copy of %s as..." % name,
-            dir=expand_path("%s - Copy.json" % Path(name).stem),
+            caption=f"Save a copy of {name} as...",
+            dir=expand_path(f"{Path(name).stem} - Copy.json"),
             filter=FILE_PICKER_SAVE_FILTER,
         )
         for name in ["favorite.json", "normal.json", "read-only.ro"]
@@ -1085,7 +1071,7 @@ def test_widget_save_merge_1(widget_test):
     assert widget_test.file_dialog.mock_calls == [
         mock.call.getSaveFileName(
             parent=widget_test.widget,
-            caption="Merge %s as..." % merge_name,
+            caption=f"Merge {merge_name} as...",
             dir=expand_path(merge_name + ".json"),
             filter=FILE_PICKER_SAVE_FILTER,
         )
@@ -1120,7 +1106,7 @@ def test_widget_save_merge_2(widget_test):
     assert widget_test.file_dialog.mock_calls == [
         mock.call.getSaveFileName(
             parent=widget_test.widget,
-            caption="Merge %s as..." % merge_name,
+            caption=f"Merge {merge_name} as...",
             dir=expand_path(merge_name + ".json"),
             filter=FILE_PICKER_SAVE_FILTER,
         )

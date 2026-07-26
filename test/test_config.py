@@ -3,29 +3,29 @@
 
 """Unit tests for config.py."""
 
-from ast import literal_eval
-from contextlib import ExitStack
-from pathlib import Path
-from site import USER_BASE
-from string import Template
 import inspect
 import json
 import os
 import subprocess
 import sys
 import textwrap
+from ast import literal_eval
+from contextlib import ExitStack
+from pathlib import Path
+from site import USER_BASE
+from string import Template
+from typing import ClassVar
 
 import appdirs
 import pytest
 
-from plover.formatting import SPACE_PLACEMENT_BEFORE, SPACE_PLACEMENT_AFTER
-
 from plover import config
 from plover.config import DictionaryConfig
-from plover.oslayer.config import PLATFORM
+from plover.formatting import SPACE_PLACEMENT_AFTER, SPACE_PLACEMENT_BEFORE
 from plover.machine.keyboard import Keyboard
 from plover.machine.keymap import Keymap
 from plover.misc import expand_path
+from plover.oslayer.config import PLATFORM
 from plover.registry import Registry
 from plover.system import english_stenotype
 
@@ -76,10 +76,10 @@ class FakeSystem:
     NUMBER_KEY = english_stenotype.NUMBER_KEY
     NUMBERS = english_stenotype.NUMBERS
     UNDO_STROKE_STENO = english_stenotype.UNDO_STROKE_STENO
-    ORTHOGRAPHY_RULES = []
-    ORTHOGRAPHY_RULES_ALIASES = {}
+    ORTHOGRAPHY_RULES: ClassVar[list] = []
+    ORTHOGRAPHY_RULES_ALIASES: ClassVar[dict] = {}
     ORTHOGRAPHY_WORDLIST = None
-    KEYMAPS = {
+    KEYMAPS: ClassVar[dict] = {
         "Faky faky": english_stenotype.KEYMAPS["Keyboard"],
     }
     DEFAULT_DICTIONARIES = ("utilisateur.json", "principal.json")
@@ -167,13 +167,13 @@ CONFIG_TESTS = (
     ),
     (
         "simple_options",
-        """
+        f"""
      [Output Configuration]
      space_placement = {SPACE_PLACEMENT_AFTER}
      start_attached = true
      start_capitalized = yes
      undo_levels = 42
-     """.format(SPACE_PLACEMENT_AFTER=SPACE_PLACEMENT_AFTER),
+     """,
         dict_replace(
             DEFAULTS,
             {
@@ -190,13 +190,13 @@ CONFIG_TESTS = (
             "undo_levels": 200,
         },
         None,
-        """
+        f"""
      [Output Configuration]
      space_placement = {SPACE_PLACEMENT_BEFORE}
      start_attached = False
      start_capitalized = False
      undo_levels = 200
-     """.format(SPACE_PLACEMENT_BEFORE=SPACE_PLACEMENT_BEFORE),
+     """,
     ),
     (
         "machine_options",
@@ -247,7 +247,7 @@ CONFIG_TESTS = (
                 DictionaryConfig("principal.json"),
             ],
         },
-        """
+        f"""
      [Machine Configuration]
      auto_start = True
      machine_type = Faky faky
@@ -267,9 +267,8 @@ CONFIG_TESTS = (
      name = Faux système
 
      [System: Faux système]
-     keymap[faky faky] = %s
-     """
-        % DEFAULT_KEYMAP,
+     keymap[faky faky] = {DEFAULT_KEYMAP}
+     """,
     ),
     (
         "machine_bool_option",
@@ -356,9 +355,8 @@ CONFIG_TESTS = (
         "dictionaries",
         """
      [System: English Stenotype]
-     dictionaries = %s
-     """
-        % json.dumps([os.path.join(ABS_PATH, "user.json"), "english/main.json"]),
+     dictionaries = {}
+     """.format(json.dumps([os.path.join(ABS_PATH, "user.json"), "english/main.json"])),
         dict_replace(
             DEFAULTS,
             {
@@ -382,14 +380,15 @@ CONFIG_TESTS = (
         },
         """
      [System: English Stenotype]
-     dictionaries = %s
-     """
-        % json.dumps(
-            [
-                {"enabled": True, "path": os.path.join(ABS_PATH, "user.json")},
-                {"enabled": True, "path": os.path.join("english", "main.json")},
-            ],
-            sort_keys=True,
+     dictionaries = {}
+     """.format(
+            json.dumps(
+                [
+                    {"enabled": True, "path": os.path.join(ABS_PATH, "user.json")},
+                    {"enabled": True, "path": os.path.join("english", "main.json")},
+                ],
+                sort_keys=True,
+            )
         ),
     ),
     (
@@ -763,12 +762,11 @@ def test_config_dir(tree, expected_config_dir, tmpdir):
     # Check plover.oslayer.config.CONFIG_DIR is correctly set.
     config_dir = pyeval(
         dedent_strip(
-            """
-        __import__('sys').path.insert(0, %r)
+            f"""
+        __import__('sys').path.insert(0, {str(Path(config.__file__).parent.parent)!r})
         from plover.oslayer.config import CONFIG_DIR
         print(repr(CONFIG_DIR))
         """
-            % str(Path(config.__file__).parent.parent)
         )
     )
     expected_config_dir = path_expand(expected_config_dir)

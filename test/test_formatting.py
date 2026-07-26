@@ -9,10 +9,9 @@ import pytest
 
 from plover import formatting
 from plover.formatting import (
-    Case,
     SPACE_PLACEMENT_AFTER,
+    Case,
 )
-
 from plover_build_utils.testing import CaptureOutput, parametrize
 
 
@@ -22,13 +21,13 @@ def action(**kwargs):
     for k, v in list(kwargs.items()):
         if "_and_" in k:
             del kwargs[k]
-            for k in k.split("_and_"):
-                kwargs[k] = v
+            for sub_k in k.split("_and_"):
+                kwargs[sub_k] = v
     return formatting._Action(**kwargs)
 
 
 class MockTranslation:
-    def __init__(self, rtfcre=tuple(), english=None, formatting=None):
+    def __init__(self, rtfcre=(), english=None, formatting=None):
         self.rtfcre = rtfcre
         self.english = english
         self.formatting = formatting

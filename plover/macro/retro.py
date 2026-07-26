@@ -1,6 +1,6 @@
-from plover.translation import Translation
-from plover.steno import Stroke
 from plover import system
+from plover.steno import Stroke
+from plover.translation import Translation
 
 
 def toggle_asterisk(translator, stroke, cmdline):
@@ -33,7 +33,7 @@ def delete_space(translator, stroke, cmdline):
         if t.english is not None:
             english.append(t.english)
         elif len(t.rtfcre) == 1 and t.rtfcre[0].isdigit():
-            english.append("{&%s}" % t.rtfcre[0])
+            english.append(f"{{&{t.rtfcre[0]}}}")
     if len(english) > 1:
         t = Translation([stroke], "{^~|^}".join(english))
         t.replaced = replaced

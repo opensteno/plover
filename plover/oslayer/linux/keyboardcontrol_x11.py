@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright (c) 2010 Joshua Harlan Lifton.
 # See LICENSE.txt for details.
@@ -25,7 +24,7 @@ import os
 import select
 import threading
 
-from Xlib import X, XK
+from Xlib import XK, X
 from Xlib.display import Display
 from Xlib.ext import xinput, xtest
 from Xlib.ext.ge import GenericEventCode
@@ -34,7 +33,6 @@ from plover import log
 from plover.key_combo import add_modifiers_aliases, parse_key_combo
 from plover.machine.keyboard_capture import Capture
 from plover.output.keyboard import GenericKeyboardEmulation
-
 
 # Enable support for media keys.
 XK.load_keysym_group("xf86")
@@ -258,7 +256,7 @@ class KeyboardCapture(Capture):
         self._event_loop = XEventLoop(self._on_event, name="KeyboardCapture")
         with self._event_loop as display:
             if not display.has_extension("XInputExtension"):
-                raise Exception(
+                raise RuntimeError(
                     "X11's XInput extension is required, but could not be found."
                 )
             self._update_devices(display)
@@ -1137,12 +1135,10 @@ class KeyboardEmulation(GenericKeyboardEmulation):
             self.custom_mapping = custom_mapping
 
         def __str__(self):
-            return "%u:%x=%x[%s]%s" % (
-                self.keycode,
-                self.modifiers,
-                self.keysym,
-                keysym_to_string(self.keysym),
-                "" if self.custom_mapping is None else "*",
+            return (
+                f"{self.keycode}:{self.modifiers:x}={self.keysym:x}"
+                f"[{keysym_to_string(self.keysym)}]"
+                f"{'' if self.custom_mapping is None else '*'}"
             )
 
     # We can use the first 2 entry of a X11 mapping:

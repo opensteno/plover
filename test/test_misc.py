@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2016 Open Steno Project
 # See LICENSE.txt for details.
 
@@ -9,10 +8,9 @@ import os
 
 import pytest
 
-import plover.misc as misc
 import plover.oslayer.config as conf
+from plover import misc
 from plover.resource import ASSET_SCHEME
-
 from plover_build_utils.testing import parametrize
 
 
@@ -61,7 +59,7 @@ def test_dictionary_path(short_path, full_path):
         # Expand.
         (short_path, "expand", full_path),
     ):
-        function = "%s_path" % function
+        function = f"{function}_path"
         result = getattr(misc, function)(input)
         assert result == expected, function
 

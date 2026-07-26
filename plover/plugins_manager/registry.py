@@ -1,7 +1,5 @@
-from plover import log, __version__
-
+from plover import __version__, log
 from plover.plugins_manager import global_registry, local_registry
-
 from plover.plugins_manager.requests import CachedFuturesSession
 
 
@@ -90,7 +88,7 @@ class Registry:
                     f'Failed to parse unsupported plover version "{unsupported_plover_version}" from plugin metadata'
                 ) from e
         else:
-            raise ValueError(
+            raise TypeError(
                 f'Unknown format for unsupported plover version "{unsupported_plover_version}" from plugin metadata'
             )
 

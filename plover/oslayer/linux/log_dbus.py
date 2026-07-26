@@ -1,11 +1,11 @@
-from contextlib import contextmanager
 import ctypes.util
-import os
 import logging
+import os
+from contextlib import contextmanager
 
-from plover import log, __name__ as __software_name__
+from plover import __name__ as __software_name__
+from plover import log
 from plover.oslayer.config import ASSETS_DIR
-
 
 APPNAME = ctypes.c_char_p(__software_name__.capitalize().encode())
 APPICON = ctypes.c_char_p(os.path.join(ASSETS_DIR, "plover.png").encode())
@@ -167,9 +167,7 @@ class DBusNotificationHandler(logging.Handler):
         error_init(error)
         bus = bus_get(DBUS_BUS_SESSION, ctypes.byref(error))
         if error_is_set(error):
-            e = ConnectionError(
-                "%s: %s" % (error.name.decode(), error.message.decode())
-            )
+            e = ConnectionError(f"{error.name.decode()}: {error.message.decode()}")
             error_free(error)
             raise e
         assert bus is not None
@@ -217,8 +215,7 @@ class DBusNotificationHandler(logging.Handler):
     def handle(self, record):
         level = record.levelno
         message = self.format(record)
-        if message.endswith("\n"):
-            message = message[:-1]
+        message = message.removesuffix("\n")
         if level <= log.INFO:
             timeout = 10
             urgency = NOTIFY_URGENCY_LOW

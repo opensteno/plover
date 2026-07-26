@@ -1,10 +1,9 @@
 from PySide6.QtCore import QEvent, Qt, Slot
 
 from plover import _
-from plover.translation import unescape_translation
-
 from plover.gui_qt.lookup_dialog_ui import Ui_LookupDialog
 from plover.gui_qt.tool import Tool
+from plover.translation import unescape_translation
 
 
 class LookupDialog(Tool, Ui_LookupDialog):
@@ -26,12 +25,10 @@ class LookupDialog(Tool, Ui_LookupDialog):
         self.finished.connect(self.save_state)
 
     def eventFilter(self, watched, event):
-        if event.type() == QEvent.Type.KeyPress and event.key() in (
-            Qt.Key.Key_Enter,
-            Qt.Key.Key_Return,
-        ):
-            return True
-        return False
+        return bool(
+            event.type() == QEvent.Type.KeyPress
+            and event.key() in (Qt.Key.Key_Enter, Qt.Key.Key_Return)
+        )
 
     def _update_suggestions(self, suggestion_list):
         self.suggestions.clear()

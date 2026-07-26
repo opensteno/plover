@@ -6,7 +6,7 @@ import zipfile
 
 
 def zipdir(directory, compression=zipfile.ZIP_DEFLATED):
-    zipname = "%s.zip" % directory
+    zipname = f"{directory}.zip"
     prefix = os.path.dirname(directory)
     with zipfile.ZipFile(zipname, "w", compression) as zf:
         for dirpath, dirnames, filenames in os.walk(directory):

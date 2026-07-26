@@ -1,13 +1,14 @@
-from dataclasses import dataclass
-from typing import Sequence
-import string
 import contextlib
 import mmap
 import os
+import string
 import threading
+from collections.abc import Sequence
+from dataclasses import dataclass
 
+from evdev import ecodes as e
+from evdev import util
 from xkbcommon import xkb
-from evdev import ecodes as e, util
 
 from plover.key_combo import add_modifiers_aliases
 from plover.oslayer.linux.wayland_connection import (
@@ -96,7 +97,7 @@ def get_modifier_keycodes(keymap: xkb.Keymap) -> list[list[int]]:
 
         num_layouts = keymap.num_layouts_for_key(keycode)
 
-        for layout in range(0, num_layouts):
+        for layout in range(num_layouts):
             layout_is_active = keyboard_state.layout_index_is_active(
                 layout, xkb.StateComponent.XKB_STATE_LAYOUT_EFFECTIVE
             )
@@ -398,7 +399,7 @@ HANDLED_EV_KEYCODE_TO_KEY = {
 }
 
 # Make sure no keys missing. The last 3 are "\r\x0b\x0c" which don't need to be mapped.
-assert all(c in LAYOUTS[DEFAULT_LAYOUT].keys() for c in string.printable[:-3])
+assert all(c in LAYOUTS[DEFAULT_LAYOUT] for c in string.printable[:-3])
 
 if __name__ == "__main__":
     xkb_keymap = get_wayland_keymap(GET_WAYLAND_KEYMAP_TIMEOUT_SECONDS)

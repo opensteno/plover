@@ -1,7 +1,6 @@
 import locale
 import os
 
-
 # Note: highest priority first.
 LANG_ENV_VARS = ("LC_ALL", "LC_MESSAGES", "LANG")
 

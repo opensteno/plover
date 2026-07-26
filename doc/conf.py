@@ -1,6 +1,8 @@
 # Configuration file for the Sphinx documentation builder.
-from pygments.lexer import RegexLexer, bygroups
+from typing import ClassVar
+
 from pygments import token as t
+from pygments.lexer import RegexLexer, bygroups
 from sphinx.highlighting import lexers
 
 # -- Project information -----------------------------------------------------
@@ -78,7 +80,7 @@ html_theme_options = {
 class RTFLexer(RegexLexer):
     name = "rtf"
 
-    tokens = {
+    tokens: ClassVar[dict] = {
         "root": [
             (r"(\\[a-z*\\_~\{\}]+)(-?\d+)?", bygroups(t.Keyword, t.Number.Integer)),
             (r"{\\\*\\cxcomment\s+", t.Comment.Multiline, "comment"),

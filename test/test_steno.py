@@ -7,10 +7,8 @@ import inspect
 
 import pytest
 
-from plover.steno import normalize_steno, Stroke
-
+from plover.steno import Stroke, normalize_steno
 from plover_build_utils.testing import parametrize
-
 
 NORMALIZE_TESTS = (
     lambda: ("S", ("S",)),
@@ -78,7 +76,7 @@ def test_normalize_steno(mode, steno, expected):
             return
         expected = expected[1]
     result = normalize_steno(steno, **kwargs)
-    msg = "normalize_steno(%r, %s)=%r != %r" % (steno, mode, result, expected)
+    msg = f"normalize_steno({steno!r}, {mode})={result!r} != {expected!r}"
     assert result == expected, msg
 
 

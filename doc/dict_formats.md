@@ -121,18 +121,18 @@ LONGEST_KEY = 1
 
 
 def lookup(outline):
-  assert len(outline) == 1
+    assert len(outline) == 1
 
-  stroke = outline[0]
-  if stroke == "KP-PL":
-    return "example"
-  else:
-    raise KeyError
+    stroke = outline[0]
+    if stroke == "KP-PL":
+        return "example"
+    else:
+        raise KeyError
 
 
 def reverse_lookup(translation):
-  if translation == "example":
-    return [("KP-PL",)]
-  else:
-    return []
+    if translation == "example":
+        return [("KP-PL",)]
+    else:
+        return []
 ```

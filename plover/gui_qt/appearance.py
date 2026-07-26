@@ -1,15 +1,14 @@
-from typing import Optional
-from plover import log
-
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QGuiApplication
+
+from plover import log
 
 MODE_SYSTEM = "system"
 MODE_LIGHT = "light"
 MODE_DARK = "dark"
 
 
-def _set_mode(mode: Optional[str]) -> None:
+def _set_mode(mode: str | None) -> None:
     """Apply the requested mode to the current Qt application.
 
     This function tweaks Qt's idea of the platform color scheme via

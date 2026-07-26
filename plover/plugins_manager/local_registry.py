@@ -1,10 +1,10 @@
 from collections import defaultdict
-
-from pkginfo.distribution import Distribution as Metadata
 from importlib.metadata import distributions
 
-from plover.plugins_manager.plugin_metadata import PluginMetadata
+from pkginfo.distribution import Distribution as Metadata
+
 from plover import log
+from plover.plugins_manager.plugin_metadata import PluginMetadata
 
 
 def list_plugins():
@@ -39,4 +39,4 @@ def list_plugins():
         plugins[dist.metadata["Name"].lower()].append(plugin_metadata)
 
     # Sort and return plugins
-    return {name: list(sorted(versions)) for name, versions in plugins.items()}
+    return {name: sorted(versions) for name, versions in plugins.items()}

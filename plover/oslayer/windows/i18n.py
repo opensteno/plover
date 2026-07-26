@@ -1,5 +1,4 @@
 import locale
-
 from ctypes import windll
 
 

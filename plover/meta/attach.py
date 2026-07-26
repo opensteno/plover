@@ -1,9 +1,9 @@
 from os.path import commonprefix
 
 from plover.formatting import (
-    Case,
     META_ATTACH_FLAG,
     META_CARRY_CAPITALIZATION,
+    Case,
     has_word_boundary,
     rightmost_word,
 )

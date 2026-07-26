@@ -2,9 +2,7 @@
 # See LICENSE.txt for details.
 
 from plover.orthography import add_suffix
-
 from plover_build_utils.testing import parametrize
-
 
 ADD_SUFFIX_TESTS = (
     lambda: ("artistic", "ly", "artistically"),

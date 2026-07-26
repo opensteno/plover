@@ -29,7 +29,7 @@ def _cmdline_to_dict(cmdline):
         return opt_dict
     except (AssertionError, SyntaxError, ValueError) as e:
         raise ValueError(
-            'Bad command string "%s" for PLOVER:SET_CONFIG.\n' % cmdline
+            f'Bad command string "{cmdline}" for PLOVER:SET_CONFIG.\n'
             + "See for reference:\n\n"
             + set_config.__doc__
         ) from e

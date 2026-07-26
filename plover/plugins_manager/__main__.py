@@ -1,8 +1,8 @@
-import os
-import subprocess
-import site
-import sys
 import itertools
+import os
+import site
+import subprocess
+import sys
 
 from plover.plugins_manager import global_registry, local_registry
 from plover.plugins_manager.utils import running_under_virtualenv
@@ -48,7 +48,7 @@ def pip(args, stdin=None, stdout=None, stderr=None, **kwargs):
             )
         )
     else:
-        raise ValueError("invalid command: %s" % command)
+        raise ValueError(f"invalid command: {command}")
     cmd.extend(args)
     return subprocess.Popen(
         cmd, env=env, stdin=stdin, stdout=stdout, stderr=stderr, **kwargs
@@ -70,13 +70,13 @@ def list_plugins(freeze=False):
         info = latest or current
         if freeze:
             if current:
-                print("%s==%s" % (current.name, current.version))
+                print(f"{current.name}=={current.version}")
             continue
-        print("%s (%s)  - %s" % (info.name, info.version, info.summary))
+        print(f"{info.name} ({info.version})  - {info.summary}")
         if current:
-            print("  INSTALLED: %s" % current.version)
+            print(f"  INSTALLED: {current.version}")
             if latest:
-                print("  LATEST:    %s" % latest.version)
+                print(f"  LATEST:    {latest.version}")
 
 
 def main(args=None):

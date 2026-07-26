@@ -1,9 +1,9 @@
-from distutils import sysconfig
 import sys
+from distutils import sysconfig
 
 print(
     "; ".join(
-        "py%s=%r" % (k, v)
+        f"py{k}={v!r}"
         for k, v in sorted(
             {
                 "exe": sys.executable,
