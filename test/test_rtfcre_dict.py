@@ -483,6 +483,14 @@ RTF_LOAD_TESTS = (
         'KPWHA': '\uc18d',
         """
     ),
+    # `\ucN` fallback characters after an escape are skipped.
+    lambda: rtf_load_test(
+        r"""
+        {\*\cxs TPA*}ph\u7903 ?
+
+        'TPA*': 'ph\u1edf',
+        """
+    ),
 )
 
 
