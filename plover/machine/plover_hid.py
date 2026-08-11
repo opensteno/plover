@@ -245,7 +245,7 @@ class PloverHid(ThreadedStenotypeBase):
             try:
                 current = self._parse(report)
             except InvalidReport:
-                log.error("invalid report")
+                log.debug("Invalid Plover HID report.")
                 continue
 
             press_started = time.time()
