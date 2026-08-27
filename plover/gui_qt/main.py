@@ -86,13 +86,9 @@ class Application:
 
 def show_error(title, message):
     print(f"{title}: {message}")
-    app = QApplication.instance()
-    owns_app = app is None
-    if owns_app:
-        app = QApplication([])
+    if QApplication.instance() is None:
+        QApplication([])
     QMessageBox.critical(None, title, message)
-    if owns_app:
-        del app
 
 
 def default_excepthook(*exc_info):
