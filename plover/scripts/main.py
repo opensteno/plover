@@ -158,6 +158,7 @@ def main():
                     # Assume the previous instance died, leaving
                     # a stray socket, try cleaning it...
                     if not controller.force_cleanup():
+                        log.error("force cleaning failed")
                         raise
                     # ...and restart.
                     code = -1
