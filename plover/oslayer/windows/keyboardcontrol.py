@@ -561,15 +561,19 @@ class KeyboardEmulation(GenericKeyboardEmulation):
 
     # Keyboard input type to send key input
     @staticmethod
-    def _keyboard_input(code, flags):
+    def _keyboard_input(code, scancode, flags):
         if flags & KEYEVENTF_UNICODE:
-            # special handling of Unicode characters
+            # special handling of Unicode characters (scancode discarded)
             return KEYBDINPUT(0, code, flags, 0, None)
-        return KEYBDINPUT(code, 0, flags, 0, None)
+        return KEYBDINPUT(code, scancode, flags, 0, None)
 
     # Abstraction to set flags to 0 and create an input type
     def _keyboard(self, code, flags=0):
-        return self._input(self._keyboard_input(code, flags))
+        return self._input(
+            self._keyboard_input(
+                code, self.keyboard_layout.vk_to_sc_with_fallback.get(code, 0), flags
+            )
+        )
 
     def _key_event(self, keycode, pressed):
         flags = 0 if pressed else KEYEVENTF_KEYUP
