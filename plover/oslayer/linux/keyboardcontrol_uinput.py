@@ -1,3 +1,5 @@
+import ctypes
+import ctypes.util
 import os
 import selectors
 import threading
@@ -13,7 +15,6 @@ from evdev import (
 from evdev import (
     ecodes as e,
 )
-from psutil import process_iter
 
 from plover import log
 from plover.key_combo import parse_key_combo
@@ -30,6 +31,11 @@ from plover.oslayer.linux.keyboardlayout_wayland import (
     get_modifier_keycodes,
     get_wayland_keymap,
 )
+from plover.oslayer.linux.log_dbus import (
+    DBUS_BUS_SESSION,
+    DBusError,
+    ctypes_func,
+)
 from plover.output.keyboard import GenericKeyboardEmulation
 
 # EV keycodes of keys considered modifiers when not able to automatically be
@@ -44,6 +50,9 @@ DEFAULT_MODIFIER_EV_KEYCODES: set[int] = {
     e.KEY_LEFTMETA,
     e.KEY_RIGHTMETA,
 }
+
+
+IME_DBUS_NAMES = ("org.freedesktop.IBus", "org.fcitx.Fcitx5")
 
 
 def get_available_devices():
@@ -78,10 +87,45 @@ class KeyboardEmulation(GenericKeyboardEmulation):
         self._ui = UInput(res)
 
         # Check that ibus or fcitx5 is running
-        if not any(p.name() in ["ibus-daemon", "fcitx5"] for p in process_iter()):
-            log.warning(
-                "It appears that an input method, such as ibus or fcitx5, is not running on your system. Without this, some text may not be output correctly."
-            )
+        libname = ctypes.util.find_library("dbus-1")
+        if libname is None:
+            log.warning("Unable to find libdbus to probe for ibus and fcitx5")
+        else:
+            libdbus = ctypes.cdll.LoadLibrary(libname)
+            try:
+                error_init = ctypes_func(libdbus, "void dbus_error_init error_p")
+                error_is_set = ctypes_func(libdbus, "bool dbus_error_is_set error_p")
+                error_free = ctypes_func(libdbus, "void dbus_error_free error_p")
+                bus_get = ctypes_func(libdbus, "connection_p dbus_bus_get uint error_p")
+                bus_name_has_owner = ctypes_func(
+                    libdbus, "bool dbus_bus_name_has_owner connection_p char_p error_p"
+                )
+            except AttributeError:
+                log.warning("Unable to load libdbus symbols")
+            else:
+                error = DBusError()
+                error_init(error)
+                bus = bus_get(DBUS_BUS_SESSION, ctypes.byref(error))
+                if error_is_set(error):
+                    log.warning(f"Unable to connect to session bus: {error}")
+                    error_free(error)
+                elif bus is None:
+                    log.warning("Unable to connect to session bus (returned null)")
+                else:
+                    for name in IME_DBUS_NAMES:
+                        error_init(error)
+                        has_owner = bus_name_has_owner(
+                            bus, ctypes.c_char_p(name.encode()), ctypes.byref(error)
+                        )
+                        if error_is_set(error):
+                            error_free(error)
+                        elif has_owner:
+                            log.info(f"Found IME on D-Bus: ${name}")
+                            break
+                    else:
+                        log.warning(
+                            "It appears that an input method, such as ibus or fcitx5, is not running on your system. Without this, some text may not be output correctly."
+                        )
 
         self._key_to_keycodeinfo = {}
 
