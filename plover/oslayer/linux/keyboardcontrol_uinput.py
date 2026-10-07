@@ -167,7 +167,8 @@ class KeyboardEmulation(GenericKeyboardEmulation):
         if base is not None:
             for mod in mods:
                 self._press_key(mod, True)
-            self.delay()
+            if mods:
+                self.delay()
             self._press_key(base, True)
             self._press_key(base, False)
             for mod in mods:
@@ -199,7 +200,7 @@ class KeyboardEmulation(GenericKeyboardEmulation):
             self._send_char(key)
 
     def send_backspaces(self, count):
-        for _ in range(count):
+        for _ in self.with_delay(range(count)):
             self._send_char("\b")
 
     def send_key_combination(self, combo):
