@@ -27,8 +27,16 @@ class Controller:
 
     def force_cleanup(self):
         assert not self.is_owner
-        if PLATFORM != "win" and os.path.exists(self._address):
-            os.unlink(self._address)
+        if PLATFORM != "win":
+            try:
+                os.unlink(self._address)
+            except FileNotFoundError:
+                # possible race condition: a ConnectionResetError might be caused
+                # by the previous instance dying just as this instance tries to
+                # connect to it. In that case self._address would have existed
+                # at the creation of controller but now no longer exists.
+                # We ignore the error
+                pass
             return True
         return False
 
