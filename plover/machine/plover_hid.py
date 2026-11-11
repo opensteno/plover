@@ -16,7 +16,14 @@ from dataclasses import dataclass
 from queue import Empty, Queue
 from typing import Any
 
-import hid
+if platform.system() == "Linux":
+    # Prefer hidraw: the libusb-backed "hid" reports usage 0 on Linux, hidraw doesn't.
+    try:
+        import hidraw as hid
+    except ImportError:
+        import hid
+else:
+    import hid
 
 from plover import log
 from plover.machine.base import ThreadedStenotypeBase
