@@ -16,13 +16,15 @@ from dataclasses import dataclass
 from queue import Empty, Queue
 from typing import Any
 
-if platform.system() == "Linux":
-    # Prefer hidraw: the libusb-backed "hid" reports usage 0 on Linux, hidraw doesn't.
-    try:
-        import hidraw as hid
-    except ImportError:
-        import hid
-else:
+# - `hid` uses libusb, which reports usage_page/usage as 0, so the Plover HID
+#   interface (usage page 0xFF50, usage 0x4C56) is never matched.
+# - `hidraw` uses the kernel's hidraw driver, which reports them correctly
+#   (and also supports Bluetooth devices).
+# Other platforms and other builds of hidapi (e.g. distro packages) may not
+# have `hidraw`; there `hid` is used, which already reports usage correctly.
+try:
+    import hidraw as hid
+except ImportError:
     import hid
 
 from plover import log

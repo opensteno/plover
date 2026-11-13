@@ -18,10 +18,9 @@ def fake_hid_module(name):
 def reload_plover_hid(monkeypatch):
     """Import `plover.machine.plover_hid` with fake `hid`/`hidraw` modules."""
 
-    def reload(system, *, hid=True, hidraw=True):
-        monkeypatch.setattr("platform.system", lambda: system)
+    def reload(*, hidraw=True):
+        monkeypatch.setitem(sys.modules, "hid", fake_hid_module("hid"))
         # `None` makes the import machinery raise ImportError.
-        monkeypatch.setitem(sys.modules, "hid", fake_hid_module("hid") if hid else None)
         monkeypatch.setitem(
             sys.modules, "hidraw", fake_hid_module("hidraw") if hidraw else None
         )
@@ -33,17 +32,11 @@ def reload_plover_hid(monkeypatch):
     sys.modules.pop(MODULE, None)
 
 
-def test_linux_prefers_hidraw_backend(reload_plover_hid):
-    module = reload_plover_hid("Linux")
+def test_prefers_hidraw_backend(reload_plover_hid):
+    module = reload_plover_hid()
     assert module.hid.__name__ == "hidraw"
 
 
-def test_linux_falls_back_to_hid_without_hidraw(reload_plover_hid):
-    module = reload_plover_hid("Linux", hidraw=False)
-    assert module.hid.__name__ == "hid"
-
-
-@pytest.mark.parametrize("system", ["Windows", "Darwin"])
-def test_other_platforms_use_hid_backend(reload_plover_hid, system):
-    module = reload_plover_hid(system)
+def test_falls_back_to_hid_without_hidraw(reload_plover_hid):
+    module = reload_plover_hid(hidraw=False)
     assert module.hid.__name__ == "hid"
