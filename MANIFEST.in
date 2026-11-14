@@ -34,6 +34,7 @@ recursive-include test *.py
 include tox.ini
 include windows/*
 exclude .pre-commit-config.yaml
+exclude .python-version
 prune doc/_build
 # without first including it, exluding .readthedocs.yml results in a warning when running locally
 include .readthedocs.yml
