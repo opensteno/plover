@@ -10,7 +10,7 @@ action_download_artifact: actions/download-artifact@v8
 
 skippy_enabled: true
 
-default_python: 3.13.3
+default_python: 3.13.17
 
 vars:
   - &dist_linux
