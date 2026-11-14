@@ -5,11 +5,11 @@ import re
 KEYNAME_TO_CHAR = {
     # Generated using:
     #
-    # from Xlib import XK
+    # from xcffib import keysymdef
     # from plover.oslayer.linux.keyboardcontrol_x11 import keysym_to_string
     # for kn, ks in sorted({
-    #     name[3:].lower(): getattr(XK, name)
-    #     for name in sorted(dir(XK))
+    #     name[3:].lower(): getattr(keysymdef, name)
+    #     for name in sorted(dir(keysymdef))
     #     if name.startswith('XK_')
     # }.items()):
     #     us = keysym_to_string(ks)

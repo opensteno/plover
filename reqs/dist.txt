@@ -9,7 +9,7 @@ pyobjc-core; "darwin" in sys_platform
 pyobjc-framework-Cocoa; "darwin" in sys_platform
 pyobjc-framework-Quartz; "darwin" in sys_platform
 pyserial
-python-xlib; ("linux" in sys_platform or "bsd" in sys_platform)
+xcffib; ("linux" in sys_platform or "bsd" in sys_platform)
 evdev; "linux" in sys_platform or "bsd" in sys_platform
 packaging
 psutil; "linux" in sys_platform or "bsd" in sys_platform

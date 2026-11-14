@@ -50,7 +50,7 @@ PySide6-Essentials==6.12.0
 pyserial==3.5
 pytest==8.3.5
 pytest-qt==4.4.0
-python-xlib==0.33
+xcffib==1.13.0
 pytz==2025.2
 PyYAML==6.0.2
 readme-renderer==44.0
