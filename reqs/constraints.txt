@@ -52,7 +52,7 @@ pytest-qt==4.4.0
 python-xlib==0.33
 pytz==2025.2
 PyYAML==6.0.2
-readme-renderer==44.0
+readme-renderer==46.0
 requests==2.32.3
 requests-cache==1.2.1
 requests-futures==1.0.2
