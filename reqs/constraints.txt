@@ -12,7 +12,6 @@ charset-normalizer==3.4.1
 check-manifest==0.50
 click==8.1.8
 click-default-group==1.2.4
-cmarkgfm==2024.11.20
 colorama==0.4.6
 cryptography==44.0.2
 dmgbuild==1.6.7
