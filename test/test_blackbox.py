@@ -1744,6 +1744,25 @@ class TestsBlackbox:
         T-   ' true true TRUE'
         """
 
+    def test_undo_restores_conditional_and_following_word(self):
+        r"""
+        "1": "{=[aeiou]/an/a}",
+        "2": "apple",
+        "1/2/3": "override",
+
+        1  ' a'
+        2  ' an apple'
+        3  ' override'
+        *  ' an apple'
+        """
+
+    def test_conditional_with_following_text_in_same_entry(self):
+        r"""
+        "1": "{=[aeiou]/an/a}apple",
+
+        1  ' an apple'
+        """
+
     def test_conditionals_2(self):
         r"""
         "1": "{=(?i)([8aeiouxy]|11|dei|gn|ps|s[bcdfglmnpqrtv]|z)/agli/ai}",

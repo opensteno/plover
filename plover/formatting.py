@@ -413,12 +413,16 @@ class Formatter:
 
         # Take into account previous look-ahead actions.
 
+        # Undoing a multi-stroke translation can restore the prefix and its
+        # following word together in this batch. Resolve those lookaheads too.
+        text = ""
+        for a in reversed(new):
+            if isinstance(a, _LookAheadAction):
+                a.update(text)
+            if a.text:
+                text = a.text
+
         if prev:
-            text = ""
-            for a in new:
-                if a.text:
-                    text = a.text
-                    break
             tail = []
             for a in RetroFormatter(prev).iter_last_actions():
                 if isinstance(a, _LookAheadAction):
